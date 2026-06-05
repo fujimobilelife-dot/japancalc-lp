@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — JapanCalc</title>
+<style>
+  :root {
+    --orange: #EA7822;
+    --bg:     #0a0a0a;
+    --card:   #111111;
+    --grey:   #888780;
+    --line:   #1e1e1e;
+    --white:  #f5f4f0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 16px;
+    line-height: 1.75;
+    padding: 0 20px;
+  }
+
+  /* ── Header ── */
+  header {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 56px 0 40px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    margin-bottom: 32px;
+  }
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: var(--orange);
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .logo-text {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .logo-text span { color: var(--orange); }
+
+  header h1 {
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+
+  .meta {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 13px;
+    color: var(--grey);
+  }
+
+  /* ── Content ── */
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 0 80px;
+  }
+
+  section {
+    margin-bottom: 48px;
+  }
+
+  h2 {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  p {
+    color: #c8c6c0;
+    margin-bottom: 14px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 14px;
+  }
+
+  ul li {
+    color: #c8c6c0;
+    padding: 6px 0 6px 20px;
+    position: relative;
+    border-bottom: 1px solid var(--line);
+  }
+  ul li:last-child { border-bottom: none; }
+  ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--orange);
+    font-size: 12px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 14px;
+  }
+
+  .card-title {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .card p {
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+
+  .badge {
+    display: inline-block;
+    background: rgba(234,120,34,0.12);
+    color: var(--orange);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+
+  .no-collect {
+    background: rgba(48,209,88,0.06);
+    border-color: rgba(48,209,88,0.2);
+  }
+  .no-collect .card-title { color: #30D158; }
+
+  a { color: var(--orange); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ── Footer ── */
+  footer {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 0 40px;
+    border-top: 1px solid var(--line);
+  }
+  footer p {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 13px;
+    color: var(--grey);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="/" class="logo">
+    <div class="logo-icon">⛩</div>
+    <span class="logo-text">Japan<span>Calc</span></span>
+  </a>
+  <h1>Privacy Policy</h1>
+  <p class="meta">Effective date: June 1, 2026 &nbsp;·&nbsp; FIX-Marketing</p>
+</header>
+
+<main>
+
+  <section>
+    <h2>Overview</h2>
+    <p>JapanCalc ("the App") is a travel utility app designed to help visitors in Japan manage currency conversion, tax-free shopping, train guidance, and trip journaling. This policy explains what data we collect, how we use it, and your rights.</p>
+    <p>We believe in radical transparency: <strong style="color:var(--white)">JapanCalc does not collect, store, or transmit any personally identifiable information to our servers.</strong> Your data stays on your device.</p>
+  </section>
+
+  <section>
+    <h2>Data We Access</h2>
+
+    <div class="card">
+      <span class="badge">LOCATION</span>
+      <div class="card-title">GPS / Location Data</div>
+      <p>Used to detect your arrival in Japan and record places you visit during your trip. Location is only accessed when the app is open and only when you grant permission. Location data is stored locally on your device only and is never transmitted to our servers.</p>
+    </div>
+
+    <div class="card">
+      <span class="badge">LOCAL STORAGE</span>
+      <div class="card-title">Expense & Trip Data</div>
+      <p>Expenses, categories, amounts, and trip journal entries you create are stored locally on your device using standard Android storage. This data never leaves your device unless you choose to share it.</p>
+    </div>
+
+    <div class="card">
+      <span class="badge">NETWORK</span>
+      <div class="card-title">Exchange Rate Data</div>
+      <p>The app retrieves live currency exchange rates from a public API to provide accurate JPY conversions. No personal information is included in these requests.</p>
+    </div>
+
+    <div class="card">
+      <span class="badge">AI SERVICE</span>
+      <div class="card-title">Travel Story Generation (Gemini AI)</div>
+      <p>When you choose to generate a trip story, anonymized expense categories and location names (e.g., "Tokyo", "Shopping") are sent to Google's Gemini API to generate a personalized narrative. No names, account details, or personally identifiable information are included. This feature is entirely opt-in.</p>
+    </div>
+
+    <div class="card">
+      <span class="badge">GEOCODING</span>
+      <div class="card-title">Location Name Lookup</div>
+      <p>GPS coordinates are converted to place names (e.g., "Asakusa", "Shinjuku") using the device's built-in geocoding service. This is processed on-device or via Google's standard geocoding service and does not include any personal information.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Data We Do NOT Collect</h2>
+
+    <div class="card no-collect">
+      <div class="card-title">We never collect:</div>
+      <ul style="margin-bottom:0;">
+        <li>Your name, email address, or any account information</li>
+        <li>Device identifiers or advertising IDs</li>
+        <li>Payment or financial credentials</li>
+        <li>Photos, contacts, or other device content</li>
+        <li>Browsing history or behavior analytics</li>
+        <li>Any data without your explicit action</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Third-Party Services</h2>
+    <p>JapanCalc uses the following third-party services, each with their own privacy policies:</p>
+    <ul>
+      <li><strong style="color:var(--white)">Google Gemini API</strong> — AI story generation &nbsp;<a href="https://policies.google.com/privacy" target="_blank">Google Privacy Policy →</a></li>
+      <li><strong style="color:var(--white)">Google Geocoding</strong> — Location name lookup &nbsp;<a href="https://policies.google.com/privacy" target="_blank">Google Privacy Policy →</a></li>
+      <li><strong style="color:var(--white)">Exchange Rate API</strong> — Live currency data (no personal data sent)</li>
+    </ul>
+    <p>We do not sell, rent, or share your data with any third parties for advertising or marketing purposes.</p>
+  </section>
+
+  <section>
+    <h2>Data Retention & Deletion</h2>
+    <p>All trip data (expenses, locations, stories) is stored locally on your device. You can delete all data at any time by:</p>
+    <ul>
+      <li>Using the "Clear all" button within the My Trip tab</li>
+      <li>Uninstalling the app, which removes all locally stored data</li>
+    </ul>
+    <p>We do not retain any data on our servers because we do not collect it in the first place.</p>
+  </section>
+
+  <section>
+    <h2>Children's Privacy</h2>
+    <p>JapanCalc is not directed at children under the age of 13. We do not knowingly collect any information from children. If you believe a child has provided personal information through the app, please contact us so we can address it promptly.</p>
+  </section>
+
+  <section>
+    <h2>Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page with an updated effective date. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
+  </section>
+
+  <section>
+    <h2>Contact</h2>
+    <p>If you have any questions about this Privacy Policy or how your data is handled, please contact us:</p>
+    <div class="card">
+      <div class="card-title">FIX-Marketing</div>
+      <p>Developer of JapanCalc<br>
+      Email: <a href="mailto:info@japancalc.app">info@japancalc.app</a><br>
+      App: <a href="https://japancalc-lp.vercel.app">japancalc-lp.vercel.app</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 FIX-Marketing · <a href="/">JapanCalc</a> · All rights reserved</p>
+</footer>
+
+</body>
+</html>
