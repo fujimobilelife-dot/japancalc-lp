@@ -1186,13 +1186,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
   }
 
-  .tool-cards{
-    display:grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-  @media (min-width: 640px){ .tool-cards{ grid-template-columns: repeat(3, 1fr); } }
-  @media (min-width: 980px){ .tool-cards{ grid-template-columns: repeat(3, 1fr); } }
+  
+  @media (min-width: 640px){  }
+  @media (min-width: 980px){  }
 
   .tcard{
     background: var(--surface);
@@ -1208,10 +1204,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     margin: 4px auto 14px;
     border: 1px solid transparent;
   }
-  .tcard .ico.o{ color: var(--orange); background: var(--orange-soft); border-color: var(--orange-line); }
-  .tcard .ico.r{ color: var(--red); background: var(--red-soft); border-color: rgba(200,82,80,0.35); }
-  .tcard .ico.g{ color: var(--green); background: var(--green-soft); border-color: rgba(46,167,106,0.35); }
-  .tcard .ico.w{ color: var(--ink-2); background: var(--surface-2); border-color: var(--line); }
+  .tcard .ico.o{ color: var(--orange); background: rgba(255,159,10,0.15); border-color: var(--orange-line); }
+  .tcard .ico.r{ color: var(--orange); background: rgba(255,159,10,0.15); border-color: var(--orange-line); }
+  .tcard .ico.g{ color: var(--orange); background: rgba(255,159,10,0.15); border-color: var(--orange-line); }
+  .tcard .ico.w{ color: var(--orange); background: rgba(255,159,10,0.15); border-color: var(--orange-line); }
   .tcard h5{
     margin: 0 0 8px;
     font-size: 13px;
@@ -1866,7 +1862,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .qcard, .tcard { transition: none !important; }
   }
 
-  /* ===== GATE HELP REDESIGN ===== */
+    /* W-layout for 5 tool cards */
+  .tool-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+  .tcard {
+    width: calc(33.333% - 8px);
+    min-width: 160px;
+  }
+  @media (max-width: 640px) {
+    .tcard { width: calc(50% - 6px); }
+  }
+  /* Row 2: 2 cards centered */
+  .tcard:nth-child(4),
+  .tcard:nth-child(5) {
+    width: calc(33.333% - 8px);
+  }
+/* ===== GATE HELP REDESIGN ===== */
   .gate-hero-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -2291,12 +2306,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <h5>My Trip</h5>
             <p>A quiet travel log that builds itself.</p>
           </div>
-          <div class="tcard" style="display:flex; flex-direction:column; justify-content:center; background:transparent; border-style:dashed;">
-            <h5 style="letter-spacing: 0; text-transform:none; font-size: 14px; color: var(--ink-2); margin-bottom: 6px;">No accounts.</h5>
-            <p style="color: var(--ink-3);">Just open and use.</p>
-          </div>
-        </div>
-      </div>
+          </div></div>
 
       <!-- phone list -->
       <div class="tool-phone">
