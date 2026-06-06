@@ -1,284 +1,300 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Support — JapanCalc</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support — JapanCalc</title>
+<style>
+  :root {
+    --bg:        #000000;
+    --bg-2:      #0b0b0c;
+    --surface:   #141416;
+    --surface-2: #1c1c1f;
+    --line:      #25252a;
+    --ink:       #ffffff;
+    --ink-2:     #c9c9cf;
+    --ink-3:     #8a8a92;
+    --orange:    #FF9F0A;
+    --orange-soft: rgba(255,159,10,0.12);
+    --orange-line: rgba(255,159,10,0.30);
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--orange); text-decoration: none; }
+  a:hover { text-decoration: underline; }
 
-    :root {
-      --bg:     #0f0f11;
-      --bg2:    #1a1a1f;
-      --orange: #FF9F0A;
-      --white:  #ffffff;
-      --grey:   #888;
-      --border: rgba(255,255,255,0.08);
-    }
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    padding: 0 40px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+  }
+  .nav-inner {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .logo-link img { height: 36px; width: auto; }
+  .logo-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    font-family: var(--sans);
+  }
+  .logo-text span { color: var(--orange); }
+  .nav-back {
+    font-size: 13px;
+    color: var(--ink-3);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .nav-back:hover { color: var(--ink); }
 
-    body {
-      background: var(--bg);
-      color: var(--white);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-      line-height: 1.7;
-    }
+  /* MAIN */
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 56px 40px 80px;
+  }
 
-    a { color: var(--orange); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+  h1 {
+    font-size: 56px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin-bottom: 12px;
+  }
 
-    /* ===== HEADER ===== */
-    header {
-      padding: 28px 40px 0;
-      max-width: 760px;
-      margin: 0 auto 48px;
-    }
+  .meta {
+    font-size: 14px;
+    color: var(--ink-3);
+    margin-bottom: 48px;
+  }
 
-    .logo-link {
-      display: inline-flex;
-      align-items: center;
-      text-decoration: none;
-      gap: 10px;
-    }
+  hr {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 40px 0;
+  }
 
-    .logo-link img { height: 46px; width: auto; }
+  section { margin-bottom: 48px; }
 
-    .logo-text {
-      font-size: 20px;
-      font-weight: 700;
-      color: #fff;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    }
+  h2 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 20px;
+  }
 
-    .logo-text span { color: var(--orange); }
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
 
-    /* ===== MAIN ===== */
-    main {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 0 40px 80px;
-    }
+  p {
+    color: var(--ink-2);
+    margin-bottom: 16px;
+    font-size: 15px;
+  }
+  p:last-child { margin-bottom: 0; }
 
-    h1 {
-      font-size: 40px;
-      font-weight: 800;
-      margin: 32px 0 8px;
-      letter-spacing: -0.5px;
-    }
+  /* STEPS */
+  .steps { display: flex; flex-direction: column; gap: 12px; }
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .step-num {
+    background: var(--orange);
+    color: #000;
+    font-weight: 900;
+    font-size: 13px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-body h3 { font-size: 15px; margin-bottom: 4px; }
+  .step-body p { font-size: 14px; color: var(--ink-3); margin: 0; }
 
-    .meta {
-      color: var(--grey);
-      font-size: 14px;
-      margin-bottom: 40px;
-    }
+  /* FAQ */
+  .faq { display: flex; flex-direction: column; gap: 8px; }
+  details {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 24px;
+    transition: border-color 0.2s;
+  }
+  details[open] { border-color: var(--orange-line); }
+  summary {
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--ink);
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: '+';
+    color: var(--orange);
+    font-size: 22px;
+    font-weight: 300;
+    margin-left: 12px;
+    flex-shrink: 0;
+  }
+  details[open] summary::after { content: '−'; }
+  details p {
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--ink-3);
+    margin-bottom: 0;
+  }
 
-    hr {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 40px 0;
-    }
+  /* FORM */
+  .form { display: flex; flex-direction: column; gap: 16px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  label { font-size: 13px; font-weight: 600; color: var(--ink-3); }
+  input, textarea, select {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: var(--ink);
+    font-size: 15px;
+    font-family: var(--sans);
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  input:focus, textarea:focus, select:focus { border-color: var(--orange); }
+  textarea { resize: vertical; min-height: 120px; }
+  select option { background: var(--surface); }
 
-    /* ===== SECTION ===== */
-    section { margin-bottom: 48px; }
+  .checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--ink-3);
+  }
+  .checkbox-row input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    accent-color: var(--orange);
+  }
 
-    h2 {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 20px;
-    }
+  .btn-submit {
+    background: var(--orange);
+    color: #000;
+    font-weight: 700;
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 32px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    align-self: flex-start;
+    font-family: var(--sans);
+  }
+  .btn-submit:hover { opacity: 0.88; }
 
-    h3 {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
+  .success-msg {
+    display: none;
+    background: var(--orange-soft);
+    border: 1px solid var(--orange-line);
+    border-radius: 14px;
+    padding: 20px 24px;
+    color: var(--orange);
+    font-weight: 600;
+    font-size: 15px;
+  }
 
-    p { color: rgba(255,255,255,0.8); margin-bottom: 16px; }
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 24px 40px;
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .foot-copy { font-size: 13px; color: var(--ink-3); }
+  .foot-links { display: flex; gap: 20px; font-size: 13px; }
+  .foot-links a { color: var(--ink-3); }
+  .foot-links a:hover { color: var(--ink); }
 
-    /* ===== HOW TO USE ===== */
-    .steps { display: flex; flex-direction: column; gap: 16px; }
-
-    .step {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px 24px;
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-
-    .step-num {
-      background: var(--orange);
-      color: #000;
-      font-weight: 800;
-      font-size: 14px;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .step-body h3 { font-size: 16px; margin-bottom: 4px; }
-    .step-body p { font-size: 14px; margin: 0; }
-
-    /* ===== FAQ ===== */
-    .faq { display: flex; flex-direction: column; gap: 12px; }
-
-    details {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px 24px;
-    }
-
-    summary {
-      font-weight: 600;
-      font-size: 15px;
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    summary::-webkit-details-marker { display: none; }
-
-    summary::after {
-      content: '+';
-      color: var(--orange);
-      font-size: 20px;
-      font-weight: 300;
-      transition: transform 0.2s;
-    }
-
-    details[open] summary::after { content: '−'; }
-
-    details p {
-      margin-top: 12px;
-      font-size: 14px;
-      color: rgba(255,255,255,0.7);
-      margin-bottom: 0;
-    }
-
-    /* ===== CONTACT FORM ===== */
-    .form { display: flex; flex-direction: column; gap: 16px; }
-
-    .field { display: flex; flex-direction: column; gap: 6px; }
-
-    label {
-      font-size: 13px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.7);
-    }
-
-    input, textarea, select {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px 16px;
-      color: var(--white);
-      font-size: 15px;
-      font-family: inherit;
-      outline: none;
-      transition: border-color 0.2s;
-      width: 100%;
-    }
-
-    input:focus, textarea:focus {
-      border-color: var(--orange);
-    }
-
-    textarea { resize: vertical; min-height: 120px; }
-
-    .checkbox-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 13px;
-      color: rgba(255,255,255,0.6);
-    }
-
-    .checkbox-row input[type="checkbox"] {
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
-      margin-top: 2px;
-      accent-color: var(--orange);
-    }
-
-    .btn-submit {
-      background: var(--orange);
-      color: #000;
-      font-weight: 700;
-      font-size: 15px;
-      border: none;
-      border-radius: 10px;
-      padding: 14px 32px;
-      cursor: pointer;
-      transition: opacity 0.2s;
-      align-self: flex-start;
-    }
-
-    .btn-submit:hover { opacity: 0.88; }
-
-    /* ===== SUCCESS ===== */
-    .success-msg {
-      display: none;
-      background: rgba(255,159,10,0.1);
-      border: 1px solid var(--orange);
-      border-radius: 12px;
-      padding: 20px 24px;
-      color: var(--orange);
-      font-weight: 600;
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 24px 40px;
-      max-width: 760px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .foot-copy { font-size: 13px; color: var(--grey); }
-
-    .foot-links { display: flex; gap: 20px; font-size: 13px; }
-    .foot-links a { color: var(--grey); }
-    .foot-links a:hover { color: var(--white); }
-
-    @media (max-width: 600px) {
-      header, main { padding-left: 20px; padding-right: 20px; }
-      h1 { font-size: 28px; }
-      footer { padding: 20px; flex-direction: column; align-items: flex-start; }
-    }
-  </style>
+  @media (max-width: 600px) {
+    nav { padding: 0 20px; }
+    main { padding: 40px 20px 60px; }
+    h1 { font-size: 28px; }
+    footer { padding: 20px; flex-direction: column; align-items: flex-start; }
+  }
+</style>
 </head>
 <body>
 
-<header>
-  <a href="/" class="logo-link">
-    <img src="/logo.png" alt="JapanCalc">
-    <span class="logo-text">Japan<span>Calc</span></span>
-  </a>
-</header>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo-link">
+      <img src="/logo.png" alt="JapanCalc">
+      <span class="logo-text">Japan<span>Calc</span></span>
+    </a>
+    <a href="/" class="nav-back">← Back to Home</a>
+  </div>
+</nav>
 
 <main>
   <h1>Support</h1>
   <p class="meta">Need help? We've got you covered.</p>
   <hr>
 
-  <!-- ===== HOW TO USE ===== -->
+  <!-- HOW TO USE -->
   <section>
     <h2>How to Use</h2>
     <div class="steps">
@@ -293,14 +309,14 @@
         <div class="step-num">2</div>
         <div class="step-body">
           <h3>PRICE — Currency Conversion</h3>
-          <p>Tap the PRICE tab. Enter any amount in yen and instantly see the value in your home currency. Rates update automatically when you're online.</p>
+          <p>Enter any yen amount and instantly see the value in your home currency. Rates update automatically when online.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-body">
           <h3>SPLIT — Split Bills</h3>
-          <p>Use the SPLIT tab to divide any bill among friends. No tipping culture in Japan — just split evenly and pay.</p>
+          <p>Divide any bill among friends instantly. No tipping culture in Japan — just split evenly and pay.</p>
         </div>
       </div>
       <div class="step">
@@ -329,13 +345,13 @@
 
   <hr>
 
-  <!-- ===== FAQ ===== -->
+  <!-- FAQ -->
   <section>
     <h2>FAQ</h2>
     <div class="faq">
       <details>
         <summary>Does JapanCalc work offline?</summary>
-        <p>Yes. All core features work offline. Currency rates are cached from your last online session. For the most current rates, connect to Wi-Fi or mobile data.</p>
+        <p>Yes. All core features work offline. Currency rates are cached from your last online session. Connect to Wi-Fi for the most current rates.</p>
       </details>
       <details>
         <summary>Where do the exchange rates come from?</summary>
@@ -343,34 +359,34 @@
       </details>
       <details>
         <summary>Does JapanCalc collect my personal data?</summary>
-        <p>No. JapanCalc does not collect, store, or transmit any personally identifiable information. All your trip data stays on your device only. See our <a href="/privacy">Privacy Policy</a> for full details.</p>
+        <p>No. JapanCalc does not collect, store, or transmit any personally identifiable information. All trip data stays on your device. See our <a href="/privacy">Privacy Policy</a>.</p>
       </details>
       <details>
         <summary>Is this a subscription? Can I get a refund?</summary>
-        <p>JapanCalc is a one-time purchase of $2.99 — no subscriptions, no renewals. Refunds are handled by Google Play's standard refund policy (within 48 hours of purchase).</p>
+        <p>JapanCalc is a one-time purchase of $2.99 — no subscriptions, no renewals. Refunds are handled by Google Play's standard policy (within 48 hours of purchase).</p>
       </details>
       <details>
         <summary>What is an IC card? Do I need one?</summary>
-        <p>IC cards (like Suica or PASMO) are rechargeable transit cards used on trains and buses across Japan. They're highly recommended — faster and cheaper than buying individual tickets. JapanCalc's HOW TO RIDE tab explains how to get and use one.</p>
+        <p>IC cards (Suica, PASMO) are rechargeable transit cards used on trains and buses across Japan. Highly recommended — faster and cheaper than buying individual tickets. JapanCalc's HOW TO RIDE tab explains how to get and use one.</p>
       </details>
       <details>
         <summary>How does tax-free shopping work in Japan?</summary>
-        <p>Visitors can claim a consumption tax refund (10%) on purchases over ¥5,000 at participating stores. You'll need your passport. JapanCalc's TAX FREE tab helps you check eligibility instantly.</p>
+        <p>Visitors can claim a 10% consumption tax refund on purchases over ¥5,000 at participating stores. You'll need your passport. JapanCalc's TAX FREE tab helps you check eligibility instantly.</p>
       </details>
       <details>
         <summary>The app isn't working. What should I do?</summary>
-        <p>Try force-closing and reopening the app. If the problem persists, please use the contact form below and describe the issue — we'll get back to you as soon as possible.</p>
+        <p>Try force-closing and reopening the app. If the issue persists, use the contact form below and describe the problem — we'll get back to you as soon as possible.</p>
       </details>
     </div>
   </section>
 
   <hr>
 
-  <!-- ===== CONTACT FORM ===== -->
+  <!-- CONTACT -->
   <section>
     <h2>Contact Us</h2>
     <h3 style="margin-bottom:8px;">Still need help?</h3>
-    <p style="margin-bottom:24px;">Send us a message and we'll get back to you within 1–2 business days.</p>
+    <p style="margin-bottom:28px;">Send us a message and we'll get back to you within 1–2 business days.</p>
 
     <div class="success-msg" id="successMsg">
       ✓ Message sent! We'll get back to you within 1–2 business days.
@@ -410,7 +426,7 @@
 <footer>
   <div style="display:flex;align-items:center;gap:10px;">
     <a href="/" style="display:inline-flex;align-items:center;text-decoration:none;">
-      <img src="/logo.png" style="height:32px;width:auto;" alt="JapanCalc">
+      <img src="/logo.png" style="height:30px;width:auto;" alt="JapanCalc">
     </a>
     <span class="foot-copy">© 2026 JapanCalc. All rights reserved.</span>
   </div>
@@ -423,13 +439,11 @@
 <script>
   const form = document.getElementById('contactForm');
   const successMsg = document.getElementById('successMsg');
-
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const data = new FormData(form);
     const res = await fetch(form.action, {
       method: 'POST',
-      body: data,
+      body: new FormData(form),
       headers: { 'Accept': 'application/json' }
     });
     if (res.ok) {
@@ -441,3 +455,4 @@
 
 </body>
 </html>
+
