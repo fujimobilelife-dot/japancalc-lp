@@ -2014,7 +2014,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .gphone-tab.active { color: #FF9F0A; }
     
-  /* Small fixes */
+    .farewell-days { display:flex; gap:8px; flex-wrap:wrap; margin:24px 0 20px; }
+  .fday { padding:6px 14px; border-radius:999px; border:1px solid var(--paper-ink-2); font-size:13px; color:var(--paper-ink-2); cursor:pointer; }
+  .fday.active { background:var(--paper-red); color:#fff; border-color:var(--paper-red); font-weight:700; }
+  .fday.dim { color:var(--paper-ink-2); border-color:transparent; }
+  .farewell-countdown { margin:8px 0 0; }
+  .farewell-countdown-inner { background:rgba(0,0,0,0.08); border-radius:12px; padding:16px 18px; }
+  .farewell-day-label { font-size:13px; font-weight:700; color:var(--paper-ink); margin-bottom:8px; }
+  .farewell-bar-wrap { background:rgba(0,0,0,0.12); border-radius:999px; height:6px; width:100%; margin-bottom:8px; }
+  .farewell-bar { background:var(--paper-red); height:6px; border-radius:999px; }
+  .farewell-remaining { font-size:13px; color:var(--paper-ink-2); }
+  .farewell-remaining b { color:var(--paper-red); }
+/* Small fixes */
   @media (max-width: 899px){
     .nav-cta-text-long{ display:none; }
     .nav-cta-text-short{ display: inline !important; }
