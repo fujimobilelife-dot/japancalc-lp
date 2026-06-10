@@ -949,7 +949,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .price-pill b{ color: var(--orange); font-weight: 700; }
 
-  .hero-cta{ display:flex; gap:12px; flex-wrap: wrap; }
+  .hero-cta{ display:flex; flex-direction:column; gap:8px; align-items:flex-start; }
 
   /* phone mockup */
   .phone-col{ display:flex; justify-content:center; }
@@ -2025,6 +2025,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   .farewell-bar { background:var(--paper-red); height:6px; border-radius:999px; }
   .farewell-remaining { font-size:13px; color:var(--paper-ink-2); }
   .farewell-remaining b { color:var(--paper-red); }
+  .gplay-badge { width: 190px; }
+  @media (max-width: 640px) { .gplay-badge { width: 150px; } }
 /* Small fixes */
   @media (max-width: 899px){
     .nav-cta-text-long{ display:none; }
@@ -2083,7 +2085,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p class="lead">The simple paid tool that removes <span class="hl">stress</span> around money and trains in Japan.</p>
         <p class="quiet">Quietly, it remembers everything.</p>
 
-        <div class="hero-cta" style="display:flex; flex-direction:column; gap:8px; align-items:flex-start;">
+        <div class="hero-cta">
           <button class="btn btn-primary btn-lg" data-open-modal="">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="M7 10l5 5 5-5"></path><path d="M5 21h14"></path></svg>
             Get JapanCalc
