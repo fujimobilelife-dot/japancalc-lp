@@ -1,302 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Privacy Policy — JapanCalc</title>
-<style>
-  :root {
-    --bg:        #000000;
-    --bg-2:      #0b0b0c;
-    --surface:   #141416;
-    --surface-2: #1c1c1f;
-    --line:      #25252a;
-    --ink:       #ffffff;
-    --ink-2:     #c9c9cf;
-    --ink-3:     #8a8a92;
-    --orange:    #FF9F0A;
-    --orange-soft: rgba(255,159,10,0.12);
-    --orange-line: rgba(255,159,10,0.30);
-    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--sans);
-    font-size: 16px;
-    line-height: 1.7;
-    -webkit-font-smoothing: antialiased;
-  }
-  a { color: var(--orange); text-decoration: none; }
-  a:hover { text-decoration: underline; }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Privacy Policy — JapanCalc</title>
+  <meta name="description" content="JapanCalc privacy policy. No account, no server-side personal data. Your trip stays on your device.">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K6C5KHH9');</script>
+  <!-- End Google Tag Manager -->
 
-  /* NAV */
-  nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--line);
-    padding: 0 40px;
-    height: 64px;
-    display: flex;
-    align-items: center;
-  }
-  .nav-inner {
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .logo-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-  }
-  .logo-link img { height: 36px; width: auto; }
-  .logo-text {
-    font-size: 18px;
-    font-weight: 700;
-    color: #fff;
-    font-family: var(--sans);
-  }
-  .logo-text span { color: var(--orange); }
-  .nav-back {
-    font-size: 13px;
-    color: var(--ink-3);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .nav-back:hover { color: var(--ink); }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Shippori+Mincho:wght@500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="/logo.png" type="image/png">
 
-  /* MAIN */
-  main {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 56px 40px 80px;
-  }
+  <style>
+    :root{
+      --paper:#f1eee6; --paper-2:#e9e5da; --ink:#1c1b18; --ink-2:#54514a; --ink-3:#8d887d;
+      --line:#d8d2c4; --line-soft:#e5e0d4;
+      --shu:#FF9F0A; --shu-soft:rgba(255,159,10,.14);
+      --matcha:#5a7d4f; --ai:#1f3a5f;
+      --sans:'Hanken Grotesk', ui-sans-serif, system-ui, -apple-system, 'Hiragino Sans', sans-serif;
+      --serif-jp:'Shippori Mincho','Hiragino Mincho ProN',serif;
+      --mono:'IBM Plex Mono', ui-monospace, monospace;
+      --maxw:1140px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      background:var(--paper);color:var(--ink);
+      font-family:var(--sans);font-size:16.5px;line-height:1.75;
+      -webkit-font-smoothing:antialiased;overflow-x:hidden;
+    }
+    body::before{
+      content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+      background-image:radial-gradient(rgba(28,27,24,0.025) 1px, transparent 1px);
+      background-size:5px 5px;
+    }
+    img{max-width:100%}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;position:relative;z-index:1}
+    h1,h2,h3{font-family:var(--serif-jp);font-weight:600;letter-spacing:.01em;line-height:1.3}
+    .mono{font-family:var(--mono)}
+    ::selection{background:var(--shu);color:#1a0f00}
+    :focus-visible{outline:2px solid var(--shu);outline-offset:2px}
 
-  h1 {
-    font-size: 56px;
-    font-weight: 900;
-    letter-spacing: -2px;
-    margin-bottom: 12px;
-  }
+    .nav{
+      position:sticky;top:0;z-index:50;
+      background:rgba(241,238,230,0.88);
+      -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--line-soft);
+    }
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;letter-spacing:-0.02em;font-family:var(--sans)}
+    .brand .dot{color:var(--shu)}
+    .nav-links{display:flex;gap:28px;font-size:14px;font-weight:600;color:var(--ink-2)}
+    .nav-links a{position:relative;transition:color .2s}
+    .nav-links a::after{content:'';position:absolute;left:0;right:100%;bottom:-4px;height:2px;background:var(--shu);transition:right .25s ease}
+    .nav-links a:hover{color:var(--ink)}
+    .nav-links a:hover::after{right:0}
+    @media(max-width:820px){.nav-links{display:none}}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      font:inherit;font-weight:700;cursor:pointer;border:none;
+      border-radius:5px;padding:14px 28px;font-size:15px;letter-spacing:.03em;
+      background:var(--ink);color:var(--paper);
+      transition:transform .18s cubic-bezier(.22,1,.36,1), background .2s, box-shadow .2s;
+    }
+    .btn:hover{transform:translateY(-2px);background:var(--shu);color:#1a0f00;box-shadow:0 10px 28px rgba(255,159,10,.28)}
+    .btn:disabled{opacity:.55;cursor:default;transform:none;box-shadow:none}
 
-  .meta {
-    font-size: 14px;
-    color: var(--ink-3);
-    margin-bottom: 48px;
-  }
+    main{max-width:780px;margin:0 auto;padding:84px 24px 96px;position:relative;z-index:1}
+    .doc-eyebrow{
+      display:inline-flex;align-items:center;
+      font-family:var(--mono);font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;
+      color:var(--ink-2);border-left:2px solid var(--shu);padding:3px 0 3px 14px;margin-bottom:24px;
+    }
+    main h1{font-size:clamp(30px,4.2vw,42px);margin-bottom:12px}
+    .doc-meta{font-family:var(--mono);font-size:12.5px;color:var(--ink-3);letter-spacing:.04em}
 
-  hr {
-    border: none;
-    border-top: 1px solid var(--line);
-    margin: 40px 0;
-  }
+    footer{border-top:1px solid #1d1d20;padding:30px 0;background:#000;margin-top:40px}
+    .foot-inner{
+      display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+      color:#8a8a92;font-size:13.5px;font-family:var(--mono);
+    }
+    .foot-links{display:flex;gap:24px}
+    .foot-links a:hover{color:var(--shu)}
 
-  section { margin-bottom: 48px; }
-
-  h2 {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--orange);
-    margin-bottom: 20px;
-  }
-
-  p {
-    color: var(--ink-2);
-    margin-bottom: 16px;
-    font-size: 15px;
-  }
-  p:last-child { margin-bottom: 0; }
-
-  strong { color: var(--ink); }
-
-  /* CARD */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 20px 24px;
-    margin-bottom: 12px;
-  }
-  .card:last-child { margin-bottom: 0; }
-
-  .badge {
-    display: inline-block;
-    background: var(--orange-soft);
-    border: 1px solid var(--orange-line);
-    color: var(--orange);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 3px 10px;
-    border-radius: 999px;
-    margin-bottom: 10px;
-  }
-
-  .card h3 {
-    font-size: 15px;
-    font-weight: 700;
-    margin-bottom: 6px;
-    color: var(--ink);
-  }
-
-  .card p {
-    font-size: 14px;
-    color: var(--ink-3);
-    margin: 0;
-  }
-
-  /* FOOTER */
-  footer {
-    border-top: 1px solid var(--line);
-    padding: 24px 40px;
-    max-width: 760px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  .foot-copy { font-size: 13px; color: var(--ink-3); }
-  .foot-links { display: flex; gap: 20px; font-size: 13px; }
-  .foot-links a { color: var(--ink-3); }
-  .foot-links a:hover { color: var(--ink); }
-
-  @media (max-width: 600px) {
-    nav { padding: 0 20px; }
-    main { padding: 40px 20px 60px; }
-    h1 { font-size: 28px; }
-    footer { padding: 20px; flex-direction: column; align-items: flex-start; }
-  }
-</style>
+    section{border-top:1px solid var(--line);margin-top:48px;padding-top:38px}
+    section:first-of-type{border-top:none;margin-top:30px;padding-top:0}
+    section h2{font-size:22px;margin-bottom:16px}
+    main p, main li{color:var(--ink-2)}
+    main p strong{color:var(--ink)}
+    section ul{list-style:none;display:grid;gap:12px;margin-top:10px}
+    .data-item{
+      background:#faf8f2;border:1px solid var(--line);border-radius:8px;
+      padding:20px 22px;
+    }
+    .data-item b{color:var(--ink);display:block;margin-bottom:6px;font-size:15px;font-weight:700}
+    .data-item p{font-size:14px;margin-top:4px}
+    .badge{
+      display:inline-block;font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.14em;
+      color:var(--shu);border:1px solid var(--shu);border-radius:3px;
+      padding:2px 8px;margin-right:9px;vertical-align:2px;white-space:nowrap;
+    }
+    .badge-x{color:#b8503f;border-color:#b8503f}
+    main a.lnk{color:var(--shu);border-bottom:1px solid var(--shu-soft)}
+    main a.lnk:hover{border-bottom-color:var(--shu)}
+  </style>
 </head>
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K6C5KHH9"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
-<nav>
-  <div class="nav-inner">
-    <a href="/" class="logo-link">
-      <img src="/logo.png" alt="JapanCalc">
-      <span class="logo-text">Japan<span>Calc</span></span>
-    </a>
-    <a href="/" class="nav-back">← Back to Home</a>
-  </div>
-</nav>
-
-<main>
-  <h1>Privacy Policy</h1>
-  <p class="meta">Effective date: June 9, 2026 &nbsp;·&nbsp; FIX-Marketing</p>
-  <hr>
-
-  <section>
-    <h2>Overview</h2>
-    <p>JapanCalc ("the App") is a travel utility app designed to help visitors in Japan manage currency conversion, tax-free shopping, train guidance, and trip journaling. This policy explains what data we collect, how we use it, and your rights.</p>
-    <p>We believe in transparency: <strong>JapanCalc does not require user accounts and does not intentionally collect personally identifiable information on its own servers.</strong> Most trip data remains on your device. Some information may be processed by third-party services used by the app, including Google Analytics, Google Gemini, Google Play, and affiliate partners.</p>
-  </section>
-
-  <hr>
-
-  <section>
-    <h2>Data We Access</h2>
-    <div class="card">
-      <span class="badge">LOCATION</span>
-      <h3>GPS / Location Data</h3>
-      <p>Used when location-based features are enabled by the user. Location data helps identify your nearest train station and record places visited during your trip. Location data is stored on your device only and is never transmitted to our servers. Station name information may be included in AI-generated content when using the Route Finder feature.</p>
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a href="/index.html" class="brand">
+        <img src="/logo.png" alt="JapanCalc" style="height:38px;width:auto;">
+        <span>JapanCalc<span class="dot">.</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="/index.html#price">Price</a>
+        <a href="/index.html#split">Split</a>
+        <a href="/index.html#taxfree">Tax-free</a>
+        <a href="/index.html#ride">How to Ride</a>
+        <a href="/index.html#farewell">Farewell</a>
+        <a href="/index.html#fare">Fare</a>
+      </div>
+      <a class="btn" href="/index.html#fare">Get the app — $4.99</a>
     </div>
-    <div class="card">
-      <span class="badge">LOCAL STORAGE</span>
-      <h3>Expense &amp; Trip Data</h3>
-      <p>Expenses, categories, amounts, and trip journal entries you create are stored locally on your device using standard Android storage. This data never leaves your device unless you choose to share it.</p>
+  </nav>
+
+  <main>
+    <span class="doc-eyebrow">Legal · 約款</span>
+    <h1>Privacy Policy</h1>
+    <p class="doc-meta">EFFECTIVE: JUNE 9, 2026 · FIX-MARKETING</p>
+
+    <section>
+      <h2>Overview</h2>
+      <p>
+        JapanCalc is designed to be private by default. The app requires <strong>no account</strong>,
+        and we do not collect or store your personal information on our servers. Your trip data — expenses,
+        locations, and travel logs — stays on your device.
+      </p>
+      <p style="margin-top:12px">
+        JapanCalc does use a small number of third-party services to function: Google Play (distribution and purchase),
+        Google AI / Gemini (AI-generated content), an exchange rate API, and affiliate partners. Each is described below.
+      </p>
+    </section>
+
+    <section>
+      <h2>Data We Access</h2>
+      <ul>
+        <li class="data-item">
+          <b><span class="badge">LOCATION</span>GPS / Location Data</b>
+          <p>Used to log the places you visit for your travel diary (MY TRIP / Farewell). Location data is processed and stored <strong>only on your device</strong>. It is never uploaded to our servers.</p>
+        </li>
+        <li class="data-item">
+          <b><span class="badge">LOCAL STORAGE</span>Expense &amp; Trip Data</b>
+          <p>Your spending records, split-bill history, and trip logs are stored locally on your device. Deleting the app deletes this data.</p>
+        </li>
+        <li class="data-item">
+          <b><span class="badge">NETWORK</span>Exchange Rate API</b>
+          <p>The app fetches currency rates from a public exchange rate API. These requests contain <strong>no personal information</strong> — only the currency pair being requested.</p>
+        </li>
+        <li class="data-item">
+          <b><span class="badge">NETWORK</span>AI / Gemini API</b>
+          <p>To generate your Morning Message, Route Finder results, and Farewell story, the app sends an <strong>anonymized trip summary</strong> (e.g., area names, spending totals, day counts) to Google's Gemini API. No name, email, device ID, or precise GPS coordinates are included.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Data We Do Not Collect</h2>
+      <ul>
+        <li class="data-item"><b><span class="badge badge-x">NONE</span>Name, email, or account information</b><p>JapanCalc has no sign-up. We never ask for, or store, your identity.</p></li>
+        <li class="data-item"><b><span class="badge badge-x">NONE</span>Device IDs or advertising identifiers</b><p>We do not read or transmit advertising IDs or device fingerprints.</p></li>
+        <li class="data-item"><b><span class="badge badge-x">NONE</span>Crash reports</b><p>We do not run our own crash reporting. (Google Play may provide aggregate, anonymized crash statistics as part of its standard platform services.)</p></li>
+        <li class="data-item"><b><span class="badge badge-x">NONE</span>Payment information</b><p>Your purchase is handled entirely by Google Play. We never see your card number or billing details.</p></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Third-Party Services</h2>
+      <ul>
+        <li class="data-item">
+          <b>Google Play</b>
+          <p>Distribution and one-time purchase processing. Subject to <a class="lnk" href="https://policies.google.com/privacy" rel="noopener">Google's Privacy Policy</a>.</p>
+        </li>
+        <li class="data-item">
+          <b>Google AI / Gemini</b>
+          <p>Generates the Farewell story, Morning Message, and Route Finder answers from anonymized trip summaries. Subject to <a class="lnk" href="https://policies.google.com/privacy" rel="noopener">Google's Privacy Policy</a>.</p>
+        </li>
+        <li class="data-item">
+          <b>Affiliate Partners (Airalo, Wise, Klook)</b>
+          <p>The app's Settings screen contains optional affiliate links to travel services. If you tap one, you leave the app and the partner's own privacy policy applies. JapanCalc shares no data with these partners — the links are plain outbound links.</p>
+        </li>
+      </ul>
+      <p style="margin-top:18px;font-size:14px;color:var(--ink-3)">
+        This website (japancalc-lp.vercel.app) uses Google Tag Manager / Google Analytics to measure anonymous page traffic.
+      </p>
+    </section>
+
+    <section>
+      <h2>Your Rights</h2>
+      <p>
+        Because JapanCalc stores no personal data on any server, there is nothing for us to export, correct, or delete on your behalf —
+        <strong>all of your data lives on your device</strong>. To erase it, simply delete the app.
+      </p>
+      <p style="margin-top:12px">
+        Questions about this policy? Contact us at
+        <a class="lnk" href="mailto:fujimobilelife@gmail.com">fujimobilelife@gmail.com</a>
+        or via the <a class="lnk" href="/support.html">Support page</a>.
+      </p>
+    </section>
+
+    <section>
+      <h2>Changes to This Policy</h2>
+      <p>
+        If we change this policy, we will update the effective date at the top of this page.
+        Material changes will be noted in the app's release notes.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot-inner">
+      <span>© 2026 JapanCalc · FIX-Marketing</span>
+      <div class="foot-links">
+        <a href="/privacy.html">Privacy</a>
+        <a href="/support.html">Support</a>
+      </div>
     </div>
-    <div class="card">
-      <span class="badge">NETWORK</span>
-      <h3>Exchange Rate API</h3>
-      <p>JapanCalc fetches live exchange rates from a public API. Only a standard HTTP request is made — no personal data is sent. If offline, the last cached rate is used.</p>
-    </div>
-    <div class="card">
-      <span class="badge">AI / GEMINI API</span>
-      <h3>AI-Powered Features</h3>
-      <p>JapanCalc uses Google's Gemini API for three optional features: (1) <strong>Farewell</strong> — an anonymized trip summary (dates, places, spending totals) is sent to generate a travel story at the end of your trip; (2) <strong>Morning Message</strong> — a daily personalized message based on your trip progress and spending summary; (3) <strong>Route Finder</strong> — station names you enter are sent to receive route advice. No name, email, or device ID is ever included. See <a href="https://ai.google.dev/terms" target="_blank">Google AI Terms</a>.</p>
-    </div>
-  </section>
-
-  <hr>
-
-  <section>
-    <h2>Data We Do Not Collect</h2>
-    <p>JapanCalc does <strong>not</strong> collect:</p>
-    <div class="card"><p>✕ &nbsp;Name, email address, or any account information</p></div>
-    <div class="card"><p>✕ &nbsp;Device ID or advertising identifiers</p></div>
-    <div class="card"><p>✕ &nbsp;Crash reports or analytics beyond what Google Play provides</p></div>
-    <div class="card"><p>✕ &nbsp;Payment information (handled entirely by Google Play)</p></div>
-  </section>
-
-  <hr>
-
-  <section>
-    <h2>Third-Party Services</h2>
-    <div class="card">
-      <span class="badge">GOOGLE PLAY</span>
-      <h3>Purchase &amp; Distribution</h3>
-      <p>JapanCalc is distributed via Google Play. Google's privacy policy governs the purchase process. We do not receive your payment details.</p>
-    </div>
-    
-    <div class="card">
-      <span class="badge">GEMINI API</span>
-      <h3>Google AI (Optional)</h3>
-      <p>Used for Farewell trip stories, daily Morning Messages, and Route Finder suggestions. Data sent is limited to anonymized trip summaries, spending totals, and station names. No personal identifiers are included. See <a href="https://ai.google.dev/terms" target="_blank">Google AI Terms</a>.</p>
-    </div>
-  
-    <div class="card">
-      <span class="badge">AFFILIATE</span>
-      <h3>Affiliate Partners</h3>
-      <p>JapanCalc may contain affiliate links to services such as Airalo, Wise, and Klook. Affiliate partners may use cookies, referral identifiers, or similar tracking technologies to attribute referrals and commissions. Any information processed after visiting those services is governed by their respective privacy policies.</p>
-    </div>
-
-  </section>
-
-  <hr>
-
-  <section>
-    <h2>Your Rights</h2>
-    <p>Since JapanCalc does not collect personal data, there is nothing to request deletion of from our servers. All your trip data is stored on your device and can be deleted at any time by uninstalling the app or clearing app data in your device settings.</p>
-    <p>For any questions, contact us at <a href="/support">support</a> or email fujimobilelife@gmail.com.</p>
-  </section>
-
-  <hr>
-
-  <section>
-    <h2>Changes to This Policy</h2>
-    <p>We may update this Privacy Policy from time to time. Changes will be reflected on this page with an updated effective date. Continued use of JapanCalc constitutes acceptance of the updated policy.</p>
-  </section>
-</main>
-
-<footer>
-  <div style="display:flex;align-items:center;gap:10px;">
-    <a href="/" style="display:inline-flex;align-items:center;text-decoration:none;">
-      <img src="/logo.png" style="height:30px;width:auto;" alt="JapanCalc">
-    </a>
-    <span class="foot-copy">© 2026 JapanCalc. All rights reserved.</span>
-  </div>
-  <div class="foot-links">
-    <a href="/privacy">Privacy</a>
-    <a href="/support">Support</a>
-  </div>
-</footer>
-
+  </footer>
 </body>
 </html>
-
-
