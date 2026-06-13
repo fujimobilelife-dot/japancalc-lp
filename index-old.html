@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>JapanCalc — Money & train help for Japan travel</title>
+  <meta name="description" content="A simple helper for prices, tax-free shopping, train gates, and travel memories. $4.99 one-time.">
+
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K6C5KHH9');</script>
+  <!-- End Google Tag Manager -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Shippori+Mincho:wght@500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="/logo.png" type="image/png">
+
+  <style>
+    :root{
+      /* paper & ink */
+      --paper:    #f1eee6;   /* muted washi */
+      --paper-2:  #e9e5da;   /* card paper */
+      --paper-3:  #e6dfd2;   /* deeper paper */
+      --ink:      #1c1b18;   /* sumi ink */
+      --ink-2:    #54514a;
+      --ink-3:    #8d887d;
+      --line:     #d8d2c4;
+      --line-soft:#e5e0d4;
+
+      /* accents */
+      --shu:      #FF9F0A;   /* brand orange */
+      --shu-d:    #e88a00;
+      --shu-soft: rgba(255,159,10,.14);
+      --ai:       #1f3a5f;   /* 藍 indigo */
+      --matcha:   #5a7d4f;
+      --kon:      #2b4a8b;
+
+      /* type */
+      --sans: 'Hanken Grotesk', ui-sans-serif, system-ui, -apple-system, 'Hiragino Sans', sans-serif;
+      --serif-jp: 'Shippori Mincho', 'Hiragino Mincho ProN', serif;
+      --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+      --r: 8px;
+      --maxw: 1140px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      background:var(--paper); color:var(--ink);
+      font-family:var(--sans); font-size:16.5px; line-height:1.65;
+      -webkit-font-smoothing:antialiased; overflow-x:hidden;
+    }
+    /* subtle paper grain */
+    body::before{
+      content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+      background-image:radial-gradient(rgba(28,27,24,0.025) 1px, transparent 1px);
+      background-size:5px 5px;
+    }
+    img{max-width:100%}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;position:relative;z-index:1}
+    h1,h2,h3{font-family:var(--serif-jp);font-weight:600;letter-spacing:.01em;line-height:1.22}
+    .kanji{font-family:var(--serif-jp);font-weight:700;letter-spacing:.05em}
+    .mono{font-family:var(--mono)}
+
+    ::selection{background:var(--shu);color:#1a0f00}
+    :focus-visible{outline:2px solid var(--shu);outline-offset:2px}
+
+    /* ============ RAIL LINE (page progress) ============ */
+    .rail{
+      position:fixed;left:26px;top:0;bottom:0;width:4px;z-index:40;
+      background:var(--line);
+    }
+    .rail i{
+      position:absolute;left:0;top:0;width:100%;height:0;
+      background:var(--shu);transition:height .1s linear;
+    }
+    .rail-stops{position:fixed;left:18px;top:0;bottom:0;z-index:41;pointer-events:none}
+    .rail-stop{
+      position:absolute;width:20px;height:20px;border-radius:50%;
+      background:var(--paper);border:4px solid var(--line);
+      transform:translateY(-50%);transition:border-color .3s, transform .3s;
+      pointer-events:auto;
+    }
+    .rail-stop.passed{border-color:var(--shu)}
+    .rail-stop:hover{transform:translateY(-50%) scale(1.25)}
+    @media(max-width:900px){.rail,.rail-stops{display:none}}
+
+    /* ============ NAV ============ */
+    .nav{
+      position:sticky;top:0;z-index:50;
+      background:rgba(247,244,238,0.88);
+      -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--line-soft);
+    }
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;letter-spacing:-0.02em}
+    .brand .dot{color:var(--shu)}
+    .nav-links{display:flex;gap:28px;font-size:14px;font-weight:600;color:var(--ink-2)}
+    .nav-links a{position:relative;transition:color .2s}
+    .nav-links a::after{
+      content:'';position:absolute;left:0;right:100%;bottom:-4px;height:2px;
+      background:var(--shu);transition:right .25s ease;
+    }
+    .nav-links a:hover{color:var(--ink)}
+    .nav-links a:hover::after{right:0}
+    @media(max-width:820px){.nav-links{display:none}}
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      font:inherit;font-weight:700;cursor:pointer;border:none;
+      border-radius:5px;padding:14px 28px;font-size:15px;letter-spacing:.03em;
+      background:var(--ink);color:var(--paper);
+      transition:transform .18s cubic-bezier(.22,1,.36,1), background .2s, box-shadow .2s;
+    }
+    .btn:hover{transform:translateY(-2px);background:var(--shu);box-shadow:0 10px 28px rgba(255,159,10,.32)}
+    .btn:active{transform:translateY(0)}
+    .btn-line{
+      background:transparent;color:var(--ink);border:1.5px solid var(--ink);
+    }
+    .btn-line:hover{background:var(--ink);color:var(--paper);box-shadow:none}
+    .btn:disabled{opacity:.55;cursor:default;transform:none;box-shadow:none}
+
+
+    /* ============ HERO (dark, like the app) ============ */
+    .hero{
+      padding:84px 0 76px;position:relative;
+      background:linear-gradient(180deg,#000 0%,#0b0b0c 100%);
+      color:var(--paper);
+      border-bottom:1px solid #1d1d20;
+    }
+    .hero .hero-tate{color:#5a5a62}
+    .hero-seal{
+      display:block;width:34px;height:34px;margin-top:22px;
+      border:1.5px solid var(--shu);border-radius:3px;
+      color:var(--shu);font-family:var(--serif-jp);font-weight:700;font-size:19px;
+      line-height:31px;text-align:center;
+      opacity:.85;
+    }
+    .hero .hero-eyebrow{color:#a8a8b0}
+    .hero h1{color:#fff}
+    .hero h1 .shu-word::after{background:rgba(255,159,10,.16)}
+    .hero .hero-sub{color:#c9c9cf}
+    .hero .hero-meta{color:#8a8a92}
+    .hero .hero-meta b{color:#fff}
+    .hero .hero-meta .sep{color:#2a2a2e}
+
+    /* hero CTA: orange on black */
+    .hero .btn{
+      background:var(--shu);color:#1a0f00;
+    }
+    .hero .btn:hover{
+      background:#ffb340;
+      box-shadow:0 0 28px rgba(255,159,10,.45);
+    }
+
+    /* mockups glow on black */
+    .hero .phone{
+      box-shadow:0 0 0 1.5px #2b2c31, 0 2px 0 rgba(255,255,255,.18) inset,
+                 0 0 70px rgba(255,159,10,.10),
+                 0 34px 70px rgba(0,0,0,.65), 0 8px 20px rgba(0,0,0,.4);
+    }
+    .hero .ticket-back{
+      box-shadow:0 0 50px rgba(255,159,10,.08), 0 18px 44px rgba(0,0,0,.55);
+    }
+
+    .hero-grid{display:grid;gap:56px;align-items:center}
+    @media(min-width:960px){.hero-grid{grid-template-columns:1.15fr .85fr}}
+
+    .hero-tate{
+      position:absolute;right:max(20px, calc((100vw - var(--maxw))/2 - 30px));top:96px;
+      writing-mode:vertical-rl;font-family:var(--serif-jp);font-weight:500;
+      font-size:15px;letter-spacing:.42em;color:var(--ink-3);
+    }
+    @media(max-width:1240px){.hero-tate{display:none}}
+
+    .hero-eyebrow{
+      display:inline-flex;align-items:center;gap:10px;
+      font-family:var(--mono);font-size:11.5px;letter-spacing:.22em;
+      text-transform:uppercase;margin-bottom:30px;
+      border-left:2px solid var(--shu);padding:3px 0 3px 14px;
+    }
+    .hero-eyebrow::before{
+      content:'';width:8px;height:8px;border-radius:50%;background:var(--shu);
+      animation:blink 2.4s ease-in-out infinite;
+    }
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+
+    .hero h1{
+      font-size:clamp(34px,4.8vw,58px);font-weight:600;letter-spacing:.015em;line-height:1.3;
+    }
+    .hero h1 .shu-word{color:var(--shu);position:relative;white-space:nowrap}
+    .hero h1 .shu-word::after{
+      content:'';position:absolute;left:2%;right:2%;bottom:6px;height:10px;
+      background:var(--shu-soft);z-index:-1;border-radius:3px;
+    }
+    .hero-sub{
+      color:var(--ink-2);font-size:18px;max-width:480px;margin:26px 0 34px;line-height:1.7;
+    }
+    .hero-cta{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+    .hero-meta{
+      margin-top:22px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+      font-family:var(--mono);font-size:12.5px;color:var(--ink-3);
+    }
+    .hero-meta b{color:var(--ink);font-weight:600}
+    .hero-meta .sep{color:var(--line)}
+
+    /* --- THE TICKET --- */
+    .ticket-col{display:flex;justify-content:center;perspective:1200px}
+    .ticket{
+      width:min(420px,100%);background:#fdfbf6;border:1px solid var(--line);
+      border-radius:10px;position:relative;
+      box-shadow:0 1px 0 #fff inset, 0 24px 60px rgba(28,27,24,.14), 0 4px 14px rgba(28,27,24,.08);
+      transform:rotate(2.5deg);
+      transition:transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s;
+    }
+    .ticket:hover{transform:rotate(0deg) translateY(-6px);box-shadow:0 1px 0 #fff inset, 0 34px 80px rgba(28,27,24,.18)}
+    @media(prefers-reduced-motion:reduce){.ticket,.ticket:hover{transform:none}}
+    .ticket::before{ /* top color band like JR tickets */
+      content:'';position:absolute;left:0;right:0;top:0;height:9px;
+      background:repeating-linear-gradient(90deg, var(--shu) 0 36px, var(--ai) 36px 72px);
+      border-radius:10px 10px 0 0;
+    }
+    .tk-head{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:26px 26px 14px;
+    }
+    .tk-head .tk-brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px}
+    .tk-head img{height:34px;width:auto;display:block}
+    .tk-class{
+      font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--ai);
+      border:1.5px solid var(--ai);border-radius:4px;padding:3px 8px;font-weight:600;
+    }
+    .tk-route{
+      display:flex;align-items:center;gap:14px;padding:10px 26px 4px;
+    }
+    .tk-route .st{font-weight:800;font-size:24px;letter-spacing:-0.02em;line-height:1.1}
+    .tk-route .st small{display:block;font-family:var(--serif-jp);font-weight:500;font-size:12px;color:var(--ink-3);letter-spacing:.18em;margin-top:3px}
+    .tk-route .arrow{
+      flex:1;height:2px;background:var(--ink);position:relative;min-width:40px;
+    }
+    .tk-route .arrow::after{
+      content:'';position:absolute;right:-1px;top:-4px;
+      border-left:9px solid var(--ink);border-top:5px solid transparent;border-bottom:5px solid transparent;
+    }
+    .tk-grid{
+      display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;
+      padding:18px 26px 8px;font-family:var(--mono);
+    }
+    .tk-grid .lbl{font-size:9.5px;letter-spacing:.18em;color:var(--ink-3);text-transform:uppercase}
+    .tk-grid .val{font-size:14px;font-weight:600;color:var(--ink)}
+    .tk-grid .val.shu{color:var(--shu)}
+    .tk-perf{ /* perforation */
+      position:relative;margin:18px 0 0;border-top:2px dashed var(--line);
+    }
+    .tk-perf::before,.tk-perf::after{
+      content:'';position:absolute;top:-11px;width:22px;height:22px;border-radius:50%;
+      background:var(--paper);border:1px solid var(--line);
+    }
+    .tk-perf::before{left:-12px;border-right-color:transparent}
+    .tk-perf::after{right:-12px;border-left-color:transparent}
+    .tk-stub{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:18px 26px 22px;
+    }
+    .tk-stub .price{font-weight:800;font-size:30px;letter-spacing:-0.03em}
+    .tk-stub .price small{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--ink-3);display:block;letter-spacing:.12em;margin-top:2px}
+    .tk-stamp{
+      width:74px;height:74px;border-radius:50%;
+      border:2.5px solid var(--shu);color:var(--shu);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      font-family:var(--serif-jp);font-weight:700;font-size:15px;letter-spacing:.1em;
+      transform:rotate(-12deg);opacity:.85;
+      -webkit-mask-image:radial-gradient(circle at 35% 60%, transparent 0 2px, #000 3px);
+    }
+    .tk-stamp span{font-size:8.5px;font-family:var(--mono);letter-spacing:.14em;margin-top:2px}
+    .tk-bar{ /* fake barcode */
+      margin:0 26px 24px;height:34px;
+      background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 5px,var(--ink) 5px 6px,transparent 6px 11px,var(--ink) 11px 14px,transparent 14px 17px);
+      opacity:.85;border-radius:2px;
+    }
+
+    /* --- HERO STAGE: phone front, ticket behind --- */
+    .hero-stage{position:relative;width:min(460px,100%);display:flex;justify-content:center}
+    .ticket-back{
+      position:absolute;width:330px;top:54px;left:-26px;z-index:0;
+      transform:rotate(-9deg) scale(.92);
+      box-shadow:0 18px 44px rgba(28,27,24,.14);
+    }
+    .ticket-back:hover{transform:rotate(-9deg) scale(.92)}
+    @media(max-width:520px){.ticket-back{display:none}}
+
+    .phone{
+      position:relative;z-index:1;width:300px;flex:0 0 auto;
+      background:#15161a;border-radius:44px;padding:13px;
+      box-shadow:0 0 0 1.5px #2b2c31, 0 2px 0 rgba(255,255,255,.18) inset,
+                 0 34px 70px rgba(28,27,24,.32), 0 8px 20px rgba(28,27,24,.18);
+      transform:rotate(2.5deg);
+      transition:transform .5s cubic-bezier(.22,1,.36,1);
+    }
+    .phone:hover{transform:rotate(0deg) translateY(-6px)}
+    @media(prefers-reduced-motion:reduce){.phone,.phone:hover{transform:none}}
+    .phone::before{ /* notch */
+      content:'';position:absolute;top:23px;left:50%;transform:translateX(-50%);
+      width:96px;height:24px;border-radius:999px;background:#15161a;z-index:3;
+    }
+    .phone-screen{
+      border-radius:33px;background:#000;
+      color:#fff;overflow:hidden;display:flex;flex-direction:column;
+      border:1px solid #232327;min-height:600px;
+    }
+    .ph-status{
+      display:flex;justify-content:space-between;font-size:11px;color:#cfcfd4;
+      padding:14px 22px 2px;letter-spacing:.04em;font-weight:600;
+    }
+    .ph-sig{font-size:8px;letter-spacing:.12em;color:#e8e8ec}
+    .ph-head{
+      display:flex;align-items:center;justify-content:space-between;padding:12px 18px 0;
+    }
+    .ph-brand-wrap{display:flex;align-items:center;gap:10px}
+    .ph-logo{height:34px;width:34px;border-radius:9px;display:block}
+    .ph-brand{font-weight:800;font-size:16px;line-height:1.1;color:#fff}
+    .ph-brand em{font-style:normal;color:var(--shu)}
+    .ph-tagline{font-size:9.5px;color:#8e8f96;margin-top:2px}
+    .ph-gear{
+      width:32px;height:32px;border-radius:50%;background:#1d1d21;
+      display:flex;align-items:center;justify-content:center;
+      color:#9c9da4;font-size:15px;
+    }
+    .ph-amount{padding:34px 20px 0;text-align:center}
+    .ph-yen{font-weight:300;font-size:62px;letter-spacing:-0.01em;line-height:1;color:#fff}
+    .ph-usd-row{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:16px}
+    .ph-usd{font-size:17px;color:#8e8f96;font-weight:400}
+    .ph-cur{
+      font-size:10px;font-weight:600;color:#e8e8ec;background:#1d1d21;
+      border-radius:999px;padding:4px 10px;letter-spacing:.04em;
+    }
+    .ph-chips{display:flex;gap:10px;padding:30px 16px 6px;justify-content:center}
+    .ph-chip{
+      flex:1;text-align:center;font-size:10.5px;font-weight:600;border-radius:999px;
+      padding:7px 6px;background:#26262b;color:#dcdce0;white-space:nowrap;
+    }
+    .ph-chip em{font-style:normal;color:var(--shu);font-weight:700}
+    .ph-pad{
+      flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:11px;
+      padding:16px 16px 10px;align-content:end;
+    }
+    .ph-key{
+      aspect-ratio:1/1;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      background:#222227;color:#fff;font-weight:500;font-size:19px;
+      user-select:none;
+    }
+    .ph-key.fn{font-size:16px;font-weight:600}
+    .ph-key.zero{aspect-ratio:auto;grid-column:span 2;border-radius:999px}
+    .ph-key.op{
+      background:linear-gradient(180deg,#ffb340 0%,var(--shu) 100%);
+      color:#fff;font-weight:600;font-size:21px;
+      box-shadow:0 0 16px rgba(255,159,10,.35);
+    }
+    .ph-tabs{
+      display:flex;border-top:1px solid #1d1d21;background:#000;
+      padding:11px 4px 15px;
+    }
+    .ph-tab{
+      flex:1;text-align:center;font-size:6.8px;letter-spacing:.06em;color:#7a7b82;
+      font-weight:600;display:flex;flex-direction:column;align-items:center;gap:4px;
+      font-family:var(--mono);
+    }
+    .ph-tab i{font-style:normal;font-size:13px;line-height:1}
+    .ph-tab.on{color:var(--shu)}
+
+    /* ============ STATION SIGN (section headers) ============ */
+    .station{
+      max-width:680px;margin:0 auto 52px;
+      background:#fbf9f4;border:1px solid #34312a;border-radius:6px;
+      overflow:hidden;box-shadow:0 6px 18px rgba(28,27,24,.06);
+    }
+    .station .band{height:6px}
+    .station .body{padding:20px 28px 18px;text-align:center}
+    .station .romaji{font-family:var(--sans);font-weight:800;font-size:clamp(26px,3.4vw,38px);letter-spacing:-0.02em;line-height:1.05}
+    .station .yomi{font-family:var(--serif-jp);font-size:14px;color:var(--ink-2);letter-spacing:.34em;margin-top:6px}
+    .station .neighbors{
+      display:flex;justify-content:space-between;align-items:center;
+      border-top:1px solid var(--line-soft);margin-top:16px;padding-top:12px;
+      font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-3);
+      text-transform:uppercase;
+    }
+    .station .neighbors b{color:var(--ink-2);font-weight:600}
+
+    section{padding:96px 0;position:relative}
+    .lede{color:var(--ink-2);font-size:17.5px;max-width:640px;margin:0 auto 56px;text-align:center;line-height:1.75}
+
+    /* ============ TOOL PANELS ============ */
+    .panel{
+      display:grid;gap:44px;align-items:center;
+      background:#faf8f2;border:1px solid var(--line);border-radius:10px;
+      padding:clamp(28px,4vw,52px);
+      box-shadow:0 8px 24px rgba(28,27,24,.05);
+    }
+    @media(min-width:880px){.panel{grid-template-columns:1fr 1fr}}
+    .panel + .panel{margin-top:28px}
+    .panel .p-kicker{
+      display:inline-flex;align-items:center;gap:8px;
+      font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+      color:var(--ink-3);margin-bottom:16px;
+    }
+    .panel .p-kicker::before{content:'';width:22px;height:2px;background:currentColor}
+    .panel h3{font-size:clamp(24px,2.8vw,32px);margin-bottom:14px;letter-spacing:-0.03em}
+    .panel p{color:var(--ink-2)}
+    .panel ul{list-style:none;margin-top:18px;display:grid;gap:11px}
+    .panel ul li{display:flex;gap:11px;color:var(--ink-2);font-size:15px;align-items:flex-start}
+    .panel ul li::before{content:'—';color:var(--shu);font-weight:700;flex:0 0 auto}
+
+    /* demo cards inside panels */
+    .demo{
+      background:#0b0b0d;border:1px solid #232327;border-radius:10px;
+      padding:28px 26px;font-family:var(--mono);color:#f2f2f4;
+      box-shadow:0 14px 36px rgba(28,27,24,.16);
+    }
+    .demo .d-label{font-size:10px;letter-spacing:.22em;color:#7a7b82;text-transform:uppercase;margin-bottom:16px}
+    .demo .calc-exp{font-size:14.5px;color:#9c9da4;letter-spacing:.05em}
+    .demo .calc-res{
+      font-family:var(--sans);font-weight:300;font-size:52px;
+      letter-spacing:-0.01em;line-height:1.05;color:#fff;margin:10px 0 8px;
+    }
+    .demo .calc-res.shu{color:var(--shu)}
+    .demo .calc-sub{font-size:11.5px;color:#7a7b82;letter-spacing:.03em}
+    .demo .calc-keys{display:flex;gap:10px;margin-top:24px}
+    .demo .calc-keys span{
+      width:38px;height:38px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      background:#222227;color:#ffb340;font-size:16px;
+    }
+    .demo .calc-keys .eq{
+      background:linear-gradient(180deg,#ffb340,var(--shu));color:#fff;
+      box-shadow:0 0 12px rgba(255,159,10,.3);
+    }
+    .demo .d-row{
+      display:flex;justify-content:space-between;align-items:center;gap:12px;
+      padding:11px 0;border-bottom:1px dashed #2a2a2e;font-size:12.5px;
+    }
+    .demo .d-row:last-child{border-bottom:none}
+    .demo .d-row span{color:#9c9da4}
+    .demo .d-row b{font-weight:600;color:#fff;text-align:right}
+    .demo .ok{color:#9fc78f}
+    .demo .shu-t{color:#ffb340}
+
+    /* ride grid (new features) */
+    .ride-extra{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:30px}
+    .rx{
+      background:#faf8f2;border:1px solid var(--line);border-radius:8px;padding:24px 22px;
+      transition:transform .25s cubic-bezier(.22,1,.36,1), border-color .25s, box-shadow .25s;
+      position:relative;
+    }
+    .rx:hover{transform:translateY(-3px);border-color:#6f6a5e;box-shadow:0 10px 24px rgba(28,27,24,.08)}
+    .rx .rx-no{
+      font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.14em;margin-bottom:12px;
+      display:flex;justify-content:space-between;align-items:center;
+    }
+    .rx .rx-new{color:var(--shu);font-weight:600;font-size:9.5px;border:1px solid var(--shu);border-radius:3px;padding:2px 6px;letter-spacing:.12em}
+    .rx b{display:block;font-size:16.5px;font-weight:700;letter-spacing:-0.01em;margin-bottom:8px}
+    .rx p{font-size:14px;color:var(--ink-2);line-height:1.6}
+
+    /* ============ FAREWELL ============ */
+    .farewell{background:var(--ink);color:var(--paper);border-radius:0}
+    .farewell .station{background:var(--ink);border-color:var(--paper);box-shadow:none}
+    .farewell .station .romaji{color:var(--paper)}
+    .farewell .station .yomi{color:rgba(247,244,238,.55)}
+    .farewell .station .neighbors{border-color:rgba(247,244,238,.18);color:rgba(247,244,238,.45)}
+    .farewell .station .neighbors b{color:rgba(247,244,238,.7)}
+    .farewell .lede{color:rgba(247,244,238,.72)}
+    .fw-grid{display:grid;gap:40px;align-items:center;max-width:980px;margin:0 auto}
+    @media(min-width:880px){.fw-grid{grid-template-columns:1fr 1.05fr}}
+    .fw-copy h3{font-size:clamp(26px,3.2vw,36px);letter-spacing:-0.03em;line-height:1.15;margin-bottom:18px}
+    .fw-copy h3 em{font-style:normal;color:var(--shu)}
+    .fw-copy p{color:rgba(247,244,238,.72);font-size:16px}
+    .fw-days{display:flex;gap:8px;margin:26px 0 10px;font-family:var(--mono);font-size:11px}
+    .fw-day{
+      width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      border:1px solid rgba(247,244,238,.3);color:rgba(247,244,238,.6);
+    }
+    .fw-day.on{background:var(--shu);border-color:var(--shu);color:var(--ink);font-weight:600}
+    .fw-note{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:rgba(247,244,238,.45);text-transform:uppercase}
+    .letter{
+      background:#fdfbf6;color:var(--ink);border-radius:14px;padding:34px 32px;
+      box-shadow:0 30px 70px rgba(0,0,0,.4);
+      transform:rotate(-0.8deg);position:relative;
+      transition:transform .5s cubic-bezier(.22,1,.36,1);
+    }
+    .letter:hover{transform:rotate(0deg)}
+    @media(prefers-reduced-motion:reduce){.letter,.letter:hover{transform:none}}
+    .letter::after{ /* airmail edge */
+      content:'';position:absolute;left:0;right:0;top:0;height:8px;border-radius:14px 14px 0 0;
+      background:repeating-linear-gradient(135deg, var(--shu) 0 14px, #fdfbf6 14px 28px, var(--ai) 28px 42px, #fdfbf6 42px 56px);
+    }
+    .letter .l-meta{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--ink-3);text-transform:uppercase;margin-bottom:16px;display:flex;justify-content:space-between}
+    .letter .l-body{font-family:var(--serif-jp);font-size:17.5px;line-height:1.9;color:#33302a}
+    .letter .l-sign{margin-top:18px;font-family:var(--mono);font-size:12px;color:var(--ink-3)}
+
+    /* ============ FARE (pricing) ============ */
+    .fare-wrap{max-width:560px;margin:0 auto}
+    .fare{
+      background:#fbf9f4;border:1px solid #34312a;border-radius:8px;overflow:hidden;
+      box-shadow:0 14px 40px rgba(28,27,24,.10);
+    }
+    .fare-head{
+      background:var(--ink);color:var(--paper);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:18px 28px;
+    }
+    .fare-head .fh-l{display:flex;align-items:center;gap:12px;font-weight:800;font-size:18px}
+    .fare-head img{height:34px;width:auto;display:block;flex:0 0 auto}
+    .fare-head .fh-tag{
+      font-family:var(--mono);font-size:10px;letter-spacing:.16em;
+      border:1px solid rgba(247,244,238,.4);border-radius:4px;padding:4px 9px;
+    }
+    .fare-body{padding:30px 28px 28px}
+    .fare-price{display:flex;align-items:baseline;gap:12px;margin-bottom:4px}
+    .fare-price .num{font-family:var(--sans);font-weight:300;font-size:58px;letter-spacing:-0.01em;line-height:1}
+    .fare-price .per{font-family:var(--mono);font-size:12px;color:var(--ink-3);letter-spacing:.1em}
+    .fare-sub{color:var(--ink-2);font-size:15px;margin-bottom:24px}
+    .fare-list{list-style:none;display:grid;gap:10px;margin-bottom:28px}
+    .fare-list li{
+      display:flex;gap:11px;align-items:flex-start;font-size:15px;color:var(--ink-2);
+    }
+    .fare-list li::before{
+      content:'';flex:0 0 auto;width:17px;height:17px;margin-top:3px;border-radius:50%;
+      background:var(--shu);
+      -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23000' d='M6.4 12.5 2.2 8.3l1.4-1.4 2.8 2.8 6-6 1.4 1.4z'/%3E%3C/svg%3E") center/contain no-repeat;
+              mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23000' d='M6.4 12.5 2.2 8.3l1.4-1.4 2.8 2.8 6-6 1.4 1.4z'/%3E%3C/svg%3E") center/contain no-repeat;
+    }
+    .fare .btn{width:100%;padding:16px;font-size:16px}
+    .fare-note{
+      text-align:center;font-family:var(--mono);font-size:12px;color:var(--ink-3);
+      margin-top:16px;letter-spacing:.04em;
+    }
+
+    /* ============ FINAL (dark, mirrors hero) ============ */
+    .final{
+      text-align:center;padding:110px 0 110px;
+      background:linear-gradient(180deg,#0b0b0c 0%,#000 100%);
+      color:var(--paper);
+      border-top:1px solid #1d1d20;
+    }
+    .final .kanji-big{
+      font-family:var(--serif-jp);font-weight:700;font-size:clamp(20px,2.4vw,26px);
+      letter-spacing:.5em;color:#8a8a92;margin-bottom:22px;
+    }
+    .final h2{font-size:clamp(34px,5vw,58px);letter-spacing:-0.04em;margin-bottom:14px;color:#fff}
+    .final h2 .shu-t{color:var(--shu)}
+    .final p{color:#c9c9cf;font-size:18px;margin-bottom:38px}
+    .final .btn{background:var(--shu);color:#1a0f00}
+    .final .btn:hover{background:#ffb340;box-shadow:0 0 28px rgba(255,159,10,.45)}
+    .final-cta{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap}
+    .gplay-badge{width:190px;height:auto;opacity:.92;cursor:default;border-radius:8px}
+    @media(max-width:639px){.gplay-badge{width:150px}}
+
+    /* ============ FOOTER ============ */
+    footer{border-top:1px solid #1d1d20;padding:30px 0;background:#000}
+    .foot-inner{
+      display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+      color:#8a8a92;font-size:13.5px;font-family:var(--mono);
+    }
+    .foot-links{display:flex;gap:24px}
+    .foot-links a:hover{color:var(--shu)}
+
+    /* ============ MODAL ============ */
+    .modal-overlay{
+      position:fixed;inset:0;z-index:100;display:none;
+      align-items:center;justify-content:center;padding:20px;
+      background:rgba(28,27,24,.45);
+      -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+    }
+    .modal-overlay.open{display:flex}
+    .modal{
+      width:100%;max-width:430px;background:#fbf9f4;border:1px solid #34312a;
+      border-radius:8px;padding:34px 30px;position:relative;
+      box-shadow:0 30px 80px rgba(28,27,24,.3);
+    }
+    .modal h3{font-size:23px;letter-spacing:-0.02em;margin-bottom:10px}
+    .modal p{color:var(--ink-2);font-size:14.5px;margin-bottom:22px}
+    .modal input[type=email]{
+      width:100%;background:#fff;border:1.5px solid var(--line);
+      border-radius:10px;padding:14px;color:var(--ink);font:inherit;
+      margin-bottom:14px;outline:none;transition:border-color .2s;
+    }
+    .modal input[type=email]:focus{border-color:var(--ink)}
+    .modal .btn{width:100%}
+    .modal-close{
+      position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;
+      background:transparent;border:1px solid var(--line);color:var(--ink-2);
+      font-size:15px;cursor:pointer;
+    }
+    .modal-close:hover{border-color:var(--ink);color:var(--ink)}
+    .modal-ok{display:none;color:var(--matcha);font-weight:600;font-size:14.5px;margin-top:14px}
+
+    /* ============ FADE ============ */
+    .jc-fade{opacity:0;transform:translateY(26px);
+      transition:opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1)}
+    .jc-fade.jc-visible{opacity:1;transform:none}
+    @media(prefers-reduced-motion:reduce){
+      .jc-fade{opacity:1;transform:none;transition:none}
+      html{scroll-behavior:auto}
+    }
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K6C5KHH9"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <!-- rail progress -->
+  <div class="rail" aria-hidden="true"><i id="rail-fill"></i></div>
+  <div class="rail-stops" id="rail-stops" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <a href="/index.html" class="brand">
+        <img src="/logo.png" alt="JapanCalc" style="height:38px;width:auto;">
+        <span>JapanCalc<span class="dot">.</span></span>
+      </a>
+      <div class="nav-links">
+        <a href="#price">Price</a>
+        <a href="#split">Split</a>
+        <a href="#taxfree">Tax-free</a>
+        <a href="#ride">How to Ride</a>
+        <a href="#farewell">Farewell</a>
+        <a href="#fare">Fare</a>
+      </div>
+      <button class="btn" data-open-modal>Get the app — $4.99</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <span class="hero-tate kanji">静かな旅の相棒<span class="hero-seal">計</span></span>
+    <div class="wrap hero-grid">
+      <div>
+        <span class="hero-eyebrow">Now boarding · One-time $4.99</span>
+        <h1>Japan is easy,<br>when something<br><span class="shu-word">quiet</span> has your back.</h1>
+        <p class="hero-sub">
+          Prices, split bills, tax-free rules, train gates, and a travel diary that writes itself.
+          One calm app. No account. No subscription.
+        </p>
+        <div class="hero-cta">
+          <button class="btn" data-open-modal>Get JapanCalc</button>
+          <img src="/images/googleplay-badge-01-getit.width-1440.png"
+               alt="Get it on Google Play"
+               class="gplay-badge"
+               style="height:auto; opacity:0.92; cursor:default;"
+               title="Coming soon on Google Play">
+        </div>
+        <div class="hero-meta">
+          <b>$4.99</b><span class="sep">/</span>one-time
+          <span class="sep">/</span>works offline
+          <span class="sep">/</span>8 languages
+          <span class="sep">/</span>no tracking
+        </div>
+      </div>
+
+      <!-- PHONE + TICKET -->
+      <div class="ticket-col jc-fade">
+        <div class="hero-stage">
+          <!-- ticket tucked behind -->
+          <div class="ticket ticket-back" aria-hidden="true">
+          <div class="tk-head">
+            <span class="tk-brand"><img src="/logo.png" alt="">JapanCalc</span>
+            <span class="tk-class">LIFETIME PASS</span>
+          </div>
+          <div class="tk-route">
+            <span class="st">Arrival<small>とうちゃく</small></span>
+            <span class="arrow" aria-hidden="true"></span>
+            <span class="st">Departure<small>しゅっぱつ</small></span>
+          </div>
+          <div class="tk-grid">
+            <div><div class="lbl">Valid</div><div class="val">Your whole trip + 30 days</div></div>
+            <div><div class="lbl">Class</div><div class="val">Calm</div></div>
+            <div><div class="lbl">Seat</div><div class="val">Your pocket</div></div>
+            <div><div class="lbl">Renewal</div><div class="val shu">Never — one-time</div></div>
+          </div>
+          <div class="tk-perf"></div>
+          <div class="tk-stub">
+            <div class="price">$4.99<small>NO SUBSCRIPTION</small></div>
+            <div class="tk-stamp kanji">通過<span>GATE OK</span></div>
+          </div>
+          <div class="tk-bar" aria-hidden="true"></div>
+          </div>
+
+          <!-- calculator phone (front) — mirrors the real app -->
+          <div class="phone" aria-label="JapanCalc calculator screen illustration">
+            <div class="phone-screen">
+              <div class="ph-status mono"><span>10:09</span><span class="ph-sig">▲ ▮▮▮</span></div>
+              <div class="ph-head">
+                <div class="ph-brand-wrap">
+                  <img src="/logo.png" alt="" class="ph-logo">
+                  <div>
+                    <div class="ph-brand">Japan<em>Calc</em></div>
+                    <div class="ph-tagline">Japan travel calculator</div>
+                  </div>
+                </div>
+                <span class="ph-gear" aria-hidden="true">⚙</span>
+              </div>
+              <div class="ph-amount">
+                <div class="ph-yen">¥6,880</div>
+                <div class="ph-usd-row">
+                  <span class="ph-usd">$42.92</span>
+                  <span class="ph-cur mono">USD ⌄</span>
+                </div>
+              </div>
+              <div class="ph-chips">
+                <span class="ph-chip">🛍 Shopping <em>10%</em></span>
+                <span class="ph-chip">🥡 Take-out <em>8%</em></span>
+              </div>
+              <div class="ph-pad">
+                <span class="ph-key fn">AC</span><span class="ph-key fn">⌫</span><span class="ph-key fn">%</span><span class="ph-key op">÷</span>
+                <span class="ph-key">7</span><span class="ph-key">8</span><span class="ph-key">9</span><span class="ph-key op">×</span>
+                <span class="ph-key">4</span><span class="ph-key">5</span><span class="ph-key">6</span><span class="ph-key op">−</span>
+                <span class="ph-key">1</span><span class="ph-key">2</span><span class="ph-key">3</span><span class="ph-key op">+</span>
+                <span class="ph-key zero">0</span><span class="ph-key">.</span><span class="ph-key op">=</span>
+              </div>
+              <div class="ph-tabs">
+                <span class="ph-tab on"><i>$</i>PRICE</span>
+                <span class="ph-tab"><i>⚇</i>SPLIT</span>
+                <span class="ph-tab"><i>▤</i>TAX FREE</span>
+                <span class="ph-tab"><i>⛁</i>HOW TO RIDE</span>
+                <span class="ph-tab"><i>▣</i>MY TRIP</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- PRICE -->
+  <section id="price">
+    <div class="wrap">
+      <div class="station jc-fade" data-stop>
+        <div class="band" style="background:var(--shu)"></div>
+        <div class="body">
+          <div class="romaji">PRICE</div>
+          <div class="yomi">ぷらいす</div>
+          <div class="neighbors"><span>● you are here</span><b>next ▶ SPLIT</b></div>
+        </div>
+      </div>
+      <div class="panel jc-fade">
+        <div>
+          <span class="p-kicker">Currency, instantly</span>
+          <h3>"Wait… is ¥4,800 a lot?"<br>Never wonder again.</h3>
+          <p>Type any yen price and see your home currency the same second. Live rates refresh automatically whenever you're online — and stay cached when you're not.</p>
+          <ul>
+            <li>7+ currencies, switched in one tap</li>
+            <li>Shopping 10% / take-out 8% tax toggles built in</li>
+            <li>Works fully offline with last-known rates</li>
+          </ul>
+        </div>
+        <div class="demo">
+          <div class="d-label">Price · Live rate</div>
+          <div class="calc-exp">4,800 JPY → USD</div>
+          <div class="calc-res">$32.10</div>
+          <div class="calc-sub">1 USD = ¥149.5 · updated 2 min ago</div>
+          <div class="calc-keys" aria-hidden="true"><span>÷</span><span>×</span><span>−</span><span>+</span><span class="eq">=</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPLIT -->
+  <section id="split" style="padding-top:0">
+    <div class="wrap">
+      <div class="station jc-fade" data-stop>
+        <div class="band" style="background:var(--kon)"></div>
+        <div class="body">
+          <div class="romaji">SPLIT</div>
+          <div class="yomi">わりかん</div>
+          <div class="neighbors"><b>◀ PRICE</b><b>next ▶ TAX FREE</b></div>
+        </div>
+      </div>
+      <div class="panel jc-fade">
+        <div class="demo">
+          <div class="d-label">Split · Dinner for 5</div>
+          <div class="calc-exp">18,400 ÷ 5 =</div>
+          <div class="calc-res">¥3,680</div>
+          <div class="calc-sub">per person · tip ¥0 — no tipping in Japan</div>
+          <div class="calc-keys" aria-hidden="true"><span>÷</span><span>×</span><span>−</span><span>+</span><span class="eq">=</span></div>
+        </div>
+        <div>
+          <span class="p-kicker">Split bills</span>
+          <h3>Dinner for five,<br>settled in two taps.</h3>
+          <p>Drop in the total, pick the headcount, done. And here's the part that surprises everyone: Japan has no tipping culture. An even split is genuinely all you need — JapanCalc reminds you so nobody overpays.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAX FREE -->
+  <section id="taxfree" style="padding-top:0">
+    <div class="wrap">
+      <div class="station jc-fade" data-stop>
+        <div class="band" style="background:var(--matcha)"></div>
+        <div class="body">
+          <div class="romaji">TAX FREE</div>
+          <div class="yomi">めんぜい</div>
+          <div class="neighbors"><b>◀ SPLIT</b><b>next ▶ HOW TO RIDE</b></div>
+        </div>
+      </div>
+      <div class="panel jc-fade">
+        <div>
+          <span class="p-kicker">10% back, if you know the rules</span>
+          <h3>Check eligibility<br><em style="font-style:normal;color:var(--shu)">before</em> the counter.</h3>
+          <p>Spend ¥5,000 or more at a participating store and the 10% consumption tax can come straight off. JapanCalc checks your purchase on the spot and tells you exactly what to bring — passport included.</p>
+          <ul>
+            <li>¥5,000 minimum check, instant</li>
+            <li>What counts: consumables vs general goods</li>
+            <li>Airport refund flow, step by step</li>
+          </ul>
+        </div>
+        <div class="demo">
+          <div class="d-label">Tax-free check</div>
+          <div class="calc-exp">12,800 × 10% =</div>
+          <div class="calc-res shu">−¥1,280</div>
+          <div class="calc-sub">refund estimate · over ¥5,000 <b class="ok">✓</b> · bring your passport</div>
+          <div class="calc-keys" aria-hidden="true"><span>÷</span><span>×</span><span>−</span><span>+</span><span class="eq">=</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW TO RIDE -->
+  <section id="ride" style="padding-top:0">
+    <div class="wrap">
+      <div class="station jc-fade" data-stop>
+        <div class="band" style="background:var(--ai)"></div>
+        <div class="body">
+          <div class="romaji">HOW TO RIDE</div>
+          <div class="yomi">のりかた</div>
+          <div class="neighbors"><b>◀ TAX FREE</b><b>next ▶ MY TRIP</b></div>
+        </div>
+      </div>
+      <p class="lede jc-fade">
+        Japan's trains are genuinely hard — three payment systems, unstaffed gates, rush hour that waits for no one.
+        Google Maps shows the route. <strong style="color:var(--ink)">JapanCalc shows you how to actually ride.</strong>
+      </p>
+      <div class="panel jc-fade">
+        <div class="demo">
+          <div class="d-label">Route Finder · AI</div>
+          <div class="d-row"><span>From</span><b>Shibuya</b></div>
+          <div class="d-row"><span>To</span><b>Kyoto</b></div>
+          <div class="d-row"><span>Route</span><b>JR Yamanote → Tokaido Shinkansen</b></div>
+          <div class="d-row"><span>Time / Fare</span><b>2h 39m · ¥13,870</b></div>
+          <div class="d-row"><span>Tip</span><b class="shu-t">Avoid 7:30–9:00 at Shinagawa</b></div>
+        </div>
+        <div>
+          <span class="p-kicker">Gate help &amp; train sense</span>
+          <h3>The answers a station<br>attendant would give you —<br>if you could find one.</h3>
+          <p>IC cards explained, Shinkansen demystified, etiquette decoded. Everything below ships in the same $4.99.</p>
+        </div>
+      </div>
+
+      <div class="ride-extra">
+        <div class="rx jc-fade">
+          <div class="rx-no">01 / IC CARDS</div>
+          <b>Suica &amp; PASMO, explained</b>
+          <p>Which card, where to buy, how to tap, what works on which line — and what to do when the gate flashes red.</p>
+        </div>
+        <div class="rx jc-fade">
+          <div class="rx-no">02 / SHINKANSEN <span class="rx-new">NEW</span></div>
+          <b>Shinkansen Memo</b>
+          <p>Nozomi vs Hikari vs Kodama, reserved vs unreserved, where Suica works — and where it suddenly doesn't.</p>
+        </div>
+        <div class="rx jc-fade">
+          <div class="rx-no">03 / ROUTES <span class="rx-new">NEW</span></div>
+          <b>AI Route Finder</b>
+          <p>Any two stations in. Route, time, fare, and crowd-dodging advice out. In seconds.</p>
+        </div>
+        <div class="rx jc-fade">
+          <div class="rx-no">04 / MANNERS <span class="rx-new">NEW</span></div>
+          <b>Train manners &amp; cautions</b>
+          <p>Priority seats, phone rules, where to stand, how to queue — the etiquette nobody tells you until you get it wrong.</p>
+        </div>
+        <div class="rx jc-fade">
+          <div class="rx-no">05 / RUSH HOUR <span class="rx-new">NEW</span></div>
+          <b>Rush hour survival</b>
+          <p>Peak hours to avoid, women-only cars, where your suitcase goes. Practical answers for real moments.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAREWELL / MY TRIP -->
+  <section class="farewell" id="farewell">
+    <div class="wrap">
+      <div class="station jc-fade" data-stop>
+        <div class="band" style="background:var(--shu)"></div>
+        <div class="body">
+          <div class="romaji">MY TRIP</div>
+          <div class="yomi">おもいで</div>
+          <div class="neighbors"><b>◀ HOW TO RIDE</b><b>last stop ▶ FARE</b></div>
+        </div>
+      </div>
+      <div class="fw-grid">
+        <div class="fw-copy jc-fade">
+          <h3>While you're busy living it,<br>JapanCalc is quietly<br><em>writing it down.</em></h3>
+          <p>
+            Every day, it logs where you went and what you spent — on your device, never on a server.
+            Each morning, a short message about yesterday. And thirty days after you fly home,
+            one last thing arrives: your whole trip, written as a letter from Japan.
+          </p>
+          <div class="fw-days" aria-hidden="true">
+            <span class="fw-day on">1</span><span class="fw-day on">2</span><span class="fw-day on">3</span>
+            <span class="fw-day on">4</span><span class="fw-day on">5</span><span class="fw-day">6</span>
+            <span class="fw-day">7</span>
+          </div>
+          <div class="fw-note">Day 5 of 7 · Farewell letter arrives 30 days after departure</div>
+        </div>
+        <div class="letter jc-fade">
+          <div class="l-meta"><span>Farewell · Day 30</span><span>par avion</span></div>
+          <p class="l-body">
+            You arrived nervous about a ticket gate. You left knowing the quiet streets of Kyoto at 6 a.m.,
+            the exact warmth of a convenience-store coffee, and that an even split needs no tip.
+            18,204 steps on your biggest day. Come back when the ginkgo turns gold.
+          </p>
+          <div class="l-sign">— your trip, as remembered by JapanCalc</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FARE (pricing) -->
+  <section id="fare">
+    <div class="wrap">
+      <div class="station jc-fade" data-stop>
+        <div class="band" style="background:var(--ink)"></div>
+        <div class="body">
+          <div class="romaji">FARE</div>
+          <div class="yomi">うんちん</div>
+          <div class="neighbors"><b>◀ MY TRIP</b><span>terminus ●</span></div>
+        </div>
+      </div>
+      <p class="lede jc-fade">One fare covers the whole line. No monthly anything.</p>
+
+      <div class="fare-wrap jc-fade">
+        <div class="fare">
+          <div class="fare-head">
+            <span class="fh-l"><img src="/logo.png" alt="">JapanCalc</span>
+            <span class="fh-tag">ONE-TIME</span>
+          </div>
+          <div class="fare-body">
+            <div class="fare-price"><span class="num">$4.99</span><span class="per">ONCE · FOREVER</span></div>
+            <p class="fare-sub">Everything you need for your Japan trip.</p>
+            <ul class="fare-list">
+              <li>Live currency conversion</li>
+              <li>Tax-free checker &amp; airport refund guide</li>
+              <li>IC card &amp; Gate Help (train rescue)</li>
+              <li>Split bills — no tipping in Japan</li>
+              <li>Shinkansen guide &amp; booking tips</li>
+              <li>AI Route Finder (any 2 stations)</li>
+              <li>Train manners &amp; caution guide</li>
+              <li>30-day trip story (Farewell)</li>
+              <li>Morning message in 8 languages</li>
+              <li>Works offline</li>
+            </ul>
+            <button class="btn" data-open-modal>Get JapanCalc — $4.99</button>
+            <p class="fare-note">Less than a convenience store snack in Japan.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL -->
+  <section class="final">
+    <div class="wrap">
+      <div class="kanji-big jc-fade">いってらっしゃい</div>
+      <h2 class="jc-fade">Travel lighter.<br>JapanCalc is with you, <span class="shu-t">quietly</span>.</h2>
+      <p class="jc-fade">Launching soon on Google Play.</p>
+      <div class="final-cta jc-fade">
+        <button class="btn" data-open-modal>Get JapanCalc — $4.99</button>
+        <img src="/images/googleplay-badge-01-getit.width-1440.png"
+             alt="Get it on Google Play"
+             class="gplay-badge"
+             style="height:auto; opacity:0.92; cursor:default;"
+             title="Coming soon on Google Play">
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap foot-inner">
+      <span>© 2026 JapanCalc · FIX-Marketing</span>
+      <div class="foot-links">
+        <a href="/privacy.html">Privacy</a>
+        <a href="/support.html">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- EMAIL MODAL -->
+  <div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal">
+      <button class="modal-close" data-close-modal aria-label="Close">✕</button>
+      <h3 id="modal-title">Hold my seat.</h3>
+      <p>JapanCalc launches soon on Google Play. Leave your email and you'll know the moment it's live — $4.99, one time, no subscription.</p>
+      <form id="notify-form" action="https://formspree.io/f/xpqnoyaj" method="POST">
+        <input type="hidden" name="intent" value="buy_japancalc_4.99">
+        <input type="hidden" name="price" value="$4.99">
+        <input type="hidden" name="_subject" value="JapanCalc — release-notify signup ($4.99 intent)">
+        <input type="email" name="email" placeholder="you@example.com" required autocomplete="email">
+        <button type="submit" class="btn">Notify me at launch</button>
+        <p class="modal-ok" id="modal-ok">✓ You're on the list. いってらっしゃい!</p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    'use strict';
+
+    /* ===== Rail progress + station stops ===== */
+    var fill = document.getElementById('rail-fill');
+    var stopsWrap = document.getElementById('rail-stops');
+    var stations = Array.prototype.slice.call(document.querySelectorAll('[data-stop]'));
+    var stopEls = [];
+
+    function layoutStops(){
+      stopsWrap.innerHTML = '';
+      stopEls = [];
+      var docH = document.documentElement.scrollHeight - window.innerHeight;
+      if (docH <= 0) return;
+      stations.forEach(function(st){
+        var rect = st.getBoundingClientRect();
+        var absTop = rect.top + window.scrollY + rect.height/2;
+        var ratio = Math.min(absTop / document.documentElement.scrollHeight, 0.98);
+        var el = document.createElement('div');
+        el.className = 'rail-stop';
+        el.style.top = (ratio * 100) + '%';
+        stopsWrap.appendChild(el);
+        stopEls.push({el: el, abs: absTop});
+      });
+    }
+
+    function onScroll(){
+      var docH = document.documentElement.scrollHeight - window.innerHeight;
+      var p = docH > 0 ? (window.scrollY / docH) : 0;
+      fill.style.height = (p * 100) + '%';
+      var passLine = window.scrollY + window.innerHeight * 0.55;
+      stopEls.forEach(function(s){
+        s.el.classList.toggle('passed', passLine >= s.abs);
+      });
+    }
+
+    layoutStops();
+    onScroll();
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', function(){ layoutStops(); onScroll(); });
+    window.addEventListener('load', function(){ layoutStops(); onScroll(); });
+
+    /* ===== Scroll fade ===== */
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.classList.add('jc-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.jc-fade').forEach(function(el){ observer.observe(el); });
+
+    /* ===== Modal ===== */
+    var overlay = document.getElementById('modal');
+    var lastFocus = null;
+    function openModal(){
+      lastFocus = document.activeElement;
+      overlay.classList.add('open');
+      var input = overlay.querySelector('input[type=email]');
+      if (input) input.focus();
+    }
+    function closeModal(){
+      overlay.classList.remove('open');
+      if (lastFocus) lastFocus.focus();
+    }
+    document.querySelectorAll('[data-open-modal]').forEach(function(b){
+      b.addEventListener('click', openModal);
+    });
+    overlay.querySelector('[data-close-modal]').addEventListener('click', closeModal);
+    overlay.addEventListener('click', function(e){ if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+    });
+
+    /* ===== Formspree (no navigation) ===== */
+    var form = document.getElementById('notify-form');
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var btn = form.querySelector('button[type=submit]');
+      btn.disabled = true; btn.textContent = 'Sending…';
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function(res){
+        if (res.ok){
+          document.getElementById('modal-ok').style.display = 'block';
+          form.querySelector('input[type=email]').value = '';
+          btn.textContent = 'You\'re in ✓';
+        } else {
+          btn.disabled = false; btn.textContent = 'Notify me at launch';
+          alert('Something went wrong. Please try again.');
+        }
+      }).catch(function(){
+        btn.disabled = false; btn.textContent = 'Notify me at launch';
+        alert('Network error. Please try again.');
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

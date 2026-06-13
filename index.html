@@ -3,8 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>JapanCalc — Money & train help for Japan travel</title>
-  <meta name="description" content="A simple helper for prices, tax-free shopping, train gates, and travel memories. $4.99 one-time.">
+  <title>JapanCalc — It starts as a calculator. It ends as a memory.</title>
+  <meta name="description" content="Welcome to Japan. A $4.99 companion for prices, trains, and tax-free shopping — and on the day you leave, it turns your whole trip into a story. Made with love, from Tokyo.">
+  <meta property="og:title" content="JapanCalc — It starts as a calculator. It ends as a memory.">
+  <meta property="og:description" content="Welcome to Japan. One companion, $4.99, once — and a story you'll keep forever.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/logo.png">
 
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -16,986 +20,865 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Shippori+Mincho:wght@500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Shippori+Mincho:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="icon" href="/logo.png" type="image/png">
 
   <style>
+    /* ==========================================================
+       JapanCalc v3 — 夜の京都 / 線香花火 / 和紙
+       wabi-sabi: the emptiness speaks.
+       ========================================================== */
     :root{
-      /* paper & ink */
-      --paper:    #f1eee6;   /* muted washi */
-      --paper-2:  #e9e5da;   /* card paper */
-      --paper-3:  #e6dfd2;   /* deeper paper */
-      --ink:      #1c1b18;   /* sumi ink */
-      --ink-2:    #54514a;
-      --ink-3:    #8d887d;
-      --line:     #d8d2c4;
-      --line-soft:#e5e0d4;
+      --night:    #0A0A0A;          /* night kyoto */
+      --night-2:  #111110;
+      --sumi-1:   #1A1A1A;          /* sumi ink gradient */
+      --sumi-2:   #242422;
+      --sumi-3:   #333333;
+      --washi:    #F5F0E8;          /* raw washi */
+      --washi-2:  #EDE6D8;
+      --spark:    #FF9F0A;          /* senko-hanabi light */
+      --spark-hi: #FFC966;
+      --spark-dim:rgba(255,159,10,.14);
+      --fog:      #8C887F;          /* muted text on dark */
+      --fog-2:    #5E5B54;
+      --line-d:   rgba(245,240,232,.10);
+      --line-dd:  rgba(245,240,232,.06);
 
-      /* accents */
-      --shu:      #FF9F0A;   /* brand orange */
-      --shu-d:    #e88a00;
-      --shu-soft: rgba(255,159,10,.14);
-      --ai:       #1f3a5f;   /* 藍 indigo */
-      --matcha:   #5a7d4f;
-      --kon:      #2b4a8b;
+      --serif: 'Shippori Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+      --sans:  'Inter', 'Hiragino Sans', system-ui, sans-serif;
+      --mono:  'IBM Plex Mono', ui-monospace, monospace;
 
-      /* type */
-      --sans: 'Hanken Grotesk', ui-sans-serif, system-ui, -apple-system, 'Hiragino Sans', sans-serif;
-      --serif-jp: 'Shippori Mincho', 'Hiragino Mincho ProN', serif;
-      --mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
-
-      --r: 8px;
-      --maxw: 1140px;
+      --maxw: 1080px;
     }
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{
-      background:var(--paper); color:var(--ink);
-      font-family:var(--sans); font-size:16.5px; line-height:1.65;
+      background:var(--night); color:var(--washi);
+      font-family:var(--sans); font-size:17px; line-height:1.75;
+      font-weight:300; letter-spacing:.012em;
       -webkit-font-smoothing:antialiased; overflow-x:hidden;
     }
-    /* subtle paper grain */
-    body::before{
-      content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
-      background-image:radial-gradient(rgba(28,27,24,0.025) 1px, transparent 1px);
-      background-size:5px 5px;
-    }
-    img{max-width:100%}
+    img{max-width:100%;display:block}
     a{color:inherit;text-decoration:none}
-    .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px;position:relative;z-index:1}
-    h1,h2,h3{font-family:var(--serif-jp);font-weight:600;letter-spacing:.01em;line-height:1.22}
-    .kanji{font-family:var(--serif-jp);font-weight:700;letter-spacing:.05em}
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;position:relative;z-index:2}
+    .wrap-n{max-width:760px;margin:0 auto;padding:0 32px;position:relative;z-index:2}
+
+    h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.3;letter-spacing:.015em}
     .mono{font-family:var(--mono)}
+    .spark-t{color:var(--spark)}
+    /* two-tone logo: Japan = white, Calc = orange */
+    .lg-w{color:#FFFFFF}
+    .lg-o{color:var(--spark)}
+    ::selection{background:var(--spark);color:#1a0f00}
+    :focus-visible{outline:2px solid var(--spark);outline-offset:3px}
 
-    ::selection{background:var(--shu);color:#1a0f00}
-    :focus-visible{outline:2px solid var(--shu);outline-offset:2px}
+    /* washi grain on dark — barely there, like paper in a dark room */
+    body::after{
+      content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.04;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    }
 
-    /* ============ RAIL LINE (page progress) ============ */
-    .rail{
-      position:fixed;left:26px;top:0;bottom:0;width:4px;z-index:40;
-      background:var(--line);
+    /* ============ ink-bleed reveal（墨が滲む） ============ */
+    .ib{
+      opacity:0; filter:blur(14px); transform:translateY(14px);
+      transition:opacity 1.6s cubic-bezier(.22,.6,.2,1),
+                 filter 1.6s cubic-bezier(.22,.6,.2,1),
+                 transform 1.6s cubic-bezier(.22,.6,.2,1);
+      will-change:opacity,filter,transform;
     }
-    .rail i{
-      position:absolute;left:0;top:0;width:100%;height:0;
-      background:var(--shu);transition:height .1s linear;
+    .ib.on{opacity:1;filter:blur(0);transform:none}
+    .ib-2{transition-delay:.25s}
+    .ib-3{transition-delay:.5s}
+    .ib-4{transition-delay:.75s}
+    @media (prefers-reduced-motion: reduce){
+      .ib{opacity:1;filter:none;transform:none;transition:none}
+      html{scroll-behavior:auto}
     }
-    .rail-stops{position:fixed;left:18px;top:0;bottom:0;z-index:41;pointer-events:none}
-    .rail-stop{
-      position:absolute;width:20px;height:20px;border-radius:50%;
-      background:var(--paper);border:4px solid var(--line);
-      transform:translateY(-50%);transition:border-color .3s, transform .3s;
-      pointer-events:auto;
-    }
-    .rail-stop.passed{border-color:var(--shu)}
-    .rail-stop:hover{transform:translateY(-50%) scale(1.25)}
-    @media(max-width:900px){.rail,.rail-stops{display:none}}
 
-    /* ============ NAV ============ */
+    /* ============ NAV — almost nothing ============ */
     .nav{
-      position:sticky;top:0;z-index:50;
-      background:rgba(247,244,238,0.88);
-      -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
-      border-bottom:1px solid var(--line-soft);
+      position:fixed;top:0;left:0;right:0;z-index:60;
+      display:flex;align-items:center;justify-content:space-between;
+      padding:22px 32px;
+      background:linear-gradient(to bottom, rgba(10,10,10,.85), rgba(10,10,10,0));
+      transition:background .4s;
     }
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;letter-spacing:-0.02em}
-    .brand .dot{color:var(--shu)}
-    .nav-links{display:flex;gap:28px;font-size:14px;font-weight:600;color:var(--ink-2)}
-    .nav-links a{position:relative;transition:color .2s}
-    .nav-links a::after{
-      content:'';position:absolute;left:0;right:100%;bottom:-4px;height:2px;
-      background:var(--shu);transition:right .25s ease;
+    .brand{display:flex;align-items:center;gap:11px;font-family:var(--serif);font-weight:700;font-size:18px;letter-spacing:.04em}
+    .brand img{width:30px;height:30px;border-radius:7px}
+    .nav-cta{
+      font-size:13px;font-weight:500;letter-spacing:.08em;color:var(--fog);
+      border:1px solid var(--line-d);border-radius:99px;padding:9px 20px;
+      transition:color .3s,border-color .3s;cursor:pointer;background:none;font-family:var(--sans);
     }
-    .nav-links a:hover{color:var(--ink)}
-    .nav-links a:hover::after{right:0}
-    @media(max-width:820px){.nav-links{display:none}}
+    .nav-cta:hover{color:var(--spark);border-color:var(--spark)}
 
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:9px;
-      font:inherit;font-weight:700;cursor:pointer;border:none;
-      border-radius:5px;padding:14px 28px;font-size:15px;letter-spacing:.03em;
-      background:var(--ink);color:var(--paper);
-      transition:transform .18s cubic-bezier(.22,1,.36,1), background .2s, box-shadow .2s;
-    }
-    .btn:hover{transform:translateY(-2px);background:var(--shu);box-shadow:0 10px 28px rgba(255,159,10,.32)}
-    .btn:active{transform:translateY(0)}
-    .btn-line{
-      background:transparent;color:var(--ink);border:1.5px solid var(--ink);
-    }
-    .btn-line:hover{background:var(--ink);color:var(--paper);box-shadow:none}
-    .btn:disabled{opacity:.55;cursor:default;transform:none;box-shadow:none}
-
-
-    /* ============ HERO (dark, like the app) ============ */
+    /* ============ HERO — 出会い ============ */
     .hero{
-      padding:84px 0 76px;position:relative;
-      background:linear-gradient(180deg,#000 0%,#0b0b0c 100%);
-      color:var(--paper);
-      border-bottom:1px solid #1d1d20;
+      position:relative;min-height:100svh;
+      display:flex;flex-direction:column;justify-content:center;
+      overflow:hidden;
     }
-    .hero .hero-tate{color:#5a5a62}
-    .hero-seal{
-      display:block;width:34px;height:34px;margin-top:22px;
-      border:1.5px solid var(--shu);border-radius:3px;
-      color:var(--shu);font-family:var(--serif-jp);font-weight:700;font-size:19px;
-      line-height:31px;text-align:center;
-      opacity:.85;
+    .hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+    .hero-grid{
+      display:grid;grid-template-columns:minmax(0,1fr) auto;gap:72px;
+      align-items:center;padding-top:140px;padding-bottom:130px;
     }
-    .hero .hero-eyebrow{color:#a8a8b0}
-    .hero h1{color:#fff}
-    .hero h1 .shu-word::after{background:rgba(255,159,10,.16)}
-    .hero .hero-sub{color:#c9c9cf}
-    .hero .hero-meta{color:#8a8a92}
-    .hero .hero-meta b{color:#fff}
-    .hero .hero-meta .sep{color:#2a2a2e}
-
-    /* hero CTA: orange on black */
-    .hero .btn{
-      background:var(--shu);color:#1a0f00;
-    }
-    .hero .btn:hover{
-      background:#ffb340;
-      box-shadow:0 0 28px rgba(255,159,10,.45);
+    @media(max-width:980px){
+      .hero-grid{grid-template-columns:1fr;gap:80px}
+      .hero-phone{justify-self:center}
     }
 
-    /* mockups glow on black */
-    .hero .phone{
-      box-shadow:0 0 0 1.5px #2b2c31, 0 2px 0 rgba(255,255,255,.18) inset,
-                 0 0 70px rgba(255,159,10,.10),
-                 0 34px 70px rgba(0,0,0,.65), 0 8px 20px rgba(0,0,0,.4);
-    }
-    .hero .ticket-back{
-      box-shadow:0 0 50px rgba(255,159,10,.08), 0 18px 44px rgba(0,0,0,.55);
-    }
-
-    .hero-grid{display:grid;gap:56px;align-items:center}
-    @media(min-width:960px){.hero-grid{grid-template-columns:1.15fr .85fr}}
-
-    .hero-tate{
-      position:absolute;right:max(20px, calc((100vw - var(--maxw))/2 - 30px));top:96px;
-      writing-mode:vertical-rl;font-family:var(--serif-jp);font-weight:500;
-      font-size:15px;letter-spacing:.42em;color:var(--ink-3);
-    }
-    @media(max-width:1240px){.hero-tate{display:none}}
-
-    .hero-eyebrow{
-      display:inline-flex;align-items:center;gap:10px;
-      font-family:var(--mono);font-size:11.5px;letter-spacing:.22em;
-      text-transform:uppercase;margin-bottom:30px;
-      border-left:2px solid var(--shu);padding:3px 0 3px 14px;
-    }
-    .hero-eyebrow::before{
-      content:'';width:8px;height:8px;border-radius:50%;background:var(--shu);
-      animation:blink 2.4s ease-in-out infinite;
-    }
-    @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-
-    .hero h1{
-      font-size:clamp(34px,4.8vw,58px);font-weight:600;letter-spacing:.015em;line-height:1.3;
-    }
-    .hero h1 .shu-word{color:var(--shu);position:relative;white-space:nowrap}
-    .hero h1 .shu-word::after{
-      content:'';position:absolute;left:2%;right:2%;bottom:6px;height:10px;
-      background:var(--shu-soft);z-index:-1;border-radius:3px;
-    }
-    .hero-sub{
-      color:var(--ink-2);font-size:18px;max-width:480px;margin:26px 0 34px;line-height:1.7;
-    }
-    .hero-cta{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-    .hero-meta{
-      margin-top:22px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-      font-family:var(--mono);font-size:12.5px;color:var(--ink-3);
-    }
-    .hero-meta b{color:var(--ink);font-weight:600}
-    .hero-meta .sep{color:var(--line)}
-
-    /* --- THE TICKET --- */
-    .ticket-col{display:flex;justify-content:center;perspective:1200px}
-    .ticket{
-      width:min(420px,100%);background:#fdfbf6;border:1px solid var(--line);
-      border-radius:10px;position:relative;
-      box-shadow:0 1px 0 #fff inset, 0 24px 60px rgba(28,27,24,.14), 0 4px 14px rgba(28,27,24,.08);
-      transform:rotate(2.5deg);
-      transition:transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s;
-    }
-    .ticket:hover{transform:rotate(0deg) translateY(-6px);box-shadow:0 1px 0 #fff inset, 0 34px 80px rgba(28,27,24,.18)}
-    @media(prefers-reduced-motion:reduce){.ticket,.ticket:hover{transform:none}}
-    .ticket::before{ /* top color band like JR tickets */
-      content:'';position:absolute;left:0;right:0;top:0;height:9px;
-      background:repeating-linear-gradient(90deg, var(--shu) 0 36px, var(--ai) 36px 72px);
-      border-radius:10px 10px 0 0;
-    }
-    .tk-head{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:26px 26px 14px;
-    }
-    .tk-head .tk-brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px}
-    .tk-head img{height:34px;width:auto;display:block}
-    .tk-class{
-      font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;color:var(--ai);
-      border:1.5px solid var(--ai);border-radius:4px;padding:3px 8px;font-weight:600;
-    }
-    .tk-route{
-      display:flex;align-items:center;gap:14px;padding:10px 26px 4px;
-    }
-    .tk-route .st{font-weight:800;font-size:24px;letter-spacing:-0.02em;line-height:1.1}
-    .tk-route .st small{display:block;font-family:var(--serif-jp);font-weight:500;font-size:12px;color:var(--ink-3);letter-spacing:.18em;margin-top:3px}
-    .tk-route .arrow{
-      flex:1;height:2px;background:var(--ink);position:relative;min-width:40px;
-    }
-    .tk-route .arrow::after{
-      content:'';position:absolute;right:-1px;top:-4px;
-      border-left:9px solid var(--ink);border-top:5px solid transparent;border-bottom:5px solid transparent;
-    }
-    .tk-grid{
-      display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;
-      padding:18px 26px 8px;font-family:var(--mono);
-    }
-    .tk-grid .lbl{font-size:9.5px;letter-spacing:.18em;color:var(--ink-3);text-transform:uppercase}
-    .tk-grid .val{font-size:14px;font-weight:600;color:var(--ink)}
-    .tk-grid .val.shu{color:var(--shu)}
-    .tk-perf{ /* perforation */
-      position:relative;margin:18px 0 0;border-top:2px dashed var(--line);
-    }
-    .tk-perf::before,.tk-perf::after{
-      content:'';position:absolute;top:-11px;width:22px;height:22px;border-radius:50%;
-      background:var(--paper);border:1px solid var(--line);
-    }
-    .tk-perf::before{left:-12px;border-right-color:transparent}
-    .tk-perf::after{right:-12px;border-left-color:transparent}
-    .tk-stub{
-      display:flex;align-items:center;justify-content:space-between;
-      padding:18px 26px 22px;
-    }
-    .tk-stub .price{font-weight:800;font-size:30px;letter-spacing:-0.03em}
-    .tk-stub .price small{font-family:var(--mono);font-size:11px;font-weight:500;color:var(--ink-3);display:block;letter-spacing:.12em;margin-top:2px}
-    .tk-stamp{
-      width:74px;height:74px;border-radius:50%;
-      border:2.5px solid var(--shu);color:var(--shu);
-      display:flex;flex-direction:column;align-items:center;justify-content:center;
-      font-family:var(--serif-jp);font-weight:700;font-size:15px;letter-spacing:.1em;
-      transform:rotate(-12deg);opacity:.85;
-      -webkit-mask-image:radial-gradient(circle at 35% 60%, transparent 0 2px, #000 3px);
-    }
-    .tk-stamp span{font-size:8.5px;font-family:var(--mono);letter-spacing:.14em;margin-top:2px}
-    .tk-bar{ /* fake barcode */
-      margin:0 26px 24px;height:34px;
-      background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 5px,var(--ink) 5px 6px,transparent 6px 11px,var(--ink) 11px 14px,transparent 14px 17px);
-      opacity:.85;border-radius:2px;
-    }
-
-    /* --- HERO STAGE: phone front, ticket behind --- */
-    .hero-stage{position:relative;width:min(460px,100%);display:flex;justify-content:center}
-    .ticket-back{
-      position:absolute;width:330px;top:54px;left:-26px;z-index:0;
-      transform:rotate(-9deg) scale(.92);
-      box-shadow:0 18px 44px rgba(28,27,24,.14);
-    }
-    .ticket-back:hover{transform:rotate(-9deg) scale(.92)}
-    @media(max-width:520px){.ticket-back{display:none}}
-
+    /* ============ phone mockup — CSS only ============ */
+    .hero-phone{position:relative;z-index:2}
     .phone{
-      position:relative;z-index:1;width:300px;flex:0 0 auto;
-      background:#15161a;border-radius:44px;padding:13px;
-      box-shadow:0 0 0 1.5px #2b2c31, 0 2px 0 rgba(255,255,255,.18) inset,
-                 0 34px 70px rgba(28,27,24,.32), 0 8px 20px rgba(28,27,24,.18);
-      transform:rotate(2.5deg);
-      transition:transform .5s cubic-bezier(.22,1,.36,1);
-    }
-    .phone:hover{transform:rotate(0deg) translateY(-6px)}
-    @media(prefers-reduced-motion:reduce){.phone,.phone:hover{transform:none}}
-    .phone::before{ /* notch */
-      content:'';position:absolute;top:23px;left:50%;transform:translateX(-50%);
-      width:96px;height:24px;border-radius:999px;background:#15161a;z-index:3;
+      width:296px;background:#050505;border-radius:46px;padding:11px;
+      border:1px solid rgba(245,240,232,.16);
+      box-shadow:
+        0 50px 100px rgba(0,0,0,.65),
+        0 0 90px rgba(255,159,10,.08),
+        inset 0 0 2px rgba(245,240,232,.25);
+      transform:rotate(0.001deg); /* crisp subpixel edges */
     }
     .phone-screen{
-      border-radius:33px;background:#000;
-      color:#fff;overflow:hidden;display:flex;flex-direction:column;
-      border:1px solid #232327;min-height:600px;
+      position:relative;
+      background:var(--night);border-radius:36px;overflow:hidden;
+      border:1px solid rgba(245,240,232,.06);
+      display:flex;flex-direction:column;
     }
-    .ph-status{
-      display:flex;justify-content:space-between;font-size:11px;color:#cfcfd4;
-      padding:14px 22px 2px;letter-spacing:.04em;font-weight:600;
+    .p-cam{width:78px;height:17px;background:#000;border-radius:12px;margin:11px auto 0;border:1px solid rgba(245,240,232,.07)}
+    .p-head{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:14px 18px 4px;
     }
-    .ph-sig{font-size:8px;letter-spacing:.12em;color:#e8e8ec}
-    .ph-head{
-      display:flex;align-items:center;justify-content:space-between;padding:12px 18px 0;
+    .p-head .pb{display:flex;align-items:center;gap:7px;font-family:var(--serif);font-weight:700;font-size:12.5px;letter-spacing:.04em}
+    .p-head .pb img{width:17px;height:17px;border-radius:4px}
+    .p-head .pr{font-family:var(--mono);font-size:8.5px;letter-spacing:.18em;color:var(--fog-2)}
+    .p-display{padding:18px 20px 4px;text-align:right}
+    .p-yen{font-family:var(--serif);font-weight:700;font-size:37px;line-height:1.1;letter-spacing:.01em}
+    .p-usd{font-family:var(--mono);font-size:21px;color:var(--spark);margin-top:3px;font-weight:500}
+    .p-rate{font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;color:var(--fog-2);margin-top:8px}
+    .p-chips{display:flex;gap:8px;padding:12px 16px 2px}
+    .p-chip{
+      flex:1;text-align:center;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;
+      padding:8px 4px;border-radius:99px;color:var(--fog);
+      border:1px solid rgba(245,240,232,.1);
     }
-    .ph-brand-wrap{display:flex;align-items:center;gap:10px}
-    .ph-logo{height:34px;width:34px;border-radius:9px;display:block}
-    .ph-brand{font-weight:800;font-size:16px;line-height:1.1;color:#fff}
-    .ph-brand em{font-style:normal;color:var(--shu)}
-    .ph-tagline{font-size:9.5px;color:#8e8f96;margin-top:2px}
-    .ph-gear{
-      width:32px;height:32px;border-radius:50%;background:#1d1d21;
+    .p-chip.on{color:var(--spark);border-color:rgba(255,159,10,.55);background:var(--spark-dim)}
+    .p-pad{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:14px 16px 12px}
+    .p-key{
+      height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;
+      background:var(--sumi-1);border:1px solid rgba(245,240,232,.05);
+      font-family:var(--sans);font-weight:400;font-size:16.5px;color:var(--washi);
+    }
+    .p-key.fn{color:var(--fog);font-size:13.5px}
+    .p-key.op{background:rgba(255,159,10,.12);color:var(--spark);font-size:18px}
+    .p-key.eq{background:var(--spark);color:#181000;font-weight:600;font-size:18px}
+    .p-key.zero{grid-column:span 2}
+    .p-tabs{
+      display:flex;margin-top:2px;padding:10px 8px 16px;
+      border-top:1px solid rgba(245,240,232,.07);
+    }
+    .p-tab{flex:1;text-align:center;color:var(--fog-2)}
+    .p-tab .ic{display:block;font-family:var(--serif);font-size:14px;line-height:1}
+    .p-tab .lb{display:block;font-family:var(--mono);font-size:6px;letter-spacing:.06em;margin-top:4px;white-space:nowrap}
+    .p-tab.on{color:var(--spark)}
+    .p-tab.on .ic{text-shadow:0 0 14px rgba(255,159,10,.6)}
+
+    /* ============ phone mockup #2 — MY TRIP daily log ============ */
+    .twist-grid{
+      display:grid;grid-template-columns:minmax(0,1fr) auto;gap:72px;
+      align-items:center;margin-top:56px;
+    }
+    .twist-copy .lead{margin:0 0 26px;}
+    .twist-copy .daygrid{margin-top:50px}
+    @media(max-width:980px){
+      .twist-grid{grid-template-columns:1fr;gap:76px}
+      .twist-phone{justify-self:center}
+    }
+    .pt-head{padding:15px 16px 0}
+    .pt-top{display:flex;justify-content:space-between;align-items:center}
+    .pt-app{display:flex;align-items:center;gap:6px;font-family:var(--serif);font-weight:700;font-size:12.5px}
+    .pt-gear{color:var(--fog-2);font-size:11px}
+    .pt-sub{font-family:var(--mono);font-size:7.5px;color:var(--fog-2);letter-spacing:.16em;margin-top:3px;text-transform:uppercase}
+    .pt-day{display:flex;justify-content:space-between;align-items:baseline;margin-top:13px}
+    .pt-day b{font-size:11.5px;font-weight:600}
+    .pt-day span{font-family:var(--mono);font-size:8px;color:var(--fog-2);letter-spacing:.1em}
+    .pt-bar{height:4px;border-radius:99px;background:var(--sumi-2);margin-top:8px;overflow:hidden}
+    .pt-bar i{display:block;height:100%;width:10%;background:var(--spark);border-radius:99px}
+    .pt-dtabs{display:flex;gap:6px;margin-top:12px}
+    .pt-dtab{
+      font-family:var(--mono);font-size:8.5px;padding:5px 11px;border-radius:99px;
+      border:1px solid rgba(245,240,232,.1);color:var(--fog);
+    }
+    .pt-dtab.on{background:var(--spark);border-color:var(--spark);color:#181000;font-weight:600}
+    .pt-list{padding:12px 16px 0;display:flex;flex-direction:column;gap:7px}
+    .pt-row{
+      background:var(--sumi-1);border:1px solid rgba(245,240,232,.05);border-radius:12px;
+      padding:8px 12px;display:grid;grid-template-columns:1fr auto 14px;
+      grid-template-rows:auto auto;column-gap:10px;align-items:center;
+    }
+    .pt-row .cat{font-size:10.5px;font-weight:500;color:var(--washi)}
+    .pt-row .date{font-family:var(--mono);font-size:7.5px;color:var(--fog-2);letter-spacing:.08em}
+    .pt-row .yen{font-family:var(--mono);font-size:10.5px;text-align:right}
+    .pt-row .usd{font-family:var(--mono);font-size:8px;color:var(--spark);text-align:right}
+    .pt-row .x{grid-row:1 / span 2;color:var(--fog-2);font-size:9px;text-align:center}
+    .pt-card{
+      margin:12px 16px 0;padding:13px 14px;border-radius:14px;
+      background:var(--sumi-1);border:1px solid rgba(255,159,10,.3);
+    }
+    .pt-card .ttl{font-family:var(--mono);font-size:8.5px;letter-spacing:.16em;color:var(--spark)}
+    .pt-card .msg{font-family:var(--serif);font-size:11px;line-height:1.75;color:var(--washi);margin-top:8px}
+    .pt-card .meta{
+      display:flex;justify-content:space-between;align-items:baseline;margin-top:11px;
+      font-family:var(--mono);font-size:8px;color:var(--fog);letter-spacing:.08em;
+    }
+    .pt-card .meta .by{color:var(--fog-2)}
+    .pt-share{
+      margin:10px 16px 0;padding:8px;text-align:center;border-radius:99px;
+      border:1px solid rgba(245,240,232,.12);
+      font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;color:var(--fog);
+    }
+    .pt-fab{
+      position:absolute;right:18px;bottom:72px;width:38px;height:38px;border-radius:50%;
+      background:var(--spark);color:#181000;display:flex;align-items:center;justify-content:center;
+      font-size:19px;font-weight:500;box-shadow:0 8px 24px rgba(255,159,10,.4);
+    }
+    .pt-space{height:14px}
+    .hero-jp{
+      font-family:var(--serif);color:var(--spark);
+      font-size:15px;letter-spacing:.5em;margin-bottom:34px;font-weight:500;
+    }
+    .hero h1{
+      font-size:clamp(34px,5.6vw,58px);font-weight:600;letter-spacing:.01em;
+      line-height:1.35;
+    }
+    .hero h1 em{font-style:normal;color:var(--spark)}
+    .hero-sub{
+      margin-top:36px;max-width:480px;color:var(--fog);font-size:16.5px;line-height:1.9;
+    }
+    .hero-cta{margin-top:54px;display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+    .hero-hint{
+      position:absolute;bottom:34px;left:0;right:0;text-align:center;z-index:2;
+      color:var(--fog-2);font-size:12px;letter-spacing:.3em;font-family:var(--mono);
+      animation:drift 4s ease-in-out infinite;
+    }
+    @keyframes drift{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(7px);opacity:.95}}
+    @media (prefers-reduced-motion: reduce){.hero-hint{animation:none}}
+
+    /* buttons — omotenashi: present, never pushy */
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      font-family:var(--sans);font-weight:500;font-size:15px;letter-spacing:.05em;
+      cursor:pointer;border:none;border-radius:3px;padding:16px 34px;
+      background:var(--spark);color:#181000;
+      transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .3s,background .3s;
+    }
+    .btn:hover{transform:translateY(-2px);background:var(--spark-hi);box-shadow:0 12px 40px rgba(255,159,10,.25)}
+    .btn-ghost{
+      background:none;color:var(--fog);border:1px solid var(--line-d);
+    }
+    .btn-ghost:hover{background:none;color:var(--washi);border-color:var(--fog);box-shadow:none}
+    .quiet-note{color:var(--fog-2);font-size:13px;letter-spacing:.04em}
+
+    /* ============ section scaffolding ============ */
+    section{position:relative}
+    .sect{padding:160px 0}
+    .sect-label{
+      font-family:var(--mono);font-size:12px;letter-spacing:.4em;color:var(--spark);
+      margin-bottom:26px;text-transform:uppercase;
+    }
+    .sect-kanji{
+      font-family:var(--serif);font-size:clamp(60px,9vw,110px);font-weight:700;
+      color:transparent;-webkit-text-stroke:1.2px rgba(200,169,110,.6);
+      line-height:1;user-select:none;margin-bottom:-14px;
+    }
+    .hr-fade{height:1px;border:none;background:linear-gradient(to right,transparent,var(--line-d),transparent)}
+
+    /* ============ FEARS — 不安 ============ */
+    .fears h2{font-size:clamp(26px,3.6vw,40px);margin-bottom:64px;max-width:640px}
+    .fear-list{display:flex;flex-direction:column}
+    .fear{
+      display:grid;grid-template-columns:90px 1fr;gap:28px;align-items:baseline;
+      padding:30px 0;border-bottom:1px solid var(--line-dd);
+    }
+    .fear:first-child{border-top:1px solid var(--line-dd)}
+    .fear .q{font-family:var(--mono);font-size:12px;color:var(--fog-2);letter-spacing:.2em}
+    .fear p{font-family:var(--serif);font-size:clamp(18px,2.4vw,24px);color:var(--washi);line-height:1.6}
+    .fear p span{color:var(--fog);font-family:var(--sans);font-size:15px;display:block;margin-top:6px;font-weight:300}
+    .fears-coda{margin-top:64px;color:var(--fog);max-width:560px;font-size:16.5px;line-height:1.9}
+    @media(max-width:640px){.fear{grid-template-columns:1fr;gap:6px}}
+
+    /* ============ TOOLS — 道具 ============ */
+    .tools .intro{max-width:560px;margin-bottom:110px}
+    .tools .intro p{color:var(--fog);margin-top:26px;font-size:16.5px;line-height:1.9}
+    .tool{
+      display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:64px;
+      padding:84px 0;border-top:1px solid var(--line-dd);align-items:start;
+    }
+    .tool:last-of-type{border-bottom:1px solid var(--line-dd)}
+    .tool-id{position:sticky;top:120px}
+    .tool-num{font-family:var(--mono);font-size:12px;color:var(--fog-2);letter-spacing:.3em;margin-bottom:18px}
+    .tool-jp{
+      font-family:var(--serif);font-size:clamp(44px,6vw,72px);font-weight:700;line-height:1.1;
+      color:var(--washi);
+    }
+    .tool-romaji{font-family:var(--mono);font-size:13px;color:var(--spark);letter-spacing:.25em;margin-top:14px}
+    .tool-body h3{font-size:clamp(21px,2.6vw,27px);line-height:1.55;margin-bottom:22px}
+    .tool-body .fn{
+      font-family:var(--mono);font-size:12.5px;color:var(--fog-2);letter-spacing:.15em;
+      margin-bottom:20px;text-transform:uppercase;
+    }
+    .tool-body p{color:var(--fog);font-size:16.5px;line-height:1.95;max-width:520px}
+    .tool-body p + p{margin-top:18px}
+    .tool-body .felt{
+      margin-top:30px;padding-left:22px;border-left:2px solid var(--spark);
+      font-family:var(--serif);color:var(--washi);font-size:17.5px;line-height:1.85;
+    }
+    @media(max-width:820px){
+      .tool{grid-template-columns:1fr;gap:30px;padding:64px 0}
+      .tool-id{position:static}
+    }
+
+    /* the held-back fifth */
+    .fifth{
+      padding:130px 0 150px;text-align:center;
+    }
+    .fifth p{
+      font-family:var(--serif);font-size:clamp(20px,3vw,30px);line-height:2;color:var(--washi);
+    }
+    .fifth p span{color:var(--fog-2);display:block;font-size:.62em;font-family:var(--sans);letter-spacing:.2em;margin-top:30px}
+
+    /* ============ TWIST — どんでん返し ============ */
+    .twist{
+      background:linear-gradient(180deg,var(--night) 0%,var(--sumi-1) 30%,var(--sumi-1) 70%,var(--night) 100%);
+    }
+    .twist .sect{padding:200px 0}
+    .twist h2{
+      font-size:clamp(30px,4.6vw,52px);line-height:1.5;max-width:760px;
+    }
+    .twist h2 em{font-style:normal;color:var(--spark)}
+    .twist .lead{margin:48px 0 0;color:var(--fog);max-width:560px;font-size:17px;line-height:2}
+    .daygrid{
+      margin-top:90px;display:grid;grid-template-columns:repeat(10,1fr);gap:10px;max-width:640px;
+    }
+    .day{
+      aspect-ratio:1;border:1px solid var(--line-dd);border-radius:2px;
       display:flex;align-items:center;justify-content:center;
-      color:#9c9da4;font-size:15px;
+      font-family:var(--mono);font-size:10px;color:var(--fog-2);
+      transition:background .8s,color .8s,border-color .8s;
     }
-    .ph-amount{padding:34px 20px 0;text-align:center}
-    .ph-yen{font-weight:300;font-size:62px;letter-spacing:-0.01em;line-height:1;color:#fff}
-    .ph-usd-row{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:16px}
-    .ph-usd{font-size:17px;color:#8e8f96;font-weight:400}
-    .ph-cur{
-      font-size:10px;font-weight:600;color:#e8e8ec;background:#1d1d21;
-      border-radius:999px;padding:4px 10px;letter-spacing:.04em;
-    }
-    .ph-chips{display:flex;gap:10px;padding:30px 16px 6px;justify-content:center}
-    .ph-chip{
-      flex:1;text-align:center;font-size:10.5px;font-weight:600;border-radius:999px;
-      padding:7px 6px;background:#26262b;color:#dcdce0;white-space:nowrap;
-    }
-    .ph-chip em{font-style:normal;color:var(--shu);font-weight:700}
-    .ph-pad{
-      flex:1;display:grid;grid-template-columns:repeat(4,1fr);gap:11px;
-      padding:16px 16px 10px;align-content:end;
-    }
-    .ph-key{
-      aspect-ratio:1/1;border-radius:50%;
-      display:flex;align-items:center;justify-content:center;
-      background:#222227;color:#fff;font-weight:500;font-size:19px;
-      user-select:none;
-    }
-    .ph-key.fn{font-size:16px;font-weight:600}
-    .ph-key.zero{aspect-ratio:auto;grid-column:span 2;border-radius:999px}
-    .ph-key.op{
-      background:linear-gradient(180deg,#ffb340 0%,var(--shu) 100%);
-      color:#fff;font-weight:600;font-size:21px;
-      box-shadow:0 0 16px rgba(255,159,10,.35);
-    }
-    .ph-tabs{
-      display:flex;border-top:1px solid #1d1d21;background:#000;
-      padding:11px 4px 15px;
-    }
-    .ph-tab{
-      flex:1;text-align:center;font-size:6.8px;letter-spacing:.06em;color:#7a7b82;
-      font-weight:600;display:flex;flex-direction:column;align-items:center;gap:4px;
-      font-family:var(--mono);
-    }
-    .ph-tab i{font-style:normal;font-size:13px;line-height:1}
-    .ph-tab.on{color:var(--shu)}
+    .day.lit{background:var(--spark-dim);border-color:rgba(255,159,10,.35);color:var(--spark)}
+    .day.last{position:relative}
+    .day.last.lit{background:var(--spark);color:#181000;font-weight:500}
+    .daygrid-cap{margin-top:26px;font-family:var(--mono);font-size:12px;color:var(--fog-2);letter-spacing:.18em}
+    @media(max-width:560px){.daygrid{grid-template-columns:repeat(6,1fr)}}
 
-    /* ============ STATION SIGN (section headers) ============ */
-    .station{
-      max-width:680px;margin:0 auto 52px;
-      background:#fbf9f4;border:1px solid #34312a;border-radius:6px;
-      overflow:hidden;box-shadow:0 6px 18px rgba(28,27,24,.06);
+    /* ============ FAREWELL — 線香花火 ============ */
+    .farewell{position:relative;overflow:hidden;background:var(--night)}
+    .farewell canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+    .farewell .sect{padding:220px 0}
+    .farewell .wrap-n{text-align:center}
+    .fw-jp{
+      font-family:var(--serif);font-size:clamp(40px,7vw,84px);font-weight:700;
+      letter-spacing:.12em;line-height:1.3;
     }
-    .station .band{height:6px}
-    .station .body{padding:20px 28px 18px;text-align:center}
-    .station .romaji{font-family:var(--sans);font-weight:800;font-size:clamp(26px,3.4vw,38px);letter-spacing:-0.02em;line-height:1.05}
-    .station .yomi{font-family:var(--serif-jp);font-size:14px;color:var(--ink-2);letter-spacing:.34em;margin-top:6px}
-    .station .neighbors{
-      display:flex;justify-content:space-between;align-items:center;
-      border-top:1px solid var(--line-soft);margin-top:16px;padding-top:12px;
-      font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-3);
-      text-transform:uppercase;
+    .fw-romaji{font-family:var(--mono);font-size:13px;color:var(--spark);letter-spacing:.4em;margin-top:26px}
+    .fw-def{
+      margin:54px auto 0;max-width:520px;font-family:var(--serif);
+      font-size:clamp(18px,2.4vw,23px);line-height:2.1;color:var(--washi);
     }
-    .station .neighbors b{color:var(--ink-2);font-weight:600}
+    .fw-body{margin:64px auto 0;max-width:520px;color:var(--fog);font-size:16.5px;line-height:2;text-align:left}
+    .fw-body p + p{margin-top:22px}
+    .fw-body .last-line{
+      margin-top:40px;font-family:var(--serif);color:var(--washi);font-size:18px;text-align:center;
+    }
 
-    section{padding:96px 0;position:relative}
-    .lede{color:var(--ink-2);font-size:17.5px;max-width:640px;margin:0 auto 56px;text-align:center;line-height:1.75}
-
-    /* ============ TOOL PANELS ============ */
-    .panel{
-      display:grid;gap:44px;align-items:center;
-      background:#faf8f2;border:1px solid var(--line);border-radius:10px;
-      padding:clamp(28px,4vw,52px);
-      box-shadow:0 8px 24px rgba(28,27,24,.05);
-    }
-    @media(min-width:880px){.panel{grid-template-columns:1fr 1fr}}
-    .panel + .panel{margin-top:28px}
-    .panel .p-kicker{
-      display:inline-flex;align-items:center;gap:8px;
-      font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-      color:var(--ink-3);margin-bottom:16px;
-    }
-    .panel .p-kicker::before{content:'';width:22px;height:2px;background:currentColor}
-    .panel h3{font-size:clamp(24px,2.8vw,32px);margin-bottom:14px;letter-spacing:-0.03em}
-    .panel p{color:var(--ink-2)}
-    .panel ul{list-style:none;margin-top:18px;display:grid;gap:11px}
-    .panel ul li{display:flex;gap:11px;color:var(--ink-2);font-size:15px;align-items:flex-start}
-    .panel ul li::before{content:'—';color:var(--shu);font-weight:700;flex:0 0 auto}
-
-    /* demo cards inside panels */
-    .demo{
-      background:#0b0b0d;border:1px solid #232327;border-radius:10px;
-      padding:28px 26px;font-family:var(--mono);color:#f2f2f4;
-      box-shadow:0 14px 36px rgba(28,27,24,.16);
-    }
-    .demo .d-label{font-size:10px;letter-spacing:.22em;color:#7a7b82;text-transform:uppercase;margin-bottom:16px}
-    .demo .calc-exp{font-size:14.5px;color:#9c9da4;letter-spacing:.05em}
-    .demo .calc-res{
-      font-family:var(--sans);font-weight:300;font-size:52px;
-      letter-spacing:-0.01em;line-height:1.05;color:#fff;margin:10px 0 8px;
-    }
-    .demo .calc-res.shu{color:var(--shu)}
-    .demo .calc-sub{font-size:11.5px;color:#7a7b82;letter-spacing:.03em}
-    .demo .calc-keys{display:flex;gap:10px;margin-top:24px}
-    .demo .calc-keys span{
-      width:38px;height:38px;border-radius:50%;
-      display:flex;align-items:center;justify-content:center;
-      background:#222227;color:#ffb340;font-size:16px;
-    }
-    .demo .calc-keys .eq{
-      background:linear-gradient(180deg,#ffb340,var(--shu));color:#fff;
-      box-shadow:0 0 12px rgba(255,159,10,.3);
-    }
-    .demo .d-row{
-      display:flex;justify-content:space-between;align-items:center;gap:12px;
-      padding:11px 0;border-bottom:1px dashed #2a2a2e;font-size:12.5px;
-    }
-    .demo .d-row:last-child{border-bottom:none}
-    .demo .d-row span{color:#9c9da4}
-    .demo .d-row b{font-weight:600;color:#fff;text-align:right}
-    .demo .ok{color:#9fc78f}
-    .demo .shu-t{color:#ffb340}
-
-    /* ride grid (new features) */
-    .ride-extra{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:30px}
-    .rx{
-      background:#faf8f2;border:1px solid var(--line);border-radius:8px;padding:24px 22px;
-      transition:transform .25s cubic-bezier(.22,1,.36,1), border-color .25s, box-shadow .25s;
+    /* ============ ORIGIN — washi interlude ============ */
+    .origin{
+      background:var(--washi);color:#1c1a16;
       position:relative;
     }
-    .rx:hover{transform:translateY(-3px);border-color:#6f6a5e;box-shadow:0 10px 24px rgba(28,27,24,.08)}
-    .rx .rx-no{
-      font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.14em;margin-bottom:12px;
-      display:flex;justify-content:space-between;align-items:center;
+    .origin::before{
+      content:'';position:absolute;inset:0;opacity:.5;pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.52 0 0 0 0 0.46 0 0 0 0.06 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23p)'/%3E%3C/svg%3E");
     }
-    .rx .rx-new{color:var(--shu);font-weight:600;font-size:9.5px;border:1px solid var(--shu);border-radius:3px;padding:2px 6px;letter-spacing:.12em}
-    .rx b{display:block;font-size:16.5px;font-weight:700;letter-spacing:-0.01em;margin-bottom:8px}
-    .rx p{font-size:14px;color:var(--ink-2);line-height:1.6}
+    .origin .sect{padding:180px 0}
+    .origin .sect-label{color:#b06c00}
+    .origin h2{font-size:clamp(26px,3.8vw,40px);line-height:1.7;color:#16140f;max-width:680px}
+    .origin .story{margin-top:54px;max-width:560px;color:#55514a;font-size:17px;line-height:2.05}
+    .origin .story p + p{margin-top:24px}
+    .origin .sign{
+      margin-top:64px;font-family:var(--serif);font-size:18px;color:#16140f;letter-spacing:.05em;
+    }
+    .origin .sign span{display:block;font-family:var(--mono);font-size:12px;color:#9b948a;letter-spacing:.25em;margin-top:12px}
 
-    /* ============ FAREWELL ============ */
-    .farewell{background:var(--ink);color:var(--paper);border-radius:0}
-    .farewell .station{background:var(--ink);border-color:var(--paper);box-shadow:none}
-    .farewell .station .romaji{color:var(--paper)}
-    .farewell .station .yomi{color:rgba(247,244,238,.55)}
-    .farewell .station .neighbors{border-color:rgba(247,244,238,.18);color:rgba(247,244,238,.45)}
-    .farewell .station .neighbors b{color:rgba(247,244,238,.7)}
-    .farewell .lede{color:rgba(247,244,238,.72)}
-    .fw-grid{display:grid;gap:40px;align-items:center;max-width:980px;margin:0 auto}
-    @media(min-width:880px){.fw-grid{grid-template-columns:1fr 1.05fr}}
-    .fw-copy h3{font-size:clamp(26px,3.2vw,36px);letter-spacing:-0.03em;line-height:1.15;margin-bottom:18px}
-    .fw-copy h3 em{font-style:normal;color:var(--shu)}
-    .fw-copy p{color:rgba(247,244,238,.72);font-size:16px}
-    .fw-days{display:flex;gap:8px;margin:26px 0 10px;font-family:var(--mono);font-size:11px}
-    .fw-day{
-      width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-      border:1px solid rgba(247,244,238,.3);color:rgba(247,244,238,.6);
+    /* ============ TICKET — 切符 ============ */
+    .ticket-sect .sect{padding:170px 0}
+    .ticket-sect .sect-head{text-align:center;margin-bottom:80px}
+    .ticket-sect h2{font-size:clamp(26px,3.8vw,40px)}
+    .ticket-sect .sub{color:var(--fog);margin-top:20px;font-size:16px}
+    .ticket{
+      max-width:540px;margin:0 auto;background:var(--washi);color:#1c1a16;
+      border-radius:6px;overflow:hidden;position:relative;
+      box-shadow:0 30px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(245,240,232,.08);
     }
-    .fw-day.on{background:var(--shu);border-color:var(--shu);color:var(--ink);font-weight:600}
-    .fw-note{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:rgba(247,244,238,.45);text-transform:uppercase}
-    .letter{
-      background:#fdfbf6;color:var(--ink);border-radius:14px;padding:34px 32px;
-      box-shadow:0 30px 70px rgba(0,0,0,.4);
-      transform:rotate(-0.8deg);position:relative;
-      transition:transform .5s cubic-bezier(.22,1,.36,1);
+    /* punched notches like a train ticket */
+    .ticket::before,.ticket::after{
+      content:'';position:absolute;top:50%;width:26px;height:26px;border-radius:50%;
+      background:var(--night);transform:translateY(-50%);z-index:3;
     }
-    .letter:hover{transform:rotate(0deg)}
-    @media(prefers-reduced-motion:reduce){.letter,.letter:hover{transform:none}}
-    .letter::after{ /* airmail edge */
-      content:'';position:absolute;left:0;right:0;top:0;height:8px;border-radius:14px 14px 0 0;
-      background:repeating-linear-gradient(135deg, var(--shu) 0 14px, #fdfbf6 14px 28px, var(--ai) 28px 42px, #fdfbf6 42px 56px);
-    }
-    .letter .l-meta{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--ink-3);text-transform:uppercase;margin-bottom:16px;display:flex;justify-content:space-between}
-    .letter .l-body{font-family:var(--serif-jp);font-size:17.5px;line-height:1.9;color:#33302a}
-    .letter .l-sign{margin-top:18px;font-family:var(--mono);font-size:12px;color:var(--ink-3)}
-
-    /* ============ FARE (pricing) ============ */
-    .fare-wrap{max-width:560px;margin:0 auto}
-    .fare{
-      background:#fbf9f4;border:1px solid #34312a;border-radius:8px;overflow:hidden;
-      box-shadow:0 14px 40px rgba(28,27,24,.10);
-    }
-    .fare-head{
-      background:var(--ink);color:var(--paper);
+    .ticket::before{left:-13px}
+    .ticket::after{right:-13px}
+    .tk-head{
       display:flex;align-items:center;justify-content:space-between;
-      padding:18px 28px;
+      padding:22px 30px;border-bottom:1px dashed #c9c0ae;
     }
-    .fare-head .fh-l{display:flex;align-items:center;gap:12px;font-weight:800;font-size:18px}
-    .fare-head img{height:34px;width:auto;display:block;flex:0 0 auto}
-    .fare-head .fh-tag{
-      font-family:var(--mono);font-size:10px;letter-spacing:.16em;
-      border:1px solid rgba(247,244,238,.4);border-radius:4px;padding:4px 9px;
+    .tk-brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:700;font-size:17px}
+    .tk-brand img{width:26px;height:26px;border-radius:6px}
+    .tk-type{font-family:var(--mono);font-size:11px;letter-spacing:.25em;color:#9b948a}
+    .tk-body{padding:34px 30px 38px}
+    .tk-fare{display:flex;align-items:baseline;gap:16px}
+    .tk-fare .num{font-family:var(--serif);font-weight:800;font-size:54px;letter-spacing:-.01em}
+    .tk-fare .per{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:#9b948a}
+    .tk-valid{margin-top:8px;font-family:var(--mono);font-size:12px;color:#b06c00;letter-spacing:.15em}
+    .tk-list{list-style:none;margin:30px 0 34px;border-top:1px solid #e2dac9}
+    .tk-list li{
+      padding:11px 0;border-bottom:1px solid #e2dac9;font-size:14.5px;color:#3c3930;
+      display:flex;gap:12px;align-items:baseline;font-weight:400;
     }
-    .fare-body{padding:30px 28px 28px}
-    .fare-price{display:flex;align-items:baseline;gap:12px;margin-bottom:4px}
-    .fare-price .num{font-family:var(--sans);font-weight:300;font-size:58px;letter-spacing:-0.01em;line-height:1}
-    .fare-price .per{font-family:var(--mono);font-size:12px;color:var(--ink-3);letter-spacing:.1em}
-    .fare-sub{color:var(--ink-2);font-size:15px;margin-bottom:24px}
-    .fare-list{list-style:none;display:grid;gap:10px;margin-bottom:28px}
-    .fare-list li{
-      display:flex;gap:11px;align-items:flex-start;font-size:15px;color:var(--ink-2);
-    }
-    .fare-list li::before{
-      content:'';flex:0 0 auto;width:17px;height:17px;margin-top:3px;border-radius:50%;
-      background:var(--shu);
-      -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23000' d='M6.4 12.5 2.2 8.3l1.4-1.4 2.8 2.8 6-6 1.4 1.4z'/%3E%3C/svg%3E") center/contain no-repeat;
-              mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23000' d='M6.4 12.5 2.2 8.3l1.4-1.4 2.8 2.8 6-6 1.4 1.4z'/%3E%3C/svg%3E") center/contain no-repeat;
-    }
-    .fare .btn{width:100%;padding:16px;font-size:16px}
-    .fare-note{
-      text-align:center;font-family:var(--mono);font-size:12px;color:var(--ink-3);
-      margin-top:16px;letter-spacing:.04em;
-    }
+    .tk-list li::before{content:'·';color:var(--spark);font-weight:700;font-size:18px;line-height:1}
+    .tk-body .btn{width:100%;font-size:16px;padding:18px}
+    .tk-note{margin-top:18px;text-align:center;font-size:12.5px;color:#9b948a}
+    .tk-under{max-width:540px;margin:34px auto 0;text-align:center;color:var(--fog-2);font-size:13.5px;line-height:1.9}
 
-    /* ============ FINAL (dark, mirrors hero) ============ */
-    .final{
-      text-align:center;padding:110px 0 110px;
-      background:linear-gradient(180deg,#0b0b0c 0%,#000 100%);
-      color:var(--paper);
-      border-top:1px solid #1d1d20;
+    /* ============ FINAL — いってらっしゃい ============ */
+    .final{position:relative;overflow:hidden}
+    .final .sect{padding:200px 0 160px}
+    .final .wrap-n{text-align:center}
+    .final-jp{
+      font-family:var(--serif);font-size:clamp(34px,6.5vw,72px);font-weight:700;letter-spacing:.1em;
     }
-    .final .kanji-big{
-      font-family:var(--serif-jp);font-weight:700;font-size:clamp(20px,2.4vw,26px);
-      letter-spacing:.5em;color:#8a8a92;margin-bottom:22px;
+    .final-romaji{font-family:var(--mono);font-size:12px;color:var(--spark);letter-spacing:.4em;margin-top:24px}
+    .final-mean{
+      margin:46px auto 0;max-width:460px;color:var(--fog);font-size:16.5px;line-height:2;
     }
-    .final h2{font-size:clamp(34px,5vw,58px);letter-spacing:-0.04em;margin-bottom:14px;color:#fff}
-    .final h2 .shu-t{color:var(--shu)}
-    .final p{color:#c9c9cf;font-size:18px;margin-bottom:38px}
-    .final .btn{background:var(--shu);color:#1a0f00}
-    .final .btn:hover{background:#ffb340;box-shadow:0 0 28px rgba(255,159,10,.45)}
-    .final-cta{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap}
-    .gplay-badge{width:190px;height:auto;opacity:.92;cursor:default;border-radius:8px}
-    @media(max-width:639px){.gplay-badge{width:150px}}
+    .final-cta{margin-top:64px;display:flex;flex-direction:column;align-items:center;gap:26px}
+    .gplay{height:54px;width:auto;opacity:.9}
+    .gplay-cap{font-family:var(--mono);font-size:11px;letter-spacing:.25em;color:var(--fog-2)}
 
     /* ============ FOOTER ============ */
-    footer{border-top:1px solid #1d1d20;padding:30px 0;background:#000}
-    .foot-inner{
-      display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
-      color:#8a8a92;font-size:13.5px;font-family:var(--mono);
+    footer{border-top:1px solid var(--line-dd);padding:38px 0}
+    .foot{
+      display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+      color:var(--fog-2);font-size:13px;
     }
-    .foot-links{display:flex;gap:24px}
-    .foot-links a:hover{color:var(--shu)}
+    .foot a{transition:color .3s}
+    .foot a:hover{color:var(--spark)}
+    .foot-links{display:flex;gap:26px}
 
     /* ============ MODAL ============ */
     .modal-overlay{
-      position:fixed;inset:0;z-index:100;display:none;
-      align-items:center;justify-content:center;padding:20px;
-      background:rgba(28,27,24,.45);
-      -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+      position:fixed;inset:0;z-index:100;background:rgba(5,5,5,.82);
+      -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+      display:flex;align-items:center;justify-content:center;padding:24px;
+      opacity:0;pointer-events:none;transition:opacity .35s;
     }
-    .modal-overlay.open{display:flex}
+    .modal-overlay.open{opacity:1;pointer-events:auto}
     .modal{
-      width:100%;max-width:430px;background:#fbf9f4;border:1px solid #34312a;
-      border-radius:8px;padding:34px 30px;position:relative;
-      box-shadow:0 30px 80px rgba(28,27,24,.3);
+      width:100%;max-width:440px;background:var(--sumi-1);
+      border:1px solid var(--line-d);border-radius:8px;padding:44px 38px;position:relative;
+      transform:translateY(14px);transition:transform .35s cubic-bezier(.22,1,.36,1);
     }
-    .modal h3{font-size:23px;letter-spacing:-0.02em;margin-bottom:10px}
-    .modal p{color:var(--ink-2);font-size:14.5px;margin-bottom:22px}
+    .modal-overlay.open .modal{transform:none}
+    .modal h3{font-size:23px;margin-bottom:14px}
+    .modal > p{color:var(--fog);font-size:14.5px;line-height:1.85;margin-bottom:28px}
     .modal input[type=email]{
-      width:100%;background:#fff;border:1.5px solid var(--line);
-      border-radius:10px;padding:14px;color:var(--ink);font:inherit;
-      margin-bottom:14px;outline:none;transition:border-color .2s;
+      width:100%;font:inherit;font-size:15px;color:var(--washi);
+      background:var(--night);border:1px solid var(--line-d);border-radius:3px;
+      padding:15px 16px;margin-bottom:14px;outline:none;transition:border-color .3s;
     }
-    .modal input[type=email]:focus{border-color:var(--ink)}
+    .modal input[type=email]:focus{border-color:var(--spark)}
     .modal .btn{width:100%}
     .modal-close{
-      position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:50%;
-      background:transparent;border:1px solid var(--line);color:var(--ink-2);
-      font-size:15px;cursor:pointer;
+      position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;
+      color:var(--fog-2);font-size:17px;padding:8px;line-height:1;transition:color .3s;
     }
-    .modal-close:hover{border-color:var(--ink);color:var(--ink)}
-    .modal-ok{display:none;color:var(--matcha);font-weight:600;font-size:14.5px;margin-top:14px}
+    .modal-close:hover{color:var(--washi)}
+    .modal-ok{display:none;margin-top:16px;color:var(--spark);font-size:14px;text-align:center}
+    .modal-ok.show{display:block}
 
-    /* ============ FADE ============ */
-    .jc-fade{opacity:0;transform:translateY(26px);
-      transition:opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1)}
-    .jc-fade.jc-visible{opacity:1;transform:none}
-    @media(prefers-reduced-motion:reduce){
-      .jc-fade{opacity:1;transform:none;transition:none}
-      html{scroll-behavior:auto}
+    @media(max-width:640px){
+      .sect{padding:110px 0}
+      .twist .sect,.farewell .sect,.final .sect{padding:140px 0}
+      .hero-cta .btn{width:100%}
     }
   </style>
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K6C5KHH9"
-  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
 
-  <!-- rail progress -->
-  <div class="rail" aria-hidden="true"><i id="rail-fill"></i></div>
-  <div class="rail-stops" id="rail-stops" aria-hidden="true"></div>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K6C5KHH9"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
   <!-- NAV -->
   <nav class="nav">
-    <div class="wrap nav-inner">
-      <a href="/index.html" class="brand">
-        <img src="/logo.png" alt="JapanCalc" style="height:38px;width:auto;">
-        <span>JapanCalc<span class="dot">.</span></span>
-      </a>
-      <div class="nav-links">
-        <a href="#price">Price</a>
-        <a href="#split">Split</a>
-        <a href="#taxfree">Tax-free</a>
-        <a href="#ride">How to Ride</a>
-        <a href="#farewell">Farewell</a>
-        <a href="#fare">Fare</a>
-      </div>
-      <button class="btn" data-open-modal>Get the app — $4.99</button>
-    </div>
+    <a class="brand" href="#"><img src="/logo.png" alt="JapanCalc logo"><span class="lg-w">Japan</span><span class="lg-o">Calc</span></a>
+    <button class="nav-cta" data-open-modal>$4.99 · once</button>
   </nav>
 
-  <!-- HERO -->
-  <header class="hero" id="top">
-    <span class="hero-tate kanji">静かな旅の相棒<span class="hero-seal">計</span></span>
+  <!-- ━━━━━━━━━━━━━━ HERO ── 出会い ━━━━━━━━━━━━━━ -->
+  <header class="hero">
+    <canvas id="hero-spark" aria-hidden="true"></canvas>
     <div class="wrap hero-grid">
-      <div>
-        <span class="hero-eyebrow">Now boarding · One-time $4.99</span>
-        <h1>Japan is easy,<br>when something<br><span class="shu-word">quiet</span> has your back.</h1>
-        <p class="hero-sub">
-          Prices, split bills, tax-free rules, train gates, and a travel diary that writes itself.
-          One calm app. No account. No subscription.
+      <div class="hero-copy">
+        <p class="hero-jp ib">おもてなし</p>
+        <h1 class="ib ib-2">Welcome to Japan.<br>We've been <em>waiting</em> for you.</h1>
+        <p class="hero-sub ib ib-3">
+          <span class="spark-t">Omotenashi</span> is the Japanese art of wholehearted hospitality.
+          No conditions. No expectations. Just a sincere wish for your happiness.
+          JapanCalc — your quiet companion for Japan — was made in that spirit. $4.99, once.
         </p>
-        <div class="hero-cta">
-          <button class="btn" data-open-modal>Get JapanCalc</button>
-          <img src="/images/googleplay-badge-01-getit.width-1440.png"
-               alt="Get it on Google Play"
-               class="gplay-badge"
-               style="height:auto; opacity:0.92; cursor:default;"
-               title="Coming soon on Google Play">
-        </div>
-        <div class="hero-meta">
-          <b>$4.99</b><span class="sep">/</span>one-time
-          <span class="sep">/</span>works offline
-          <span class="sep">/</span>8 languages
-          <span class="sep">/</span>no tracking
+        <div class="hero-cta ib ib-4">
+          <button class="btn" data-open-modal>Get JapanCalc — $4.99</button>
+          <span class="quiet-note">Or just scroll. There's no rush here.</span>
         </div>
       </div>
 
-      <!-- PHONE + TICKET -->
-      <div class="ticket-col jc-fade">
-        <div class="hero-stage">
-          <!-- ticket tucked behind -->
-          <div class="ticket ticket-back" aria-hidden="true">
-          <div class="tk-head">
-            <span class="tk-brand"><img src="/logo.png" alt="">JapanCalc</span>
-            <span class="tk-class">LIFETIME PASS</span>
+      <!-- CSS-only app mockup — PRICE tab -->
+      <div class="hero-phone ib ib-3" aria-hidden="true">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="p-cam"></div>
+            <div class="p-head">
+              <span class="pb"><img src="/logo.png" alt=""><span class="lg-w">Japan</span><span class="lg-o">Calc</span></span>
+              <span class="pr">JPY → USD</span>
+            </div>
+            <div class="p-display">
+              <div class="p-yen">¥6,880</div>
+              <div class="p-usd" id="p-usd">$0.00</div>
+              <div class="p-rate">LIVE RATE · 1 USD = 160.30 JPY</div>
+            </div>
+            <div class="p-chips">
+              <span class="p-chip on">SHOPPING 10%</span>
+              <span class="p-chip">TAKE-OUT 8%</span>
+            </div>
+            <div class="p-pad">
+              <span class="p-key fn">AC</span><span class="p-key fn">⌫</span><span class="p-key fn">%</span><span class="p-key op">÷</span>
+              <span class="p-key">7</span><span class="p-key">8</span><span class="p-key">9</span><span class="p-key op">×</span>
+              <span class="p-key">4</span><span class="p-key">5</span><span class="p-key">6</span><span class="p-key op">−</span>
+              <span class="p-key">1</span><span class="p-key">2</span><span class="p-key">3</span><span class="p-key op">+</span>
+              <span class="p-key zero">0</span><span class="p-key">.</span><span class="p-key eq">=</span>
+            </div>
+            <div class="p-tabs">
+              <span class="p-tab on"><span class="ic">値</span><span class="lb">PRICE</span></span>
+              <span class="p-tab"><span class="ic">割</span><span class="lb">SPLIT</span></span>
+              <span class="p-tab"><span class="ic">免</span><span class="lb">TAX FREE</span></span>
+              <span class="p-tab"><span class="ic">駅</span><span class="lb">HOW TO RIDE</span></span>
+              <span class="p-tab"><span class="ic">旅</span><span class="lb">MY TRIP</span></span>
+            </div>
           </div>
-          <div class="tk-route">
-            <span class="st">Arrival<small>とうちゃく</small></span>
-            <span class="arrow" aria-hidden="true"></span>
-            <span class="st">Departure<small>しゅっぱつ</small></span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-hint">SCROLL ↓</div>
+  </header>
+
+  <!-- ━━━━━━━━━━━━━━ DISCOVERY ── 発見 ━━━━━━━━━━━━━━ -->
+  <section class="fears">
+    <div class="sect">
+      <div class="wrap">
+        <div class="sect-kanji ib" aria-hidden="true">発見</div>
+        <p class="sect-label ib">What's waiting for you</p>
+        <h2 class="ib ib-2">Japan in 2026 might be<br>the best-value country on earth.</h2>
+        <div class="fear-list">
+          <div class="fear ib"><span class="q">No. 01</span><p>A bowl of ramen worth a Michelin star. ¥900.<span>About six dollars. Your first instinct will be that the menu is missing a zero. It isn't.</span></p></div>
+          <div class="fear ib"><span class="q">No. 02</span><p>A bullet train that leaves at 9:24. Not 9:25.<span>320 km/h, whisper-quiet, Mt. Fuji out the window — and it arrives to the second.</span></p></div>
+          <div class="fear ib"><span class="q">No. 03</span><p>Cherry blossoms that stop a whole country.<span>For two weeks a year, even Tokyo slows down and looks up.</span></p></div>
+          <div class="fear ib"><span class="q">No. 04</span><p>Convenience stores that ruin all other convenience stores.<span>A proper hot meal at 3 a.m. for ¥500, anywhere in the country. You'll miss them forever.</span></p></div>
+          <div class="fear ib"><span class="q">No. 05</span><p>Service so generous it refuses your tip.<span>Omotenashi is everywhere, it's sincere, and it's already included.</span></p></div>
+        </div>
+        <p class="fears-coda ib">
+          The yen is weak. Japan is not — the quality here defies every price tag.
+          We built five small tools so you can say <span class="spark-t">yes</span> to all of it:
+          every bowl, every train, every detour. Without hesitation. Without missing a moment.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━ TOOLS ── 道具 ━━━━━━━━━━━━━━ -->
+  <section class="tools" id="tools">
+    <div class="sect">
+      <div class="wrap">
+        <div class="intro">
+          <div class="sect-kanji ib" aria-hidden="true">道具</div>
+          <p class="sect-label ib">Dōgu — the tools</p>
+          <p class="ib ib-2">A good tool doesn't announce itself. It waits in your pocket, and it's simply there at the exact moment you need it.</p>
+        </div>
+
+        <!-- 01 PRICE -->
+        <article class="tool">
+          <div class="tool-id ib">
+            <div class="tool-num">TOOL 01 / PRICE</div>
+            <div class="tool-jp">値段</div>
+            <div class="tool-romaji">NEDAN — THE PRICE</div>
           </div>
-          <div class="tk-grid">
-            <div><div class="lbl">Valid</div><div class="val">Your whole trip + 30 days</div></div>
-            <div><div class="lbl">Class</div><div class="val">Calm</div></div>
-            <div><div class="lbl">Seat</div><div class="val">Your pocket</div></div>
-            <div><div class="lbl">Renewal</div><div class="val shu">Never — one-time</div></div>
+          <div class="tool-body ib ib-2">
+            <div class="fn">Live ¥ ↔ your currency, instant, offline-ready</div>
+            <h3>Say yes to that bowl of ramen.<br>You can afford it.</h3>
+            <p>Real-time conversion between yen and your home currency, in a calculator that opens in under a second. No ads, no spinner, no mental math at the counter.</p>
+            <div class="felt">That moment you realize the omakase dinner costs less than a sandwich back home — JapanCalc makes sure you never miss it.</div>
           </div>
-          <div class="tk-perf"></div>
-          <div class="tk-stub">
-            <div class="price">$4.99<small>NO SUBSCRIPTION</small></div>
-            <div class="tk-stamp kanji">通過<span>GATE OK</span></div>
+        </article>
+
+        <!-- 02 SPLIT -->
+        <article class="tool">
+          <div class="tool-id ib">
+            <div class="tool-num">TOOL 02 / SPLIT</div>
+            <div class="tool-jp">割り勘</div>
+            <div class="tool-romaji">WARIKAN — THE SPLIT</div>
           </div>
-          <div class="tk-bar" aria-hidden="true"></div>
+          <div class="tool-body ib ib-2">
+            <div class="fn">Split any bill, any group — no tipping in Japan</div>
+            <h3>Share the joy.<br>And the bill.</h3>
+            <p>Warikan is the Japanese art of splitting the bill so nobody feels awkward. One tap, divided fairly, done — and everyone orders another round.</p>
+            <div class="felt">Years from now, you won't remember the math. You'll remember the izakaya, the laughter, that night. The math just shouldn't get in the way.</div>
+          </div>
+        </article>
+
+        <!-- 03 TAX FREE -->
+        <article class="tool">
+          <div class="tool-id ib">
+            <div class="tool-num">TOOL 03 / TAX FREE</div>
+            <div class="tool-jp">免税</div>
+            <div class="tool-romaji">MENZEI — TAX FREE</div>
+          </div>
+          <div class="tool-body ib ib-2">
+            <div class="fn">Instant tax-free eligibility check + refund guide</div>
+            <h3>Japan rewards its guests.<br>Claim what's yours.</h3>
+            <p>Tax-free shopping returns 10% on much of what you buy — if you know the thresholds, the categories, the airport procedure. JapanCalc checks it in one tap.</p>
+            <div class="felt">It's not about the money, exactly. It's the small thrill of being welcomed by a country's rules — and the extra gift you buy with what you saved.</div>
+          </div>
+        </article>
+
+        <!-- 04 HOW TO RIDE -->
+        <article class="tool">
+          <div class="tool-id ib">
+            <div class="tool-num">TOOL 04 / HOW TO RIDE</div>
+            <div class="tool-jp">改札</div>
+            <div class="tool-romaji">KAISATSU — THE GATE</div>
+          </div>
+          <div class="tool-body ib ib-2">
+            <div class="fn">IC cards, ticket gates, routes — the whole system, explained</div>
+            <h3>Every train in Japan<br>goes somewhere beautiful.</h3>
+            <p>Which IC card, where to tap, how to read the gates, how to get anywhere from anywhere. The world's best rail network, turned from a puzzle into your superpower.</p>
+            <div class="felt">Day one, you'll follow the app. Day three, your friends will be following you.</div>
+          </div>
+        </article>
+      </div>
+
+      <!-- the fifth, withheld -->
+      <div class="fifth wrap-n">
+        <p class="ib">There is a fifth tool.<br>We almost don't want to tell you about it.
+          <span>KEEP SCROLLING — それは、最後に。</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ━━━━━━━━━━━━━━ TWIST ── どんでん返し ━━━━━━━━━━━━━━ -->
+  <section class="twist">
+    <div class="sect">
+      <div class="wrap">
+        <p class="sect-label ib">What it was really doing all along</p>
+        <h2 class="ib ib-2">You thought you bought a calculator.<br>
+        While you were checking prices, splitting bills, catching trains —<br>
+        <em>it was keeping your story.</em></h2>
+        <div class="twist-grid">
+          <div class="twist-copy">
+            <p class="lead ib ib-3">
+              Here is a quiet truth: you spend money when your heart moves.
+              The midnight ramen in Shinjuku. The temple where you forgot to breathe.
+              The izakaya bill split four ways at closing time. JapanCalc notices —
+              and remembers not just the numbers, but the moments behind them.
+            </p>
+            <p class="lead ib ib-3">
+              The places your GPS touched. The path you wandered. The rhythm of your days.
+              MY TRIP gathers it all, automatically, while you're busy falling in love with Japan —
+              and greets you each morning with a few warm words about yesterday.
+            </p>
+            <div class="daygrid ib ib-3" id="daygrid" aria-hidden="true"></div>
+            <p class="daygrid-cap ib ib-4">30 DAYS. THEN, SOMETHING HAPPENS.</p>
           </div>
 
-          <!-- calculator phone (front) — mirrors the real app -->
-          <div class="phone" aria-label="JapanCalc calculator screen illustration">
-            <div class="phone-screen">
-              <div class="ph-status mono"><span>10:09</span><span class="ph-sig">▲ ▮▮▮</span></div>
-              <div class="ph-head">
-                <div class="ph-brand-wrap">
-                  <img src="/logo.png" alt="" class="ph-logo">
-                  <div>
-                    <div class="ph-brand">Japan<em>Calc</em></div>
-                    <div class="ph-tagline">Japan travel calculator</div>
+          <!-- CSS-only app mockup — MY TRIP daily log (during the trip) -->
+          <div class="twist-phone ib ib-3" aria-hidden="true">
+            <div class="phone">
+              <div class="phone-screen">
+                <div class="p-cam"></div>
+                <div class="pt-head">
+                  <div class="pt-top">
+                    <span class="pt-app">⛩️ <span class="lg-w">Japan</span><span class="lg-o">Calc</span></span>
+                    <span class="pt-gear">⚙</span>
+                  </div>
+                  <div class="pt-sub">Japan travel calculator</div>
+                  <div class="pt-day"><b>🇯🇵 Day 3 / 30</b><span>27 DAYS LEFT</span></div>
+                  <div class="pt-bar"><i></i></div>
+                  <div class="pt-dtabs">
+                    <span class="pt-dtab on">Day 1</span>
+                    <span class="pt-dtab">Day 2</span>
+                    <span class="pt-dtab">Day 3</span>
                   </div>
                 </div>
-                <span class="ph-gear" aria-hidden="true">⚙</span>
-              </div>
-              <div class="ph-amount">
-                <div class="ph-yen">¥6,880</div>
-                <div class="ph-usd-row">
-                  <span class="ph-usd">$42.92</span>
-                  <span class="ph-cur mono">USD ⌄</span>
+                <div class="pt-list">
+                  <div class="pt-row">
+                    <span class="cat">🛍️ Shopping</span><span class="yen">¥800</span><span class="x">✕</span>
+                    <span class="date">Jun 8</span><span class="usd">$4.99</span>
+                  </div>
+                  <div class="pt-row">
+                    <span class="cat">🎮 Entertainment</span><span class="yen">¥49,800</span><span class="x">✕</span>
+                    <span class="date">Jun 8</span><span class="usd">$311</span>
+                  </div>
+                  <div class="pt-row">
+                    <span class="cat">🏯 Sightseeing</span><span class="yen">¥8,920</span><span class="x">✕</span>
+                    <span class="date">Jun 8</span><span class="usd">$55.65</span>
+                  </div>
+                  <div class="pt-row">
+                    <span class="cat">🍜 Food</span><span class="yen">¥1,980</span><span class="x">✕</span>
+                    <span class="date">Jun 8</span><span class="usd">$12.35</span>
+                  </div>
                 </div>
-              </div>
-              <div class="ph-chips">
-                <span class="ph-chip">🛍 Shopping <em>10%</em></span>
-                <span class="ph-chip">🥡 Take-out <em>8%</em></span>
-              </div>
-              <div class="ph-pad">
-                <span class="ph-key fn">AC</span><span class="ph-key fn">⌫</span><span class="ph-key fn">%</span><span class="ph-key op">÷</span>
-                <span class="ph-key">7</span><span class="ph-key">8</span><span class="ph-key">9</span><span class="ph-key op">×</span>
-                <span class="ph-key">4</span><span class="ph-key">5</span><span class="ph-key">6</span><span class="ph-key op">−</span>
-                <span class="ph-key">1</span><span class="ph-key">2</span><span class="ph-key">3</span><span class="ph-key op">+</span>
-                <span class="ph-key zero">0</span><span class="ph-key">.</span><span class="ph-key op">=</span>
-              </div>
-              <div class="ph-tabs">
-                <span class="ph-tab on"><i>$</i>PRICE</span>
-                <span class="ph-tab"><i>⚇</i>SPLIT</span>
-                <span class="ph-tab"><i>▤</i>TAX FREE</span>
-                <span class="ph-tab"><i>⛁</i>HOW TO RIDE</span>
-                <span class="ph-tab"><i>▣</i>MY TRIP</span>
+                <div class="pt-card">
+                  <div class="ttl">🇯🇵 DAY 1 · JAPAN</div>
+                  <p class="msg">Good morning. I hope your day yesterday, June 9th, was filled with wonderful memories.</p>
+                  <div class="meta"><span>📍 Japan&nbsp;&nbsp;&nbsp;💴 ¥61,500</span><span class="by">Japan<span class="lg-o">Calc</span></span></div>
+                </div>
+                <div class="pt-share">↑ SHARE THIS DAY</div>
+                <div class="pt-space"></div>
+                <div class="pt-fab">+</div>
+                <div class="p-tabs">
+                  <span class="p-tab"><span class="ic">値</span><span class="lb">PRICE</span></span>
+                  <span class="p-tab"><span class="ic">割</span><span class="lb">SPLIT</span></span>
+                  <span class="p-tab"><span class="ic">免</span><span class="lb">TAX FREE</span></span>
+                  <span class="p-tab"><span class="ic">駅</span><span class="lb">HOW TO RIDE</span></span>
+                  <span class="p-tab on"><span class="ic">旅</span><span class="lb">MY TRIP</span></span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </header>
-
-  <!-- PRICE -->
-  <section id="price">
-    <div class="wrap">
-      <div class="station jc-fade" data-stop>
-        <div class="band" style="background:var(--shu)"></div>
-        <div class="body">
-          <div class="romaji">PRICE</div>
-          <div class="yomi">ぷらいす</div>
-          <div class="neighbors"><span>● you are here</span><b>next ▶ SPLIT</b></div>
-        </div>
-      </div>
-      <div class="panel jc-fade">
-        <div>
-          <span class="p-kicker">Currency, instantly</span>
-          <h3>"Wait… is ¥4,800 a lot?"<br>Never wonder again.</h3>
-          <p>Type any yen price and see your home currency the same second. Live rates refresh automatically whenever you're online — and stay cached when you're not.</p>
-          <ul>
-            <li>7+ currencies, switched in one tap</li>
-            <li>Shopping 10% / take-out 8% tax toggles built in</li>
-            <li>Works fully offline with last-known rates</li>
-          </ul>
-        </div>
-        <div class="demo">
-          <div class="d-label">Price · Live rate</div>
-          <div class="calc-exp">4,800 JPY → USD</div>
-          <div class="calc-res">$32.10</div>
-          <div class="calc-sub">1 USD = ¥149.5 · updated 2 min ago</div>
-          <div class="calc-keys" aria-hidden="true"><span>÷</span><span>×</span><span>−</span><span>+</span><span class="eq">=</span></div>
-        </div>
-      </div>
-    </div>
   </section>
 
-  <!-- SPLIT -->
-  <section id="split" style="padding-top:0">
-    <div class="wrap">
-      <div class="station jc-fade" data-stop>
-        <div class="band" style="background:var(--kon)"></div>
-        <div class="body">
-          <div class="romaji">SPLIT</div>
-          <div class="yomi">わりかん</div>
-          <div class="neighbors"><b>◀ PRICE</b><b>next ▶ TAX FREE</b></div>
-        </div>
-      </div>
-      <div class="panel jc-fade">
-        <div class="demo">
-          <div class="d-label">Split · Dinner for 5</div>
-          <div class="calc-exp">18,400 ÷ 5 =</div>
-          <div class="calc-res">¥3,680</div>
-          <div class="calc-sub">per person · tip ¥0 — no tipping in Japan</div>
-          <div class="calc-keys" aria-hidden="true"><span>÷</span><span>×</span><span>−</span><span>+</span><span class="eq">=</span></div>
-        </div>
-        <div>
-          <span class="p-kicker">Split bills</span>
-          <h3>Dinner for five,<br>settled in two taps.</h3>
-          <p>Drop in the total, pick the headcount, done. And here's the part that surprises everyone: Japan has no tipping culture. An even split is genuinely all you need — JapanCalc reminds you so nobody overpays.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TAX FREE -->
-  <section id="taxfree" style="padding-top:0">
-    <div class="wrap">
-      <div class="station jc-fade" data-stop>
-        <div class="band" style="background:var(--matcha)"></div>
-        <div class="body">
-          <div class="romaji">TAX FREE</div>
-          <div class="yomi">めんぜい</div>
-          <div class="neighbors"><b>◀ SPLIT</b><b>next ▶ HOW TO RIDE</b></div>
-        </div>
-      </div>
-      <div class="panel jc-fade">
-        <div>
-          <span class="p-kicker">10% back, if you know the rules</span>
-          <h3>Check eligibility<br><em style="font-style:normal;color:var(--shu)">before</em> the counter.</h3>
-          <p>Spend ¥5,000 or more at a participating store and the 10% consumption tax can come straight off. JapanCalc checks your purchase on the spot and tells you exactly what to bring — passport included.</p>
-          <ul>
-            <li>¥5,000 minimum check, instant</li>
-            <li>What counts: consumables vs general goods</li>
-            <li>Airport refund flow, step by step</li>
-          </ul>
-        </div>
-        <div class="demo">
-          <div class="d-label">Tax-free check</div>
-          <div class="calc-exp">12,800 × 10% =</div>
-          <div class="calc-res shu">−¥1,280</div>
-          <div class="calc-sub">refund estimate · over ¥5,000 <b class="ok">✓</b> · bring your passport</div>
-          <div class="calc-keys" aria-hidden="true"><span>÷</span><span>×</span><span>−</span><span>+</span><span class="eq">=</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW TO RIDE -->
-  <section id="ride" style="padding-top:0">
-    <div class="wrap">
-      <div class="station jc-fade" data-stop>
-        <div class="band" style="background:var(--ai)"></div>
-        <div class="body">
-          <div class="romaji">HOW TO RIDE</div>
-          <div class="yomi">のりかた</div>
-          <div class="neighbors"><b>◀ TAX FREE</b><b>next ▶ MY TRIP</b></div>
-        </div>
-      </div>
-      <p class="lede jc-fade">
-        Japan's trains are genuinely hard — three payment systems, unstaffed gates, rush hour that waits for no one.
-        Google Maps shows the route. <strong style="color:var(--ink)">JapanCalc shows you how to actually ride.</strong>
-      </p>
-      <div class="panel jc-fade">
-        <div class="demo">
-          <div class="d-label">Route Finder · AI</div>
-          <div class="d-row"><span>From</span><b>Shibuya</b></div>
-          <div class="d-row"><span>To</span><b>Kyoto</b></div>
-          <div class="d-row"><span>Route</span><b>JR Yamanote → Tokaido Shinkansen</b></div>
-          <div class="d-row"><span>Time / Fare</span><b>2h 39m · ¥13,870</b></div>
-          <div class="d-row"><span>Tip</span><b class="shu-t">Avoid 7:30–9:00 at Shinagawa</b></div>
-        </div>
-        <div>
-          <span class="p-kicker">Gate help &amp; train sense</span>
-          <h3>The answers a station<br>attendant would give you —<br>if you could find one.</h3>
-          <p>IC cards explained, Shinkansen demystified, etiquette decoded. Everything below ships in the same $4.99.</p>
-        </div>
-      </div>
-
-      <div class="ride-extra">
-        <div class="rx jc-fade">
-          <div class="rx-no">01 / IC CARDS</div>
-          <b>Suica &amp; PASMO, explained</b>
-          <p>Which card, where to buy, how to tap, what works on which line — and what to do when the gate flashes red.</p>
-        </div>
-        <div class="rx jc-fade">
-          <div class="rx-no">02 / SHINKANSEN <span class="rx-new">NEW</span></div>
-          <b>Shinkansen Memo</b>
-          <p>Nozomi vs Hikari vs Kodama, reserved vs unreserved, where Suica works — and where it suddenly doesn't.</p>
-        </div>
-        <div class="rx jc-fade">
-          <div class="rx-no">03 / ROUTES <span class="rx-new">NEW</span></div>
-          <b>AI Route Finder</b>
-          <p>Any two stations in. Route, time, fare, and crowd-dodging advice out. In seconds.</p>
-        </div>
-        <div class="rx jc-fade">
-          <div class="rx-no">04 / MANNERS <span class="rx-new">NEW</span></div>
-          <b>Train manners &amp; cautions</b>
-          <p>Priority seats, phone rules, where to stand, how to queue — the etiquette nobody tells you until you get it wrong.</p>
-        </div>
-        <div class="rx jc-fade">
-          <div class="rx-no">05 / RUSH HOUR <span class="rx-new">NEW</span></div>
-          <b>Rush hour survival</b>
-          <p>Peak hours to avoid, women-only cars, where your suitcase goes. Practical answers for real moments.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAREWELL / MY TRIP -->
+  <!-- ━━━━━━━━━━━━━━ FAREWELL ── 線香花火 ━━━━━━━━━━━━━━ -->
   <section class="farewell" id="farewell">
-    <div class="wrap">
-      <div class="station jc-fade" data-stop>
-        <div class="band" style="background:var(--shu)"></div>
-        <div class="body">
-          <div class="romaji">MY TRIP</div>
-          <div class="yomi">おもいで</div>
-          <div class="neighbors"><b>◀ HOW TO RIDE</b><b>last stop ▶ FARE</b></div>
-        </div>
-      </div>
-      <div class="fw-grid">
-        <div class="fw-copy jc-fade">
-          <h3>While you're busy living it,<br>JapanCalc is quietly<br><em>writing it down.</em></h3>
-          <p>
-            Every day, it logs where you went and what you spent — on your device, never on a server.
-            Each morning, a short message about yesterday. And thirty days after you fly home,
-            one last thing arrives: your whole trip, written as a letter from Japan.
-          </p>
-          <div class="fw-days" aria-hidden="true">
-            <span class="fw-day on">1</span><span class="fw-day on">2</span><span class="fw-day on">3</span>
-            <span class="fw-day on">4</span><span class="fw-day on">5</span><span class="fw-day">6</span>
-            <span class="fw-day">7</span>
-          </div>
-          <div class="fw-note">Day 5 of 7 · Farewell letter arrives 30 days after departure</div>
-        </div>
-        <div class="letter jc-fade">
-          <div class="l-meta"><span>Farewell · Day 30</span><span>par avion</span></div>
-          <p class="l-body">
-            You arrived nervous about a ticket gate. You left knowing the quiet streets of Kyoto at 6 a.m.,
-            the exact warmth of a convenience-store coffee, and that an even split needs no tip.
-            18,204 steps on your biggest day. Come back when the ginkgo turns gold.
-          </p>
-          <div class="l-sign">— your trip, as remembered by JapanCalc</div>
+    <canvas id="fw-spark" aria-hidden="true"></canvas>
+    <div class="sect">
+      <div class="wrap-n">
+        <div class="fw-jp ib">線香花火</div>
+        <div class="fw-romaji ib ib-2">SENKŌ HANABI — THE SPARKLER</div>
+        <p class="fw-def ib ib-2">
+          A Japanese sparkler burns for forty-five seconds.<br>
+          Everyone goes silent and watches until the last spark falls.<br>
+          That is the whole point of it.
+        </p>
+        <div class="fw-body ib ib-3">
+          <p>On the day you leave Japan, JapanCalc does something no calculator has ever done. It reads back through everything it quietly kept — the places, the spending that marked each moved heart, Mt. Fuji through a train window for one perfect second — and writes your thirty days into a story. A farewell letter from your own journey. Written by AI. Felt only by you.</p>
+          <p>Then, like the sparkler, it goes quiet. The trip is over. The app has done what it came to do.</p>
+          <p class="last-line">Brief. Brilliant. Never forgotten.<br>The story is yours to keep.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FARE (pricing) -->
-  <section id="fare">
-    <div class="wrap">
-      <div class="station jc-fade" data-stop>
-        <div class="band" style="background:var(--ink)"></div>
-        <div class="body">
-          <div class="romaji">FARE</div>
-          <div class="yomi">うんちん</div>
-          <div class="neighbors"><b>◀ MY TRIP</b><span>terminus ●</span></div>
+  <!-- ━━━━━━━━━━━━━━ ORIGIN ── 和紙 ━━━━━━━━━━━━━━ -->
+  <section class="origin">
+    <div class="sect">
+      <div class="wrap">
+        <p class="sect-label ib">Made in Japan</p>
+        <h2 class="ib ib-2">Every day at Tokyo Station, travelers<br>from around the world stand frozen at the ticket gates.</h2>
+        <div class="story ib ib-3">
+          <p>Bags in one hand, phone in the other. Not sure which train. Not sure which card. And just beyond that gate, all of Japan is waiting — the food, the silence of temples, the beautiful chaos of Shibuya, the perfect precision of everything.</p>
+          <p>We built JapanCalc so nothing gets in the way. Not a sign, not directions — something you carry through every moment of the journey. No subscription, no account, no ads. Offered in the spirit of omotenashi: wholehearted hospitality, no strings attached.</p>
+          <p>We hope you fall in love with this country. We hope you come back.</p>
         </div>
+        <p class="sign ib ib-4">Made in Japan. Made for you.<span>日本より、心を込めて。</span></p>
       </div>
-      <p class="lede jc-fade">One fare covers the whole line. No monthly anything.</p>
+    </div>
+  </section>
 
-      <div class="fare-wrap jc-fade">
-        <div class="fare">
-          <div class="fare-head">
-            <span class="fh-l"><img src="/logo.png" alt="">JapanCalc</span>
-            <span class="fh-tag">ONE-TIME</span>
+  <!-- ━━━━━━━━━━━━━━ TICKET ── 切符 ━━━━━━━━━━━━━━ -->
+  <section class="ticket-sect" id="ticket">
+    <div class="sect">
+      <div class="wrap">
+        <div class="sect-head">
+          <p class="sect-label ib">One ticket. One journey.</p>
+          <h2 class="ib ib-2">$4.99. Once. That's the whole pricing page.</h2>
+          <p class="sub ib ib-3">No subscription. No tiers. No "premium". A ticket, like the ones at the station.</p>
+        </div>
+        <div class="ticket ib ib-3">
+          <div class="tk-head">
+            <span class="tk-brand"><img src="/logo.png" alt="">Japan<span class="lg-o">Calc</span></span>
+            <span class="tk-type">乗車券 · ONE-WAY TO JAPAN</span>
           </div>
-          <div class="fare-body">
-            <div class="fare-price"><span class="num">$4.99</span><span class="per">ONCE · FOREVER</span></div>
-            <p class="fare-sub">Everything you need for your Japan trip.</p>
-            <ul class="fare-list">
-              <li>Live currency conversion</li>
+          <div class="tk-body">
+            <div class="tk-fare"><span class="num">$4.99</span><span class="per">ONCE · YOURS FOREVER</span></div>
+            <div class="tk-valid">VALID: YOUR ENTIRE TRIP, AND THE MEMORY AFTER</div>
+            <ul class="tk-list">
+              <li>Live currency conversion — works offline</li>
+              <li>Split bills, the warikan way</li>
               <li>Tax-free checker &amp; airport refund guide</li>
-              <li>IC card &amp; Gate Help (train rescue)</li>
-              <li>Split bills — no tipping in Japan</li>
-              <li>Shinkansen guide &amp; booking tips</li>
-              <li>AI Route Finder (any 2 stations)</li>
+              <li>IC card &amp; ticket-gate rescue</li>
+              <li>Shinkansen guide &amp; AI route finder</li>
               <li>Train manners &amp; caution guide</li>
-              <li>30-day trip story (Farewell)</li>
               <li>Morning message in 8 languages</li>
-              <li>Works offline</li>
+              <li>MY TRIP — your journey, quietly recorded</li>
+              <li>Farewell — your 30 days, written into a story</li>
             </ul>
             <button class="btn" data-open-modal>Get JapanCalc — $4.99</button>
-            <p class="fare-note">Less than a convenience store snack in Japan.</p>
+            <p class="tk-note">Less than one onigiri-and-coffee stop at a convenience store.</p>
           </div>
         </div>
+        <p class="tk-under ib ib-4">
+          We could have made it a subscription. We chose not to.<br>
+          A journey should have a beginning and an end. So should the price.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- FINAL -->
+  <!-- ━━━━━━━━━━━━━━ FINAL ── いってらっしゃい ━━━━━━━━━━━━━━ -->
   <section class="final">
-    <div class="wrap">
-      <div class="kanji-big jc-fade">いってらっしゃい</div>
-      <h2 class="jc-fade">Travel lighter.<br>JapanCalc is with you, <span class="shu-t">quietly</span>.</h2>
-      <p class="jc-fade">Launching soon on Google Play.</p>
-      <div class="final-cta jc-fade">
-        <button class="btn" data-open-modal>Get JapanCalc — $4.99</button>
-        <img src="/images/googleplay-badge-01-getit.width-1440.png"
-             alt="Get it on Google Play"
-             class="gplay-badge"
-             style="height:auto; opacity:0.92; cursor:default;"
-             title="Coming soon on Google Play">
+    <div class="sect">
+      <div class="wrap-n">
+        <div class="final-jp ib">ようこそ、日本へ</div>
+        <div class="final-romaji ib ib-2">WELCOME TO JAPAN</div>
+        <p class="final-mean ib ib-3">
+          The ramen is already simmering. The temples are already quiet.
+          The 9:24 train will be there at 9:24.
+          Everything you need for the journey ahead is right here, in your pocket.<br><br>
+          $4.99. Once. Forever.<br>
+          <em>Japan is waiting for you.</em>
+        </p>
+        <div class="final-cta ib ib-4">
+          <button class="btn" data-open-modal>Get JapanCalc — $4.99</button>
+          <div>
+            <img src="/images/googleplay-badge-01-getit.width-1440.png"
+                 alt="Get it on Google Play" class="gplay"
+                 title="Coming soon on Google Play">
+            <p class="gplay-cap" style="margin-top:10px">LAUNCHING SOON ON GOOGLE PLAY</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <div class="wrap foot-inner">
-      <span>© 2026 JapanCalc · FIX-Marketing</span>
+    <div class="wrap foot">
+      <span>© 2026 <span class="lg-w">Japan</span><span class="lg-o">Calc</span> · FIX-Marketing · Made with love, from Tokyo</span>
       <div class="foot-links">
         <a href="/privacy.html">Privacy</a>
         <a href="/support.html">Support</a>
@@ -1008,12 +891,12 @@
     <div class="modal">
       <button class="modal-close" data-close-modal aria-label="Close">✕</button>
       <h3 id="modal-title">Hold my seat.</h3>
-      <p>JapanCalc launches soon on Google Play. Leave your email and you'll know the moment it's live — $4.99, one time, no subscription.</p>
+      <p>JapanCalc launches soon on Google Play. Leave your email and you'll know the moment it's live — $4.99, one time, no subscription. Nothing else, ever.</p>
       <form id="notify-form" action="https://formspree.io/f/xpqnoyaj" method="POST">
         <input type="hidden" name="intent" value="buy_japancalc_4.99">
         <input type="hidden" name="price" value="$4.99">
         <input type="hidden" name="_subject" value="JapanCalc — release-notify signup ($4.99 intent)">
-        <input type="email" name="email" placeholder="you@example.com" required autocomplete="email">
+        <input type="email" name="email" placeholder="you@example.com" required autocomplete="email" aria-label="Email address">
         <button type="submit" class="btn">Notify me at launch</button>
         <p class="modal-ok" id="modal-ok">✓ You're on the list. いってらっしゃい!</p>
       </form>
@@ -1024,57 +907,149 @@
   (function(){
     'use strict';
 
-    /* ===== Rail progress + station stops ===== */
-    var fill = document.getElementById('rail-fill');
-    var stopsWrap = document.getElementById('rail-stops');
-    var stations = Array.prototype.slice.call(document.querySelectorAll('[data-stop]'));
-    var stopEls = [];
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    function layoutStops(){
-      stopsWrap.innerHTML = '';
-      stopEls = [];
-      var docH = document.documentElement.scrollHeight - window.innerHeight;
-      if (docH <= 0) return;
-      stations.forEach(function(st){
-        var rect = st.getBoundingClientRect();
-        var absTop = rect.top + window.scrollY + rect.height/2;
-        var ratio = Math.min(absTop / document.documentElement.scrollHeight, 0.98);
-        var el = document.createElement('div');
-        el.className = 'rail-stop';
-        el.style.top = (ratio * 100) + '%';
-        stopsWrap.appendChild(el);
-        stopEls.push({el: el, abs: absTop});
+    /* ===== ink-bleed reveal ===== */
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); }
       });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.ib').forEach(function(el){ io.observe(el); });
+
+    /* ===== 30-day grid: days light up one by one when seen ===== */
+    var grid = document.getElementById('daygrid');
+    for (var d = 1; d <= 30; d++){
+      var cell = document.createElement('div');
+      cell.className = 'day' + (d === 30 ? ' last' : '');
+      cell.textContent = (d < 10 ? '0' : '') + d;
+      grid.appendChild(cell);
     }
+    var gridIO = new IntersectionObserver(function(entries){
+      if (!entries[0].isIntersecting) return;
+      gridIO.disconnect();
+      var cells = grid.children, i = 0;
+      var step = reduceMotion ? 0 : 90;
+      (function lightNext(){
+        if (i >= cells.length) return;
+        cells[i++].classList.add('lit');
+        if (step) { setTimeout(lightNext, step); } else { lightNext(); }
+      })();
+    }, { threshold: 0.4 });
+    gridIO.observe(grid);
 
-    function onScroll(){
-      var docH = document.documentElement.scrollHeight - window.innerHeight;
-      var p = docH > 0 ? (window.scrollY / docH) : 0;
-      fill.style.height = (p * 100) + '%';
-      var passLine = window.scrollY + window.innerHeight * 0.55;
-      stopEls.forEach(function(s){
-        s.el.classList.toggle('passed', passLine >= s.abs);
-      });
-    }
+    /* ===== senkō hanabi — sparkler particles =====
+       A single ember hangs and breathes; sparks branch off,
+       fall under soft gravity, and die. Quiet, slow, hakanai. */
+    function Sparkler(canvas, opts){
+      var ctx = canvas.getContext('2d');
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var W = 0, H = 0, parts = [], running = false, raf = null, t = 0;
+      var density = opts.density || 1;
 
-    layoutStops();
-    onScroll();
-    window.addEventListener('scroll', onScroll, {passive:true});
-    window.addEventListener('resize', function(){ layoutStops(); onScroll(); });
-    window.addEventListener('load', function(){ layoutStops(); onScroll(); });
-
-    /* ===== Scroll fade ===== */
-    var observer = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if (entry.isIntersecting){
-          entry.target.classList.add('jc-visible');
-          observer.unobserve(entry.target);
+      function resize(){
+        W = canvas.clientWidth; H = canvas.clientHeight;
+        canvas.width = W * dpr; canvas.height = H * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      function emberPos(){
+        return { x: W * opts.x, y: H * opts.y };
+      }
+      function spawn(n){
+        var e = emberPos();
+        for (var i = 0; i < n; i++){
+          var a = Math.random() * Math.PI * 2;
+          var sp = 0.4 + Math.random() * 1.7;
+          parts.push({
+            x: e.x, y: e.y,
+            vx: Math.cos(a) * sp,
+            vy: Math.sin(a) * sp - 0.3,
+            life: 1,
+            decay: 0.006 + Math.random() * 0.014,
+            r: 0.5 + Math.random() * 1.1,
+            hot: Math.random() < 0.25
+          });
         }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.jc-fade').forEach(function(el){ observer.observe(el); });
+      }
+      function frame(){
+        if (!running) return;
+        t++;
+        ctx.clearRect(0, 0, W, H);
+        var e = emberPos();
 
-    /* ===== Modal ===== */
+        // breathing ember core
+        var breathe = 1 + Math.sin(t * 0.04) * 0.25 + Math.random() * 0.15;
+        var g = ctx.createRadialGradient(e.x, e.y, 0, e.x, e.y, 60 * breathe);
+        g.addColorStop(0, 'rgba(255,201,102,0.85)');
+        g.addColorStop(0.15, 'rgba(255,159,10,0.35)');
+        g.addColorStop(1, 'rgba(255,159,10,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(e.x, e.y, 60 * breathe, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = 'rgba(255,235,200,0.95)';
+        ctx.beginPath(); ctx.arc(e.x, e.y, 2.2 * breathe, 0, Math.PI * 2); ctx.fill();
+
+        // occasional burst, constant gentle crackle
+        if (Math.random() < 0.05 * density) spawn(6 + (Math.random() * 10 | 0));
+        if (Math.random() < 0.5 * density) spawn(1);
+
+        for (var i = parts.length - 1; i >= 0; i--){
+          var p = parts[i];
+          p.x += p.vx; p.y += p.vy;
+          p.vy += 0.012;            // soft gravity
+          p.vx *= 0.992; p.vy *= 0.992;
+          p.life -= p.decay;
+          if (p.life <= 0){ parts.splice(i, 1); continue; }
+          var alpha = p.life * p.life;
+          ctx.fillStyle = p.hot
+            ? 'rgba(255,228,180,' + alpha + ')'
+            : 'rgba(255,159,10,' + alpha * 0.9 + ')';
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r * p.life + 0.2, 0, Math.PI * 2); ctx.fill();
+        }
+        if (parts.length > 260) parts.splice(0, parts.length - 260);
+        raf = requestAnimationFrame(frame);
+      }
+      function start(){ if (running) return; running = true; resize(); frame(); }
+      function stop(){ running = false; if (raf) cancelAnimationFrame(raf); ctx.clearRect(0,0,W,H); }
+      window.addEventListener('resize', function(){ if (running) resize(); });
+      return { start: start, stop: stop, el: canvas };
+    }
+
+    if (!reduceMotion){
+      var sparklers = [
+        Sparkler(document.getElementById('hero-spark'), { x: 0.78, y: 0.42, density: 0.7 }),
+        Sparkler(document.getElementById('fw-spark'),   { x: 0.5,  y: 0.3,  density: 1.1 })
+      ];
+      var sparkIO = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          sparklers.forEach(function(s){
+            if (s.el === e.target){ e.isIntersecting ? s.start() : s.stop(); }
+          });
+        });
+      }, { threshold: 0.05 });
+      sparklers.forEach(function(s){ sparkIO.observe(s.el); });
+    }
+
+    /* ===== phone mockup: $ count-up (2s after load) ===== */
+    var usdEl = document.getElementById('p-usd');
+    var USD_TARGET = 42.92;
+    function fmtUsd(v){ return '$' + v.toFixed(2); }
+    if (reduceMotion){
+      usdEl.textContent = fmtUsd(USD_TARGET);
+    } else {
+      setTimeout(function(){
+        var t0 = null, dur = 1400;
+        function tick(ts){
+          if (t0 === null) t0 = ts;
+          var p = Math.min((ts - t0) / dur, 1);
+          var ease = 1 - Math.pow(1 - p, 3);
+          usdEl.textContent = fmtUsd(USD_TARGET * ease);
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      }, 2000);
+    }
+
+    /* ===== modal ===== */
     var overlay = document.getElementById('modal');
     var lastFocus = null;
     function openModal(){
@@ -1108,16 +1083,17 @@
         headers: { 'Accept': 'application/json' }
       }).then(function(res){
         if (res.ok){
-          document.getElementById('modal-ok').style.display = 'block';
-          form.querySelector('input[type=email]').value = '';
-          btn.textContent = 'You\'re in ✓';
+          document.getElementById('modal-ok').classList.add('show');
+          btn.style.display = 'none';
+          form.querySelector('input[type=email]').disabled = true;
+          if (window.dataLayer) window.dataLayer.push({ event: 'notify_signup' });
         } else {
           btn.disabled = false; btn.textContent = 'Notify me at launch';
-          alert('Something went wrong. Please try again.');
+          alert('Something went wrong — please try again.');
         }
       }).catch(function(){
         btn.disabled = false; btn.textContent = 'Notify me at launch';
-        alert('Network error. Please try again.');
+        alert('Network error — please try again.');
       });
     });
   })();
