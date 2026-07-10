@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>JapanCalc — It starts as a calculator. It ends as a memory.</title>
-  <meta name="description" content="Welcome to Japan. A $4.99 companion for prices, trains, and tax-free shopping — and on the day you leave, it turns your whole trip into a story. Made with love, from Tokyo.">
+  <meta name="description" content="Welcome to Japan. A $4.99 companion for prices, trains, and every 'what do I do now?' moment — and on the day you leave, it turns your whole trip into a story. Now on Google Play. Made with love, from Tokyo.">
   <meta property="og:title" content="JapanCalc — It starts as a calculator. It ends as a memory.">
-  <meta property="og:description" content="Welcome to Japan. One companion, $4.99, once — and a story you'll keep forever.">
+  <meta property="og:description" content="Welcome to Japan. One companion, $4.99, once — and a story you'll keep forever. Now on Google Play.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="/logo.png">
 
@@ -476,37 +476,6 @@
     .foot a:hover{color:var(--spark)}
     .foot-links{display:flex;gap:26px}
 
-    /* ============ MODAL ============ */
-    .modal-overlay{
-      position:fixed;inset:0;z-index:100;background:rgba(5,5,5,.82);
-      -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
-      display:flex;align-items:center;justify-content:center;padding:24px;
-      opacity:0;pointer-events:none;transition:opacity .35s;
-    }
-    .modal-overlay.open{opacity:1;pointer-events:auto}
-    .modal{
-      width:100%;max-width:440px;background:var(--sumi-1);
-      border:1px solid var(--line-d);border-radius:8px;padding:44px 38px;position:relative;
-      transform:translateY(14px);transition:transform .35s cubic-bezier(.22,1,.36,1);
-    }
-    .modal-overlay.open .modal{transform:none}
-    .modal h3{font-size:23px;margin-bottom:14px}
-    .modal > p{color:var(--fog);font-size:14.5px;line-height:1.85;margin-bottom:28px}
-    .modal input[type=email]{
-      width:100%;font:inherit;font-size:15px;color:var(--washi);
-      background:var(--night);border:1px solid var(--line-d);border-radius:3px;
-      padding:15px 16px;margin-bottom:14px;outline:none;transition:border-color .3s;
-    }
-    .modal input[type=email]:focus{border-color:var(--spark)}
-    .modal .btn{width:100%}
-    .modal-close{
-      position:absolute;top:16px;right:16px;background:none;border:none;cursor:pointer;
-      color:var(--fog-2);font-size:17px;padding:8px;line-height:1;transition:color .3s;
-    }
-    .modal-close:hover{color:var(--washi)}
-    .modal-ok{display:none;margin-top:16px;color:var(--spark);font-size:14px;text-align:center}
-    .modal-ok.show{display:block}
-
     @media(max-width:640px){
       .sect{padding:110px 0}
       .twist .sect,.farewell .sect,.final .sect{padding:140px 0}
@@ -524,7 +493,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- NAV -->
   <nav class="nav">
     <a class="brand" href="#"><img src="/logo.png" alt="JapanCalc logo"><span class="lg-w">Japan</span><span class="lg-o">Calc</span></a>
-    <button class="nav-cta" data-open-modal>$4.99 · once</button>
+    <a class="nav-cta" href="https://play.google.com/store/apps/details?id=app.japancalc.japan_calc" target="_blank" rel="noopener">$4.99 · once</a>
   </nav>
 
   <!-- ━━━━━━━━━━━━━━ HERO ── 出会い ━━━━━━━━━━━━━━ -->
@@ -532,15 +501,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <canvas id="hero-spark" aria-hidden="true"></canvas>
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="hero-jp ib">おもてなし</p>
-        <h1 class="ib ib-2">Welcome to Japan.<br>We've been <em>waiting</em> for you.</h1>
+        <p class="hero-jp ib">大丈夫</p>
+        <h1 class="ib ib-2">The ticket gate just flashed red.<br>Everyone's behind you. <em>Breathe.</em></h1>
         <p class="hero-sub ib ib-3">
-          <span class="spark-t">Omotenashi</span> is the Japanese art of wholehearted hospitality.
-          No conditions. No expectations. Just a sincere wish for your happiness.
-          JapanCalc — your quiet companion for Japan — was made in that spirit. $4.99, once.
+          Is ¥6,880 a lot? Do I tip here? Are my tattoos okay at the onsen?
+          Japan is magical — and, in the moment, completely confusing.
+          <span class="spark-t">JapanCalc</span> answers those moments as they happen.
+          And while it does, it quietly keeps your thirty fleeting days —
+          so your trip ends as a story, not a blur. $4.99, once.
         </p>
         <div class="hero-cta ib ib-4">
-          <button class="btn" data-open-modal>Get JapanCalc — $4.99</button>
+          <a class="btn" href="https://play.google.com/store/apps/details?id=app.japancalc.japan_calc" target="_blank" rel="noopener">Get JapanCalc — $4.99</a>
           <span class="quiet-note">Or just scroll. There's no rush here.</span>
         </div>
       </div>
@@ -572,8 +543,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </div>
             <div class="p-tabs">
               <span class="p-tab on"><span class="ic">値</span><span class="lb">PRICE</span></span>
-              <span class="p-tab"><span class="ic">割</span><span class="lb">SPLIT</span></span>
-              <span class="p-tab"><span class="ic">免</span><span class="lb">TAX FREE</span></span>
+              <span class="p-tab"><span class="ic">問</span><span class="lb">ASK</span></span>
               <span class="p-tab"><span class="ic">駅</span><span class="lb">HOW TO RIDE</span></span>
               <span class="p-tab"><span class="ic">旅</span><span class="lb">MY TRIP</span></span>
             </div>
@@ -600,7 +570,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
         <p class="fears-coda ib">
           The yen is weak. Japan is not — the quality here defies every price tag.
-          We built five small tools so you can say <span class="spark-t">yes</span> to all of it:
+          We built one quiet app with four tabs so you can say <span class="spark-t">yes</span> to all of it:
           every bowl, every train, every detour. Without hesitation. Without missing a moment.
         </p>
       </div>
@@ -620,67 +590,54 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- 01 PRICE -->
         <article class="tool">
           <div class="tool-id ib">
-            <div class="tool-num">TOOL 01 / PRICE</div>
+            <div class="tool-num">TAB 01 / PRICE</div>
             <div class="tool-jp">値段</div>
             <div class="tool-romaji">NEDAN — THE PRICE</div>
           </div>
           <div class="tool-body ib ib-2">
-            <div class="fn">Live ¥ ↔ your currency, instant, offline-ready</div>
+            <div class="fn">¥ ↔ USD &amp; more · Shopping 10% / Take-out 8% · works offline</div>
             <h3>Say yes to that bowl of ramen.<br>You can afford it.</h3>
-            <p>Real-time conversion between yen and your home currency, in a calculator that opens in under a second. No ads, no spinner, no mental math at the counter.</p>
+            <p>Instant conversion between yen and your home currency, in a calculator that opens in under a second. One tap flips between Shopping 10% and Take-out 8% tax, so the number you see is the number you'll pay. No ads, no spinner, no signal required.</p>
             <div class="felt">That moment you realize the omakase dinner costs less than a sandwich back home — JapanCalc makes sure you never miss it.</div>
           </div>
         </article>
 
-        <!-- 02 SPLIT -->
+        <!-- 02 ASK -->
         <article class="tool">
           <div class="tool-id ib">
-            <div class="tool-num">TOOL 02 / SPLIT</div>
-            <div class="tool-jp">割り勘</div>
-            <div class="tool-romaji">WARIKAN — THE SPLIT</div>
+            <div class="tool-num">TAB 02 / ASK</div>
+            <div class="tool-jp">質問</div>
+            <div class="tool-romaji">SHITSUMON — ASK ANYTHING</div>
           </div>
           <div class="tool-body ib ib-2">
-            <div class="fn">Split any bill, any group — no tipping in Japan</div>
-            <h3>Share the joy.<br>And the bill.</h3>
-            <p>Warikan is the Japanese art of splitting the bill so nobody feels awkward. One tap, divided fairly, done — and everyone orders another round.</p>
-            <div class="felt">Years from now, you won't remember the math. You'll remember the izakaya, the laughter, that night. The math just shouldn't get in the way.</div>
+            <div class="fn">Ask anything about Japan — AI answers, right where you stand</div>
+            <h3>"I'm at Nagoya Station.<br>Where's good ramen near me?"</h3>
+            <p>Ask exactly what you're wondering, the way you'd ask a friend — and because ASK knows where you're standing, the AI answers with real places and real directions, not a generic list.</p>
+            <p>Tipping, tattoos, onsen etiquette, what that button on the toilet does — the questions you can't ask anyone are the ones it answers best.</p>
+            <div class="felt">A guidebook answers the questions you thought of at home. ASK answers the one you have right now, on this street corner.</div>
           </div>
         </article>
 
-        <!-- 03 TAX FREE -->
+        <!-- 03 HOW TO RIDE -->
         <article class="tool">
           <div class="tool-id ib">
-            <div class="tool-num">TOOL 03 / TAX FREE</div>
-            <div class="tool-jp">免税</div>
-            <div class="tool-romaji">MENZEI — TAX FREE</div>
-          </div>
-          <div class="tool-body ib ib-2">
-            <div class="fn">Instant tax-free eligibility check + refund guide</div>
-            <h3>Japan rewards its guests.<br>Claim what's yours.</h3>
-            <p>Tax-free shopping returns 10% on much of what you buy — if you know the thresholds, the categories, the airport procedure. JapanCalc checks it in one tap.</p>
-            <div class="felt">It's not about the money, exactly. It's the small thrill of being welcomed by a country's rules — and the extra gift you buy with what you saved.</div>
-          </div>
-        </article>
-
-        <!-- 04 HOW TO RIDE -->
-        <article class="tool">
-          <div class="tool-id ib">
-            <div class="tool-num">TOOL 04 / HOW TO RIDE</div>
+            <div class="tool-num">TAB 03 / HOW TO RIDE</div>
             <div class="tool-jp">改札</div>
             <div class="tool-romaji">KAISATSU — THE GATE</div>
           </div>
           <div class="tool-body ib ib-2">
-            <div class="fn">IC cards, ticket gates, routes — the whole system, explained</div>
+            <div class="fn">Route Finder · 🆘 Trouble? · IC Card · Transfer</div>
             <h3>Every train in Japan<br>goes somewhere beautiful.</h3>
-            <p>Which IC card, where to tap, how to read the gates, how to get anywhere from anywhere. The world's best rail network, turned from a puzzle into your superpower.</p>
+            <p>Four rescues in one tab. <em>Route Finder</em> asks AI for the route between any two stations — transfers, time, fare. <em>🆘 Trouble?</em> gives instant answers when the gate flashes red or your card comes up short. <em>IC Card</em> demystifies Suica and PASMO. <em>Transfer</em> walks you through the maze between lines.</p>
+            <p>The world's best rail network, turned from a puzzle into your superpower.</p>
             <div class="felt">Day one, you'll follow the app. Day three, your friends will be following you.</div>
           </div>
         </article>
       </div>
 
-      <!-- the fifth, withheld -->
+      <!-- the fourth, withheld -->
       <div class="fifth wrap-n">
-        <p class="ib">There is a fifth tool.<br>We almost don't want to tell you about it.
+        <p class="ib">There is a fourth tab.<br>We almost don't want to tell you about it.
           <span>KEEP SCROLLING — それは、最後に。</span>
         </p>
       </div>
@@ -693,20 +650,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="wrap">
         <p class="sect-label ib">What it was really doing all along</p>
         <h2 class="ib ib-2">You thought you bought a calculator.<br>
-        While you were checking prices, splitting bills, catching trains —<br>
+        While you were checking prices, asking questions, catching trains —<br>
         <em>it was keeping your story.</em></h2>
         <div class="twist-grid">
           <div class="twist-copy">
             <p class="lead ib ib-3">
-              Here is a quiet truth: you spend money when your heart moves.
+              MY TRIP counts your days — <span class="spark-t">Day 3 / 30</span> — and each day asks for
+              just two things: a stamp for how it felt, and a few words you'll want back someday.
               The midnight ramen in Shinjuku. The temple where you forgot to breathe.
-              The izakaya bill split four ways at closing time. JapanCalc notices —
-              and remembers not just the numbers, but the moments behind them.
             </p>
             <p class="lead ib ib-3">
-              The places your GPS touched. The path you wandered. The rhythm of your days.
-              MY TRIP gathers it all, automatically, while you're busy falling in love with Japan —
-              and greets you each morning with a few warm words about yesterday.
+              Thirty seconds a night. That's all it asks while you're busy falling in love with Japan.
+              But it keeps every one of those moments — because it knows something you don't. Yet.
             </p>
             <div class="daygrid ib ib-3" id="daygrid" aria-hidden="true"></div>
             <p class="daygrid-cap ib ib-4">30 DAYS. THEN, SOMETHING HAPPENS.</p>
@@ -733,34 +688,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 </div>
                 <div class="pt-list">
                   <div class="pt-row">
-                    <span class="cat">🛍️ Shopping</span><span class="yen">¥800</span><span class="x">✕</span>
-                    <span class="date">Jun 8</span><span class="usd">$4.99</span>
+                    <span class="cat">The quiet at Meiji Shrine</span><span class="yen">⛩️</span><span class="x">✕</span>
+                    <span class="date">8:40 AM</span><span class="usd">🥹 MOVED</span>
                   </div>
                   <div class="pt-row">
-                    <span class="cat">🎮 Entertainment</span><span class="yen">¥49,800</span><span class="x">✕</span>
-                    <span class="date">Jun 8</span><span class="usd">$311</span>
+                    <span class="cat">Midnight ramen in Shinjuku</span><span class="yen">🍜</span><span class="x">✕</span>
+                    <span class="date">11:48 PM</span><span class="usd">🤩 AMAZED</span>
                   </div>
                   <div class="pt-row">
-                    <span class="cat">🏯 Sightseeing</span><span class="yen">¥8,920</span><span class="x">✕</span>
-                    <span class="date">Jun 8</span><span class="usd">$55.65</span>
+                    <span class="cat">Got lost in Golden Gai</span><span class="yen">🏮</span><span class="x">✕</span>
+                    <span class="date">10:05 PM</span><span class="usd">😆 FUN</span>
                   </div>
                   <div class="pt-row">
-                    <span class="cat">🍜 Food</span><span class="yen">¥1,980</span><span class="x">✕</span>
-                    <span class="date">Jun 8</span><span class="usd">$12.35</span>
+                    <span class="cat">First Shinkansen — Mt. Fuji!</span><span class="yen">🚄</span><span class="x">✕</span>
+                    <span class="date">9:24 AM</span><span class="usd">🥹 MOVED</span>
                   </div>
                 </div>
                 <div class="pt-card">
-                  <div class="ttl">🇯🇵 DAY 1 · JAPAN</div>
-                  <p class="msg">Good morning. I hope your day yesterday, June 9th, was filled with wonderful memories.</p>
-                  <div class="meta"><span>📍 Japan&nbsp;&nbsp;&nbsp;💴 ¥61,500</span><span class="by">Japan<span class="lg-o">Calc</span></span></div>
+                  <div class="ttl">🇯🇵 DAY 3 · TODAY'S NOTE</div>
+                  <p class="msg">The rain in Kyoto made everything quiet. I want to remember the sound.</p>
+                  <div class="meta"><span>😌 CALM · 📍 KYOTO</span><span class="by">Japan<span class="lg-o">Calc</span></span></div>
                 </div>
-                <div class="pt-share">↑ SHARE THIS DAY</div>
+                <div class="pt-share">🎇 YOUR JAPAN STORY · UNLOCKS DAY 30</div>
                 <div class="pt-space"></div>
                 <div class="pt-fab">+</div>
                 <div class="p-tabs">
                   <span class="p-tab"><span class="ic">値</span><span class="lb">PRICE</span></span>
-                  <span class="p-tab"><span class="ic">割</span><span class="lb">SPLIT</span></span>
-                  <span class="p-tab"><span class="ic">免</span><span class="lb">TAX FREE</span></span>
+                  <span class="p-tab"><span class="ic">問</span><span class="lb">ASK</span></span>
                   <span class="p-tab"><span class="ic">駅</span><span class="lb">HOW TO RIDE</span></span>
                   <span class="p-tab on"><span class="ic">旅</span><span class="lb">MY TRIP</span></span>
                 </div>
@@ -785,7 +739,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           That is the whole point of it.
         </p>
         <div class="fw-body ib ib-3">
-          <p>On the day you leave Japan, JapanCalc does something no calculator has ever done. It reads back through everything it quietly kept — the places, the spending that marked each moved heart, Mt. Fuji through a train window for one perfect second — and writes your thirty days into a story. A farewell letter from your own journey. Written by AI. Felt only by you.</p>
+          <p>A trip of thirty days is a senkō hanabi. It burns brief and bright, and it will end — that is what makes it beautiful. So on your last day in Japan, MY TRIP shows you one final button: <em>Your Japan Story</em>. Tap it, and AI reads back through everything you kept — every stamp, every note, Mt. Fuji through a train window for one perfect second — and writes your thirty days into a single story. A farewell letter from your own journey.</p>
           <p>Then, like the sparkler, it goes quiet. The trip is over. The app has done what it came to do.</p>
           <p class="last-line">Brief. Brilliant. Never forgotten.<br>The story is yours to keep.</p>
         </div>
@@ -827,17 +781,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="tk-fare"><span class="num">$4.99</span><span class="per">ONCE · YOURS FOREVER</span></div>
             <div class="tk-valid">VALID: YOUR ENTIRE TRIP, AND THE MEMORY AFTER</div>
             <ul class="tk-list">
-              <li>Live currency conversion — works offline</li>
-              <li>Split bills, the warikan way</li>
-              <li>Tax-free checker &amp; airport refund guide</li>
-              <li>IC card &amp; ticket-gate rescue</li>
-              <li>Shinkansen guide &amp; AI route finder</li>
-              <li>Train manners &amp; caution guide</li>
-              <li>Morning message in 8 languages</li>
-              <li>MY TRIP — your journey, quietly recorded</li>
-              <li>Farewell — your 30 days, written into a story</li>
+              <li>PRICE — ¥ conversion with Shopping 10% / Take-out 8%, works offline</li>
+              <li>ASK — AI answers about Japan, wherever you're standing</li>
+              <li>Route Finder — AI route between any two stations</li>
+              <li>🆘 Trouble? — instant help when the ticket gate says no</li>
+              <li>IC Card &amp; Transfer guides</li>
+              <li>MY TRIP — Day X / 30, a stamp and a note each day</li>
+              <li>Your Japan Story — 30 days, written into one story</li>
             </ul>
-            <button class="btn" data-open-modal>Get JapanCalc — $4.99</button>
+            <a class="btn" href="https://play.google.com/store/apps/details?id=app.japancalc.japan_calc" target="_blank" rel="noopener">Get JapanCalc — $4.99</a>
             <p class="tk-note">Less than one onigiri-and-coffee stop at a convenience store.</p>
           </div>
         </div>
@@ -863,12 +815,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <em>Japan is waiting for you.</em>
         </p>
         <div class="final-cta ib ib-4">
-          <button class="btn" data-open-modal>Get JapanCalc — $4.99</button>
+          <a class="btn" href="https://play.google.com/store/apps/details?id=app.japancalc.japan_calc" target="_blank" rel="noopener">Get JapanCalc — $4.99</a>
           <div>
-            <img src="/images/googleplay-badge-01-getit.width-1440.png"
-                 alt="Get it on Google Play" class="gplay"
-                 title="Coming soon on Google Play">
-            <p class="gplay-cap" style="margin-top:10px">LAUNCHING SOON ON GOOGLE PLAY</p>
+            <a href="https://play.google.com/store/apps/details?id=app.japancalc.japan_calc" target="_blank" rel="noopener">
+              <img src="/images/googleplay-badge-01-getit.width-1440.png"
+                   alt="Get it on Google Play" class="gplay">
+            </a>
+            <p class="gplay-cap" style="margin-top:10px">NOW AVAILABLE ON GOOGLE PLAY</p>
           </div>
         </div>
       </div>
@@ -885,23 +838,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
   </footer>
-
-  <!-- EMAIL MODAL -->
-  <div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="modal">
-      <button class="modal-close" data-close-modal aria-label="Close">✕</button>
-      <h3 id="modal-title">Hold my seat.</h3>
-      <p>JapanCalc launches soon on Google Play. Leave your email and you'll know the moment it's live — $4.99, one time, no subscription. Nothing else, ever.</p>
-      <form id="notify-form" action="https://formspree.io/f/xpqnoyaj" method="POST">
-        <input type="hidden" name="intent" value="buy_japancalc_4.99">
-        <input type="hidden" name="price" value="$4.99">
-        <input type="hidden" name="_subject" value="JapanCalc — release-notify signup ($4.99 intent)">
-        <input type="email" name="email" placeholder="you@example.com" required autocomplete="email" aria-label="Email address">
-        <button type="submit" class="btn">Notify me at launch</button>
-        <p class="modal-ok" id="modal-ok">✓ You're on the list. いってらっしゃい!</p>
-      </form>
-    </div>
-  </div>
 
   <script>
   (function(){
@@ -1049,53 +985,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       }, 2000);
     }
 
-    /* ===== modal ===== */
-    var overlay = document.getElementById('modal');
-    var lastFocus = null;
-    function openModal(){
-      lastFocus = document.activeElement;
-      overlay.classList.add('open');
-      var input = overlay.querySelector('input[type=email]');
-      if (input) input.focus();
-    }
-    function closeModal(){
-      overlay.classList.remove('open');
-      if (lastFocus) lastFocus.focus();
-    }
-    document.querySelectorAll('[data-open-modal]').forEach(function(b){
-      b.addEventListener('click', openModal);
-    });
-    overlay.querySelector('[data-close-modal]').addEventListener('click', closeModal);
-    overlay.addEventListener('click', function(e){ if (e.target === overlay) closeModal(); });
-    document.addEventListener('keydown', function(e){
-      if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
-    });
-
-    /* ===== Formspree (no navigation) ===== */
-    var form = document.getElementById('notify-form');
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      var btn = form.querySelector('button[type=submit]');
-      btn.disabled = true; btn.textContent = 'Sending…';
-      fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      }).then(function(res){
-        if (res.ok){
-          document.getElementById('modal-ok').classList.add('show');
-          btn.style.display = 'none';
-          form.querySelector('input[type=email]').disabled = true;
-          if (window.dataLayer) window.dataLayer.push({ event: 'notify_signup' });
-        } else {
-          btn.disabled = false; btn.textContent = 'Notify me at launch';
-          alert('Something went wrong — please try again.');
-        }
-      }).catch(function(){
-        btn.disabled = false; btn.textContent = 'Notify me at launch';
-        alert('Network error — please try again.');
-      });
-    });
   })();
   </script>
 </body>
